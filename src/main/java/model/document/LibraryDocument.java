@@ -2,12 +2,9 @@ package model.document;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 public abstract class LibraryDocument
 {
