@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class LibraryUser
 {
-    private long id;
-    private String firstName;
-    private String lastName;
-    private String loginPassword;
+    private String username;
+    private String password;
 }
