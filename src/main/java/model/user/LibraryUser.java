@@ -1,9 +1,12 @@
 package model.user;
 
 import lombok.*;
+import model.library.Library;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Builder
 @AllArgsConstructor
@@ -14,6 +17,9 @@ import javax.persistence.Id;
 public abstract class LibraryUser
 {
     @Id
-    private String username;
-    private String password;
+    protected String username;
+    protected String password;
+    @ManyToOne
+    @JoinColumn(name = "library_id")
+    protected Library library;
 }
