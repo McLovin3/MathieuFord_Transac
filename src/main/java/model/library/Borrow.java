@@ -9,10 +9,11 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-public class Emprunt
+public class Borrow
 {
     private Client client;
     private Book book;
     private LocalDate borrowDate;
     private LocalDate returnDate;
 }
+
