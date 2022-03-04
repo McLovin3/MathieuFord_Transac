@@ -1,12 +1,15 @@
 package model.document;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+import javax.persistence.Entity;
+
+@SuperBuilder
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public class Book extends LibraryDocument
 {
     private String editor;

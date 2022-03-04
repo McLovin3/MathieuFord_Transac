@@ -1,14 +1,21 @@
 package model.document;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public abstract class LibraryDocument
 {
-    protected int id;
+    @Id
+    protected long id;
     protected String title;
     protected String author;
     protected int publicationYear;
