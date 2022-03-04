@@ -1,6 +1,8 @@
 package persistence;
 
+import model.user.LibraryUser;
+
 public interface ClientDAO
 {
-    void addClient(String username, String password) throws IllegalArgumentException;
+    void addClient(LibraryUser client) throws IllegalArgumentException;
 }
