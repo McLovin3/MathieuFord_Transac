@@ -10,7 +10,6 @@ import javax.persistence.InheritanceType;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
 @Entity
