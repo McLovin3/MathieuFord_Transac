@@ -15,6 +15,6 @@ import java.util.List;
 @Entity
 public class Client extends LibraryUser
 {
-    @OneToMany
+    @OneToMany (mappedBy = "client")
     private List<Fine> Fines;
 }
