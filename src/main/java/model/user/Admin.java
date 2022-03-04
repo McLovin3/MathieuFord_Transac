@@ -1,13 +1,12 @@
 package model.user;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
 @Entity
