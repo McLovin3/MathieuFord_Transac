@@ -1,12 +1,16 @@
 package model.user;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+import javax.persistence.Entity;
+
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Getter
+@Setter
+@Entity
 public class Admin extends LibraryUser
 {
 }
