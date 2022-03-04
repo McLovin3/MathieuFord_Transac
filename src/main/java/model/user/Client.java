@@ -1,16 +1,20 @@
 package model.user;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import model.library.Fine;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode (callSuper = true)
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public class Client extends LibraryUser
 {
+    @OneToMany
     private List<Fine> Fines;
 }
