@@ -13,4 +13,5 @@ public class Library
 {
     private List<LibraryDocument> documents;
     private List<LibraryUser> users;
+    private List<Borrow> borrows;
 }
