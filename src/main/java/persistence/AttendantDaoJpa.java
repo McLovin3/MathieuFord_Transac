@@ -1,5 +1,6 @@
 package persistence;
 
+import lombok.Data;
 import model.user.LibraryUser;
 
 import javax.persistence.EntityExistsException;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+@Data
 public class AttendantDaoJpa implements AttendantDao
 {
     private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transac.exe");
