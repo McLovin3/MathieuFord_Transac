@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ClientDaoJpa implements ClientDao
+public class ClientDaoJpaH2 implements ClientDao
 {
     private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transac.exe");
 
