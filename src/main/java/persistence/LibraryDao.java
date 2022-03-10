@@ -16,4 +16,5 @@ public interface LibraryDao
     Client getClient(long clientId);
     Book getBook(long bookId);
     void saveLibrary(Library library);
+    Library getLibrary(long libraryId);
 }

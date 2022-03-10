@@ -38,6 +38,11 @@ public class AttendantService
         LIBRARY_DAO.saveLibrary(library);
     }
 
+    public Library getLibrary(long libraryId)
+    {
+        return LIBRARY_DAO.getLibrary(libraryId);
+    }
+
     public Client getClient(long clientId)
     {
         return LIBRARY_DAO.getClient(clientId);
