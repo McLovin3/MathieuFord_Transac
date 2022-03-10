@@ -20,4 +20,9 @@ public class ClientService
     {
         return LIBRARY_DAO.searchBooksByAuthor(author, libraryId);
     }
+
+    public List<Book> searchBooksByYear(int year, long libraryId)
+    {
+        return LIBRARY_DAO.searchBooksByYear(year, libraryId);
+    }
 }
