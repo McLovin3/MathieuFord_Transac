@@ -20,10 +20,11 @@ public class Library
 {
     @Id
     private long id;
+    private String name;
     @OneToMany (mappedBy = "library")
-    private List<LibraryDocument> documents = new ArrayList<>();
+    private final List<LibraryDocument> DOCUMENTS = new ArrayList<>();
     @OneToMany (mappedBy = "library")
-    private List<LibraryUser> users = new ArrayList<>();
+    private final List<LibraryUser> USERS = new ArrayList<>();
     @OneToMany (mappedBy = "library")
-    private List<Borrow> borrows = new ArrayList<>();
+    private final List<Borrow> BORROWS = new ArrayList<>();
 }
