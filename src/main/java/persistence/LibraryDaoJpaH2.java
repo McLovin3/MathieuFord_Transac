@@ -3,6 +3,7 @@ package persistence;
 import lombok.Data;
 import model.document.Book;
 import model.library.Borrow;
+import model.user.Client;
 import model.user.LibraryUser;
 
 import javax.persistence.EntityExistsException;
@@ -43,5 +44,18 @@ public class LibraryDaoJpaH2 implements LibraryDao
     public List<Borrow> getBorrows(String clientId)
     {
         return null;
+    }
+
+    @Override
+    public Client getClient(long clientId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Client client = entityManager.find(Client.class, clientId);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return client;
     }
 }

@@ -11,9 +11,9 @@ public class AttendantService
 {
     private final LibraryDao LIBRARY_DAO;
 
-    public void createClient(String username, String password)
+    public void createClient(String name, String password)
     {
-        LibraryUser client = Client.builder().username(username).password(password).build();
+        LibraryUser client = Client.builder().name(name).password(password).build();
         LIBRARY_DAO.saveClient(client);
     }
 
@@ -29,5 +29,10 @@ public class AttendantService
                 .bookType(model.document.BookType.getBookType(bookType))
                 .build();
         LIBRARY_DAO.saveBook(book);
+    }
+
+    public Client getClient(long clientId)
+    {
+        return LIBRARY_DAO.getClient(clientId);
     }
 }
