@@ -5,7 +5,6 @@ import model.library.Library;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Builder
@@ -18,7 +17,7 @@ public abstract class LibraryUser
 {
     @Id
     protected long id;
-    protected String username;
+    protected String name;
     protected String password;
     @ManyToOne
     protected Library library;
