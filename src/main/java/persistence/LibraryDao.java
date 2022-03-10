@@ -17,4 +17,6 @@ public interface LibraryDao
     Book getBook(long bookId);
     void saveLibrary(Library library);
     Library getLibrary(long libraryId);
+    <T> void merge(T object);
+    <T> void save(T object);
 }
