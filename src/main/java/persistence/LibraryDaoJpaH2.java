@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Data
-public class AttendantDaoJpa implements AttendantDao
+public class LibraryDaoJpaH2 implements LibraryDao
 {
     private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transac.exe");
 
