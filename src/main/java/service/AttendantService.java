@@ -20,6 +20,7 @@ public class AttendantService
 
     public void createBook(String title, String author, int publicationYear, int nbCopies, String editor, int nbPages, String bookType) throws IllegalArgumentException
     {
+        if (nbCopies < 1) throw new IllegalArgumentException("Must have one or more copies");
         Book book = Book.builder()
                 .title(title)
                 .author(author)
