@@ -17,14 +17,10 @@ public class Borrow
 {
     @Id
     private long id;
-
     @ManyToOne
     private Library library;
-
     @ManyToOne
-    @JoinColumn(name = "client_username")
     private Client client;
-
     @OneToOne
     private Book book;
     private LocalDate borrowDate;
