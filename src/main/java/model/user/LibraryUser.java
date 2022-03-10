@@ -17,9 +17,9 @@ import javax.persistence.ManyToOne;
 public abstract class LibraryUser
 {
     @Id
+    protected long id;
     protected String username;
     protected String password;
     @ManyToOne
-    @JoinColumn(name = "library_id")
     protected Library library;
 }
