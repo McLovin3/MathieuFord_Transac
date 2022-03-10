@@ -32,6 +32,18 @@ public class AttendantService
         LIBRARY_DAO.saveBook(book);
     }
 
+    public void addBookToLibrary(long bookId, long libraryId)
+    {
+        Library library = getLibrary(libraryId);
+        Book book = getBook(bookId);
+
+        book.setLibrary(library);
+        library.getDOCUMENTS().add(book);
+
+        LIBRARY_DAO.merge(library);
+        LIBRARY_DAO.merge(book);
+    }
+
     public void createLibrary(String name)
     {
         Library library = Library.builder().name(name).build();

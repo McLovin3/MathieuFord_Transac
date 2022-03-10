@@ -18,7 +18,8 @@ public class LibraryDaoJpaH2 implements LibraryDao
 {
     private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transac.exe");
 
-    private <T> void save(T object)
+    @Override
+    public <T> void save(T object)
     {
         EntityManager entityManager = this.entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -90,5 +91,17 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().commit();
         entityManager.close();
         return library;
+    }
+
+    @Override
+    public <T> void merge(T object)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        entityManager.merge(object);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }
