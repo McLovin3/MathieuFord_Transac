@@ -46,6 +46,24 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
+    public List<Book> searchBooksByAuthor(String author, long libraryId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Book> query = entityManager.createQuery(
+                "SELECT books FROM Book books WHERE books.author LIKE %:author% AND books.library.id = :libraryId", Book.class);
+        query.setParameter("author", author);
+        query.setParameter("libraryId", libraryId);
+        List<Book> books = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return books;
+    }
+
+    @Override
     public void saveClient(LibraryUser client) throws EntityExistsException
     {
         save(client);

@@ -20,4 +20,5 @@ public interface LibraryDao
     <T> void merge(T object);
     <T> void save(T object);
     List<Book> searchBooksByTitle(String title, long libraryId);
+    List<Book> searchBooksByAuthor(String author, long libraryId);
 }

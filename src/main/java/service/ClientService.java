@@ -15,4 +15,9 @@ public class ClientService
     {
         return LIBRARY_DAO.searchBooksByTitle(title, libraryId);
     }
+
+    public List<Book> searchBooksByAuthor(String author, long libraryId)
+    {
+        return LIBRARY_DAO.searchBooksByAuthor(author, libraryId);
+    }
 }
