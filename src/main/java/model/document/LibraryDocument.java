@@ -25,4 +25,5 @@ public abstract class LibraryDocument
     protected int publicationYear;
     protected boolean isTaken;
     protected LocalDateTime lastDateRented;
+    protected int nbCopies;
 }
