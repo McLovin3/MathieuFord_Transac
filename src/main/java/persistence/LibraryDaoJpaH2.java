@@ -7,10 +7,7 @@ import model.library.Library;
 import model.user.Client;
 import model.user.LibraryUser;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -28,6 +25,24 @@ public class LibraryDaoJpaH2 implements LibraryDao
 
         entityManager.getTransaction().commit();
         entityManager.close();
+    }
+
+    @Override
+    public List<Book> searchBooksByTitle(String title, long libraryId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Book> query = entityManager.createQuery(
+                "SELECT books FROM Book books WHERE books.title LIKE %:title% AND books.library.id = :libraryId", Book.class);
+        query.setParameter("title", title);
+        query.setParameter("libraryId", libraryId);
+        List<Book> books = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return books;
     }
 
     @Override

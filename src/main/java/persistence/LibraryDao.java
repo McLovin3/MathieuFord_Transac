@@ -19,4 +19,5 @@ public interface LibraryDao
     Library getLibrary(long libraryId);
     <T> void merge(T object);
     <T> void save(T object);
+    List<Book> searchBooksByTitle(String title, long libraryId);
 }
