@@ -3,6 +3,7 @@ package persistence;
 import lombok.Data;
 import model.document.Book;
 import model.library.Borrow;
+import model.library.Library;
 import model.user.Client;
 import model.user.LibraryUser;
 
@@ -70,5 +71,11 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().commit();
         entityManager.close();
         return book;
+    }
+
+    @Override
+    public void saveLibrary(Library library)
+    {
+        save(library);
     }
 }

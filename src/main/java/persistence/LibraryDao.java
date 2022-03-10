@@ -2,6 +2,7 @@ package persistence;
 
 import model.document.Book;
 import model.library.Borrow;
+import model.library.Library;
 import model.user.Client;
 import model.user.LibraryUser;
 
@@ -14,4 +15,5 @@ public interface LibraryDao
     List<Borrow> getBorrows(String clientId);
     Client getClient(long clientId);
     Book getBook(long bookId);
+    void saveLibrary(Library library);
 }

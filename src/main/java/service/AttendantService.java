@@ -2,6 +2,7 @@ package service;
 
 import lombok.Data;
 import model.document.Book;
+import model.library.Library;
 import model.user.Client;
 import model.user.LibraryUser;
 import persistence.LibraryDao;
@@ -29,6 +30,12 @@ public class AttendantService
                 .bookType(model.document.BookType.getBookType(bookType))
                 .build();
         LIBRARY_DAO.saveBook(book);
+    }
+
+    public void createLibrary(String name)
+    {
+        Library library = Library.builder().name(name).build();
+        LIBRARY_DAO.saveLibrary(library);
     }
 
     public Client getClient(long clientId)
