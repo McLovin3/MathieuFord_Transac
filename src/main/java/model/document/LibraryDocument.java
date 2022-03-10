@@ -4,9 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import model.library.Library;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @SuperBuilder
 @AllArgsConstructor
@@ -14,6 +12,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class LibraryDocument
 {
     @Id
