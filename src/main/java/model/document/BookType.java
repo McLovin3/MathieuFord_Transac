@@ -7,7 +7,7 @@ public enum BookType
     STUDY,
     MAGAZINE;
 
-    public static BookType getBookType(String string)
+    public static BookType getBookType(String string) throws IllegalArgumentException
     {
         return switch (string.toUpperCase())
         {
