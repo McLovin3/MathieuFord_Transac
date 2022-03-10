@@ -16,22 +16,27 @@ public class LibraryDaoJpaH2 implements LibraryDao
 {
     private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transac.exe");
 
-    @Override
-    public void saveClient(LibraryUser client) throws EntityExistsException
+    private <T> void save(T object)
     {
         EntityManager entityManager = this.entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        entityManager.persist(client);
+        entityManager.persist(object);
 
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
+    public void saveClient(LibraryUser client) throws EntityExistsException
+    {
+        save(client);
+    }
+
+    @Override
     public void saveBook(Book book)
     {
-
+        save(book);
     }
 
     @Override
