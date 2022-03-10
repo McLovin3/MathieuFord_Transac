@@ -35,4 +35,9 @@ public class AttendantService
     {
         return LIBRARY_DAO.getClient(clientId);
     }
+
+    public Book getBook(long bookId)
+    {
+        return LIBRARY_DAO.getBook(bookId);
+    }
 }

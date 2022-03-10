@@ -13,4 +13,5 @@ public interface LibraryDao
     void saveClient(LibraryUser client);
     List<Borrow> getBorrows(String clientId);
     Client getClient(long clientId);
+    Book getBook(long bookId);
 }

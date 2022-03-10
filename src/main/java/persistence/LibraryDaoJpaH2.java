@@ -58,4 +58,17 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.close();
         return client;
     }
+
+    @Override
+    public Book getBook(long bookId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Book book = entityManager.find(Book.class, bookId);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return book;
+    }
 }
