@@ -1,12 +1,12 @@
-package persistence;
+package library.persistence;
 
 import lombok.Data;
-import model.document.Book;
-import model.document.BookType;
-import model.library.Borrow;
-import model.library.Library;
-import model.user.Client;
-import model.user.LibraryUser;
+import library.model.document.Book;
+import library.model.document.BookType;
+import library.model.library.Borrow;
+import library.model.library.Library;
+import library.model.user.Client;
+import library.model.user.LibraryUser;
 
 import javax.persistence.*;
 import java.util.ArrayList;

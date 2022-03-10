@@ -1,8 +1,8 @@
-package model.document;
+package library.model.document;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import model.library.Library;
+import library.model.library.Library;
 
 import javax.persistence.*;
 

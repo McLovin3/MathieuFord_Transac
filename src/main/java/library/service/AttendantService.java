@@ -1,11 +1,11 @@
-package service;
+package library.service;
 
 import lombok.Data;
-import model.document.Book;
-import model.library.Library;
-import model.user.Client;
-import model.user.LibraryUser;
-import persistence.LibraryDao;
+import library.model.document.Book;
+import library.model.library.Library;
+import library.model.user.Client;
+import library.model.user.LibraryUser;
+import library.persistence.LibraryDao;
 
 @Data
 public class AttendantService
@@ -28,7 +28,7 @@ public class AttendantService
                 .nbCopies(nbCopies)
                 .editor(editor)
                 .nbPages(nbPages)
-                .bookType(model.document.BookType.getBookType(bookType))
+                .bookType(library.model.document.BookType.getBookType(bookType))
                 .build();
         LIBRARY_DAO.saveBook(book);
     }

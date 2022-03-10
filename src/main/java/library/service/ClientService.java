@@ -1,8 +1,8 @@
-package service;
+package library.service;
 
 import lombok.Data;
-import model.document.Book;
-import persistence.LibraryDao;
+import library.model.document.Book;
+import library.persistence.LibraryDao;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package model.document;
+package library.model.user;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-public class CD extends LibraryDocument
+public class Attendant extends LibraryUser
 {
-    private int runtime;
 }

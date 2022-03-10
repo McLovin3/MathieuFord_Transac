@@ -1,9 +1,9 @@
-package model.user;
+package library.model.user;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import model.library.Borrow;
-import model.library.Fine;
+import library.model.library.Borrow;
+import library.model.library.Fine;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

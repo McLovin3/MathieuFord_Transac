@@ -1,10 +1,10 @@
-package persistence;
+package library.persistence;
 
-import model.document.Book;
-import model.library.Borrow;
-import model.library.Library;
-import model.user.Client;
-import model.user.LibraryUser;
+import library.model.document.Book;
+import library.model.library.Borrow;
+import library.model.library.Library;
+import library.model.user.Client;
+import library.model.user.LibraryUser;
 
 import java.util.List;
 

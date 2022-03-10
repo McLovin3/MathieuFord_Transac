@@ -1,4 +1,4 @@
-package model.document;
+package library.model.document;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

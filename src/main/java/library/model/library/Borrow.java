@@ -1,8 +1,8 @@
-package model.library;
+package library.model.library;
 
 import lombok.*;
-import model.document.Book;
-import model.user.Client;
+import library.model.document.Book;
+import library.model.user.Client;
 
 import javax.persistence.*;
 import java.time.LocalDate;

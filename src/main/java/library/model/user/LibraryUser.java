@@ -1,7 +1,7 @@
-package model.user;
+package library.model.user;
 
 import lombok.*;
-import model.library.Library;
+import library.model.library.Library;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

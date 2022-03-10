@@ -1,4 +1,4 @@
-package model.document;
+package library.model.document;
 
 public enum BookType
 {
