@@ -21,5 +21,6 @@ public interface LibraryDao
     <T> void save(T object);
     List<Book> searchBooksByTitle(String title, long libraryId);
     List<Book> searchBooksByAuthor(String author, long libraryId);
-    List<Book> searchBooksByYear(int year, long libraryId);
+    List<Book> searchBooksByYear(String year, long libraryId);
+    List<Book> searchBooksByCategory(String category, long libraryId);
 }

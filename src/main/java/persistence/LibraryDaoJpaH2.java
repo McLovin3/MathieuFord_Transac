@@ -2,12 +2,14 @@ package persistence;
 
 import lombok.Data;
 import model.document.Book;
+import model.document.BookType;
 import model.library.Borrow;
 import model.library.Library;
 import model.user.Client;
 import model.user.LibraryUser;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -64,7 +66,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public List<Book> searchBooksByYear(int year, long libraryId)
+    public List<Book> searchBooksByYear(String year, long libraryId)
     {
         EntityManager entityManager = this.entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -72,6 +74,31 @@ public class LibraryDaoJpaH2 implements LibraryDao
         final TypedQuery<Book> query = entityManager.createQuery(
                 "SELECT books FROM Book books WHERE books.publicationYear = :year AND books.library.id = :libraryId", Book.class);
         query.setParameter("year", year);
+        query.setParameter("libraryId", libraryId);
+        List<Book> books = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return books;
+    }
+
+    @Override
+    public List<Book> searchBooksByCategory(String category, long libraryId)
+    {
+        BookType bookType;
+        try
+        {
+            bookType = BookType.valueOf(category);
+        }
+        catch (IllegalArgumentException exception) { return new ArrayList<>(); }
+
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Book> query = entityManager.createQuery(
+                "SELECT books FROM Book books WHERE books.bookType = :category AND books.library.id = :libraryId", Book.class);
+        query.setParameter("category", bookType);
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 

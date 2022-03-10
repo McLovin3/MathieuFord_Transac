@@ -21,8 +21,13 @@ public class ClientService
         return LIBRARY_DAO.searchBooksByAuthor(author, libraryId);
     }
 
-    public List<Book> searchBooksByYear(int year, long libraryId)
+    public List<Book> searchBooksByYear(String year, long libraryId)
     {
         return LIBRARY_DAO.searchBooksByYear(year, libraryId);
+    }
+
+    public List<Book> searchBooksByCategory(String category, long libraryId)
+    {
+        return LIBRARY_DAO.searchBooksByCategory(category, libraryId);
     }
 }
