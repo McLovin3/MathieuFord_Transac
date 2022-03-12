@@ -1,19 +1,19 @@
 package library.model.user;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 import library.model.library.Borrow;
 import library.model.library.Fine;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @SuperBuilder
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity
 public class Client extends LibraryUser
 {
