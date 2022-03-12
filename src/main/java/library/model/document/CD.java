@@ -3,6 +3,7 @@ package library.model.document;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @SuperBuilder
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("CD")
 public class CD extends LibraryDocument
 {
     private int runtime;

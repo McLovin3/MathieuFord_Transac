@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@DiscriminatorColumn(name = "userType")
 public abstract class LibraryUser
 {
     @Id

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
+@DiscriminatorValue("CLIENT")
 public class Client extends LibraryUser
 {
     @OneToMany (mappedBy = "client")
