@@ -37,8 +37,8 @@ public class ClientService
 
     }
 
-    public List<Borrow> getBorrows(long clientId)
+    public List<Borrow> getClientBorrows(long clientId, long LibraryId)
     {
-        return null;
+        return LIBRARY_DAO.getClientBorrows(clientId, LibraryId);
     }
 }
