@@ -26,4 +26,5 @@ public interface LibraryDao
     List<Book> searchBooksByCategory(String category, long libraryId);
     List<Borrow> getClientBorrows(long clientId, long libraryId);
     Library getLibraryWithDocuments(long libraryId);
+    Library getLibraryWithBorrows(long libraryId);
 }

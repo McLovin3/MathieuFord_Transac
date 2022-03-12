@@ -39,7 +39,7 @@ public class ClientService
     {
         Client client = LIBRARY_DAO.getClient(clientId);
         Book book = LIBRARY_DAO.getBook(bookId);
-        Library library = LIBRARY_DAO.getLibrary(libraryId);
+        Library library = LIBRARY_DAO.getLibraryWithBorrows(libraryId);
 
         if (client == null || book == null || library == null) throw new IllegalArgumentException();
         if (client.getLibrary() == null || book.getLibrary() == null) throw new IllegalArgumentException();

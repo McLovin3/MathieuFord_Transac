@@ -161,6 +161,23 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
+    public Library getLibraryWithBorrows(long libraryId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Library> query = entityManager.createQuery(
+                "SELECT library FROM Library library LEFT JOIN FETCH library.BORROWS WHERE library.id = :libraryId", Library.class);
+        query.setParameter("libraryId", libraryId);
+        Library library = query.getSingleResult();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return library;
+    }
+
+    @Override
     public void saveClient(LibraryUser client) throws EntityExistsException
     {
         save(client);
