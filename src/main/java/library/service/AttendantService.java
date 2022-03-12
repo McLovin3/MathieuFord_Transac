@@ -35,7 +35,7 @@ public class AttendantService
 
     public void addClientToLibrary(long clientId, long libraryId)
     {
-        Library library = getLibrary(libraryId);
+        Library library = LIBRARY_DAO.getLibraryWithUsers(libraryId);
         Client client = getClient(clientId);
 
         library.getUSERS().add(client);

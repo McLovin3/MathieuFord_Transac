@@ -30,6 +30,23 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
+    public Library getLibraryWithUsers(long libraryId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Library> query = entityManager.createQuery(
+                "SELECT library FROM Library library LEFT JOIN FETCH library.USERS WHERE library.id = :libraryId", Library.class);
+        query.setParameter("libraryId", libraryId);
+        Library library = query.getSingleResult();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return library;
+    }
+
+    @Override
     public List<Book> searchBooksByTitle(String title, long libraryId)
     {
         EntityManager entityManager = this.entityManagerFactory.createEntityManager();

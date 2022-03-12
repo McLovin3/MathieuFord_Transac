@@ -19,6 +19,7 @@ public interface LibraryDao
     Library getLibrary(long libraryId);
     <T> void merge(T object);
     <T> void save(T object);
+    Library getLibraryWithUsers(long libraryId);
     List<Book> searchBooksByTitle(String title, long libraryId);
     List<Book> searchBooksByAuthor(String author, long libraryId);
     List<Book> searchBooksByYear(String year, long libraryId);
