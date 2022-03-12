@@ -47,7 +47,7 @@ public class AttendantService
 
     public void addBookToLibrary(long bookId, long libraryId)
     {
-        Library library = getLibrary(libraryId);
+        Library library = LIBRARY_DAO.getLibraryWithDocuments(libraryId);
         Book book = getBook(bookId);
 
         library.getDOCUMENTS().add(book);

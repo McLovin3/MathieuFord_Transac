@@ -53,8 +53,8 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().begin();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE books.title LIKE %:title% AND books.library.id = :libraryId", Book.class);
-        query.setParameter("title", title);
+                "SELECT books FROM Book books WHERE books.title LIKE :title AND books.library.id = :libraryId", Book.class);
+        query.setParameter("title", "%" + title + "%");
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
@@ -141,6 +141,23 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.close();
 
         return borrows;
+    }
+
+    @Override
+    public Library getLibraryWithDocuments(long libraryId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Library> query = entityManager.createQuery(
+                "SELECT library FROM Library library LEFT JOIN FETCH library.DOCUMENTS WHERE library.id = :libraryId", Library.class);
+        query.setParameter("libraryId", libraryId);
+        Library library = query.getSingleResult();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return library;
     }
 
     @Override
