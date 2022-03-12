@@ -24,5 +24,7 @@ public class Main
         System.out.println(clientService.searchBooksByAuthor("JULE", 1).get(0).toString());
 
         clientService.borrowBook(2, 3, 1);
+        System.out.println(clientService.getClientBorrows(2, 1).get(0).toString());
+
     }
 }

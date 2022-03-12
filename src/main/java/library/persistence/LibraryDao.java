@@ -27,4 +27,5 @@ public interface LibraryDao
     List<Borrow> getClientBorrows(long clientId, long libraryId);
     Library getLibraryWithDocuments(long libraryId);
     Library getLibraryWithBorrows(long libraryId);
+    Client getClientWithBorrows(long clientId);
 }

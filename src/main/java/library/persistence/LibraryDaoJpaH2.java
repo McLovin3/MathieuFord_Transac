@@ -132,7 +132,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().begin();
 
         final TypedQuery<Borrow> query = entityManager.createQuery(
-                "SELECT Borrow FROM Borrow borrow WHERE borrow.client.id = :clientId AND borrow.library.id = :libraryId", Borrow.class);
+                "SELECT borrow FROM Borrow borrow WHERE borrow.client.id = :clientId AND borrow.library.id = :libraryId", Borrow.class);
         query.setParameter("clientId", clientId);
         query.setParameter("libraryId", libraryId);
         List<Borrow> borrows = query.getResultList();
@@ -175,6 +175,23 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.close();
 
         return library;
+    }
+
+    @Override
+    public Client getClientWithBorrows(long clientId)
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        final TypedQuery<Client> query = entityManager.createQuery(
+                "SELECT client FROM Client client LEFT JOIN FETCH client.borrows WHERE client.id = :clientId", Client.class);
+        query.setParameter("clientId", clientId);
+        Client client = query.getSingleResult();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return client;
     }
 
     @Override

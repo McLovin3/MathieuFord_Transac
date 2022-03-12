@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Borrow
 {
     @Id

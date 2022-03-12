@@ -37,7 +37,7 @@ public class ClientService
 
     public void borrowBook(long clientId, long bookId, long libraryId) throws IllegalArgumentException
     {
-        Client client = LIBRARY_DAO.getClient(clientId);
+        Client client = LIBRARY_DAO.getClientWithBorrows(clientId);
         Book book = LIBRARY_DAO.getBook(bookId);
         Library library = LIBRARY_DAO.getLibraryWithBorrows(libraryId);
 
