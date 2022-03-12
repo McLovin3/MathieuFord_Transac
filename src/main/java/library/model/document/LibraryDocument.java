@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@DiscriminatorColumn(name = "documentType")
 public abstract class LibraryDocument
 {
     @Id

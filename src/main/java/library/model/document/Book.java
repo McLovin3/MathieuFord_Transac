@@ -3,6 +3,7 @@ package library.model.document;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @SuperBuilder
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("BOOK")
 public class Book extends LibraryDocument
 {
     private String editor;
