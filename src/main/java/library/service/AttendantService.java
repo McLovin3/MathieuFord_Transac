@@ -63,17 +63,17 @@ public class AttendantService
         LIBRARY_DAO.saveLibrary(library);
     }
 
-    private Library getLibrary(long libraryId)
+    public Library getLibrary(long libraryId)
     {
         return LIBRARY_DAO.getLibrary(libraryId);
     }
 
-    private Client getClient(long clientId)
+    public Client getClient(long clientId)
     {
         return LIBRARY_DAO.getClient(clientId);
     }
 
-    private Book getBook(long bookId)
+    public Book getBook(long bookId)
     {
         return LIBRARY_DAO.getBook(bookId);
     }
