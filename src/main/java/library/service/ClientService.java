@@ -1,5 +1,6 @@
 package library.service;
 
+import library.model.library.Borrow;
 import lombok.Data;
 import library.model.document.Book;
 import library.persistence.LibraryDao;
@@ -29,5 +30,15 @@ public class ClientService
     public List<Book> searchBooksByCategory(String category, long libraryId)
     {
         return LIBRARY_DAO.searchBooksByCategory(category, libraryId);
+    }
+
+    public void borrowBook(long clientId, long bookId)
+    {
+
+    }
+
+    public List<Borrow> getBorrows(long clientId)
+    {
+        return null;
     }
 }
