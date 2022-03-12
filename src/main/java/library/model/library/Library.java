@@ -4,9 +4,7 @@ import lombok.*;
 import library.model.document.LibraryDocument;
 import library.model.user.LibraryUser;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ import java.util.List;
 public class Library
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     @OneToMany (mappedBy = "library")

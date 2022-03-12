@@ -15,6 +15,7 @@ import javax.persistence.*;
 public abstract class LibraryDocument
 {
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     protected long id;
     @ManyToOne
     protected Library library;

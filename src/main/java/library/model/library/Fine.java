@@ -3,9 +3,7 @@ package library.model.library;
 import lombok.*;
 import library.model.user.Client;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
@@ -16,6 +14,7 @@ import javax.persistence.ManyToOne;
 public class Fine
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
     private Client client;

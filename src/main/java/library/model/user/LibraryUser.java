@@ -4,9 +4,7 @@ import lombok.*;
 import library.model.library.Library;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -16,6 +14,7 @@ import javax.persistence.ManyToOne;
 public abstract class LibraryUser
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
     protected String name;
     protected String password;

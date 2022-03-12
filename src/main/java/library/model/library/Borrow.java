@@ -16,6 +16,7 @@ import java.time.LocalDate;
 public class Borrow
 {
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
     private Library library;
