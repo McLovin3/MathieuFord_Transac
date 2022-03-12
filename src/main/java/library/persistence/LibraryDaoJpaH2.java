@@ -53,8 +53,8 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().begin();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE books.title LIKE :title AND books.library.id = :libraryId", Book.class);
-        query.setParameter("title", "%" + title + "%");
+                "SELECT books FROM Book books WHERE UPPER(books.title) LIKE :title AND books.library.id = :libraryId", Book.class);
+        query.setParameter("title", "%" + title.toUpperCase() + "%");
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
@@ -71,8 +71,8 @@ public class LibraryDaoJpaH2 implements LibraryDao
         entityManager.getTransaction().begin();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE books.author LIKE %:author% AND books.library.id = :libraryId", Book.class);
-        query.setParameter("author", author);
+                "SELECT books FROM Book books WHERE UPPER(books.author) LIKE :author AND books.library.id = :libraryId", Book.class);
+        query.setParameter("author", "%" + author.toUpperCase() + "%");
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 

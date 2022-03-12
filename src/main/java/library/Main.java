@@ -21,6 +21,6 @@ public class Main
         attendantService.addBookToLibrary(3, 1);
         attendantService.addBookToLibrary(4, 1);
 
-        System.out.println(clientService.searchBooksByTitle("Code", 1).get(0).toString());
+        System.out.println(clientService.searchBooksByTitle("code", 1).get(0).toString());
     }
 }
