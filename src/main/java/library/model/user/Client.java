@@ -4,6 +4,7 @@ import library.model.library.Borrow;
 import library.model.library.Fine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
@@ -24,4 +25,15 @@ public class Client extends LibraryUser
 
     @OneToMany (mappedBy = "client")
     private List<Borrow> borrows = new ArrayList<>();
+
+    @Override
+    public String toString()
+    {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", library=" + library.toString() +
+                '}';
+    }
 }
