@@ -4,7 +4,6 @@ import library.model.library.Borrow;
 import library.model.library.Fine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
