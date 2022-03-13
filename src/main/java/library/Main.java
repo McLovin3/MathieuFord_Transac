@@ -16,11 +16,12 @@ public class Main
         attendantService.createLibrary("CAL");
         attendantService.createClient("Mathieu", "password");
         attendantService.addClientToLibrary(2, 1);
-        attendantService.createBook("20 thousand leagues under the sea", "Jules Vernes", 1870, 2, "Pierre-Jules Hetzel", 300, "novel");
+        attendantService.createBook("20 thousand leagues under the sea", "Jules Vernes", 1870, 2, "Pierre-Jules Hetzel", 300, "NOVEL");
         attendantService.createBook("Clean Code", "Robert Martin", 2008, 1, "Robert C. martin", 200, "study");
         attendantService.addBookToLibrary(3, 1);
         attendantService.addBookToLibrary(4, 1);
 
+        System.out.println(clientService.searchBooksByCategory("study", 1).get(0).toString());
         System.out.println(clientService.searchBooksByAuthor("JULE", 1).get(0).toString());
 
         clientService.borrowBook(2, 3, 1);

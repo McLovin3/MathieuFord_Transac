@@ -106,7 +106,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
         BookType bookType;
         try
         {
-            bookType = BookType.valueOf(category);
+            bookType = BookType.getBookType(category);
         }
         catch (IllegalArgumentException exception) { return new ArrayList<>(); }
 
