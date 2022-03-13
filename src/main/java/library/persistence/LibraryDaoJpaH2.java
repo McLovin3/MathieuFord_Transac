@@ -20,37 +20,29 @@ public class LibraryDaoJpaH2 implements LibraryDao
     @Override
     public <T> void save(T object)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
+        EntityManager entityManager = startTransaction();
         entityManager.persist(object);
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        endTransaction(entityManager);
     }
 
     @Override
     public Library getLibraryWithUsers(long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Library> query = entityManager.createQuery(
                 "SELECT library FROM Library library LEFT JOIN FETCH library.USERS WHERE library.id = :libraryId", Library.class);
         query.setParameter("libraryId", libraryId);
         Library library = query.getSingleResult();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return library;
     }
 
     @Override
     public List<Book> searchBooksByTitle(String title, long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
                 "SELECT books FROM Book books WHERE UPPER(books.title) LIKE :title AND books.library.id = :libraryId", Book.class);
@@ -58,17 +50,14 @@ public class LibraryDaoJpaH2 implements LibraryDao
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return books;
     }
 
     @Override
     public List<Book> searchBooksByAuthor(String author, long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
                 "SELECT books FROM Book books WHERE UPPER(books.author) LIKE :author AND books.library.id = :libraryId", Book.class);
@@ -76,17 +65,14 @@ public class LibraryDaoJpaH2 implements LibraryDao
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return books;
     }
 
     @Override
     public List<Book> searchBooksByYear(String year, long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
                 "SELECT books FROM Book books WHERE books.publicationYear = :year AND books.library.id = :libraryId", Book.class);
@@ -94,9 +80,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return books;
     }
 
@@ -110,8 +94,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
         }
         catch (IllegalArgumentException exception) { return new ArrayList<>(); }
 
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
                 "SELECT books FROM Book books WHERE books.bookType = :category AND books.library.id = :libraryId", Book.class);
@@ -119,17 +102,14 @@ public class LibraryDaoJpaH2 implements LibraryDao
         query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return books;
     }
 
     @Override
     public List<Borrow> getClientBorrows(long clientId, long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Borrow> query = entityManager.createQuery(
                 "SELECT borrow FROM Borrow borrow WHERE borrow.client.id = :clientId AND borrow.library.id = :libraryId", Borrow.class);
@@ -137,60 +117,49 @@ public class LibraryDaoJpaH2 implements LibraryDao
         query.setParameter("libraryId", libraryId);
         List<Borrow> borrows = query.getResultList();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return borrows;
     }
 
     @Override
     public Library getLibraryWithDocuments(long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Library> query = entityManager.createQuery(
                 "SELECT library FROM Library library LEFT JOIN FETCH library.DOCUMENTS WHERE library.id = :libraryId", Library.class);
         query.setParameter("libraryId", libraryId);
         Library library = query.getSingleResult();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return library;
     }
 
     @Override
     public Library getLibraryWithBorrows(long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Library> query = entityManager.createQuery(
                 "SELECT library FROM Library library LEFT JOIN FETCH library.BORROWS WHERE library.id = :libraryId", Library.class);
         query.setParameter("libraryId", libraryId);
         Library library = query.getSingleResult();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return library;
     }
 
     @Override
     public Client getClientWithBorrows(long clientId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         final TypedQuery<Client> query = entityManager.createQuery(
                 "SELECT client FROM Client client LEFT JOIN FETCH client.borrows WHERE client.id = :clientId", Client.class);
         query.setParameter("clientId", clientId);
         Client client = query.getSingleResult();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        endTransaction(entityManager);
         return client;
     }
 
@@ -215,26 +184,22 @@ public class LibraryDaoJpaH2 implements LibraryDao
     @Override
     public Client getClient(long clientId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         Client client = entityManager.find(Client.class, clientId);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        endTransaction(entityManager);
         return client;
     }
 
     @Override
     public Book getBook(long bookId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         Book book = entityManager.find(Book.class, bookId);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        endTransaction(entityManager);
         return book;
     }
 
@@ -247,24 +212,33 @@ public class LibraryDaoJpaH2 implements LibraryDao
     @Override
     public Library getLibrary(long libraryId)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         Library library = entityManager.find(Library.class, libraryId);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        endTransaction(entityManager);
         return library;
     }
 
     @Override
     public <T> void merge(T object)
     {
-        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        EntityManager entityManager = startTransaction();
 
         entityManager.merge(object);
 
+        endTransaction(entityManager);
+    }
+
+    private EntityManager startTransaction()
+    {
+        EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        return entityManager;
+    }
+
+    private void endTransaction(EntityManager entityManager)
+    {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
