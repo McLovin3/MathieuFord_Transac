@@ -26,5 +26,6 @@ public class Main
 
         clientService.borrowBook(2, 3, 1);
         System.out.println(clientService.getClientBorrows(2, 1).get(0).toString());
+        System.out.println(attendantService.getLibrary(1).toString());
     }
 }

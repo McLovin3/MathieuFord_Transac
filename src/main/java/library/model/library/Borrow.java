@@ -1,7 +1,7 @@
 package library.model.library;
 
+import library.model.document.LibraryDocument;
 import lombok.*;
-import library.model.document.Book;
 import library.model.user.Client;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class Borrow
     @ManyToOne
     private Client client;
     @OneToOne
-    private Book book;
+    private LibraryDocument libraryDocument;
     private LocalDate borrowDate;
     private LocalDate returnDate;
 }
