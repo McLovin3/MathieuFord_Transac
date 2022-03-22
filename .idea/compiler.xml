@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MathieuFord_Transac" />
+        <module name="MathieuFord_Transac_tp2" />
       </profile>
     </annotationProcessing>
   </component>
