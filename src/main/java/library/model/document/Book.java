@@ -27,7 +27,6 @@ public class Book extends LibraryDocument
                 ", nbPages=" + nbPages +
                 ", bookType=" + bookType +
                 ", id=" + id +
-                ", library=" + library.toString() +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publicationYear=" + publicationYear +

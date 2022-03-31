@@ -32,7 +32,6 @@ public class Client extends LibraryUser
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", library=" + library.toString() +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package library.model.user;
 
 import lombok.*;
-import library.model.library.Library;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -19,6 +18,4 @@ public abstract class LibraryUser
     protected long id;
     protected String name;
     protected String password;
-    @ManyToOne
-    protected Library library;
 }

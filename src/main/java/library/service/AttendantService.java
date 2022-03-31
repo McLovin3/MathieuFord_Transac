@@ -2,7 +2,6 @@ package library.service;
 
 import lombok.Data;
 import library.model.document.Book;
-import library.model.library.Library;
 import library.model.user.Client;
 import library.model.user.LibraryUser;
 import library.persistence.LibraryDao;
@@ -31,41 +30,6 @@ public class AttendantService
                 .bookType(library.model.document.BookType.getBookType(bookType))
                 .build();
         LIBRARY_DAO.saveBook(book);
-    }
-
-    public void addClientToLibrary(long clientId, long libraryId)
-    {
-        Library library = LIBRARY_DAO.getLibraryWithUsers(libraryId);
-        Client client = getClient(clientId);
-
-        library.getUSERS().add(client);
-        client.setLibrary(library);
-
-        LIBRARY_DAO.merge(library);
-        LIBRARY_DAO.merge(client);
-    }
-
-    public void addBookToLibrary(long bookId, long libraryId)
-    {
-        Library library = LIBRARY_DAO.getLibraryWithDocuments(libraryId);
-        Book book = getBook(bookId);
-
-        library.getDOCUMENTS().add(book);
-        book.setLibrary(library);
-
-        LIBRARY_DAO.merge(library);
-        LIBRARY_DAO.merge(book);
-    }
-
-    public void createLibrary(String name)
-    {
-        Library library = Library.builder().name(name).build();
-        LIBRARY_DAO.saveLibrary(library);
-    }
-
-    public Library getLibrary(long libraryId)
-    {
-        return LIBRARY_DAO.getLibrary(libraryId);
     }
 
     public Client getClient(long clientId)

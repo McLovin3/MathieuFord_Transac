@@ -20,8 +20,6 @@ public class Borrow
     @GeneratedValue (strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
-    private Library library;
-    @ManyToOne
     private Client client;
     @OneToOne
     private LibraryDocument libraryDocument;

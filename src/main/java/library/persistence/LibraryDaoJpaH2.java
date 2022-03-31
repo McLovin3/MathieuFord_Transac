@@ -4,7 +4,6 @@ import lombok.Data;
 import library.model.document.Book;
 import library.model.document.BookType;
 import library.model.library.Borrow;
-import library.model.library.Library;
 import library.model.user.Client;
 import library.model.user.LibraryUser;
 
@@ -26,28 +25,13 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public Library getLibraryWithUsers(long libraryId)
-    {
-        EntityManager entityManager = startTransaction();
-
-        final TypedQuery<Library> query = entityManager.createQuery(
-                "SELECT library FROM Library library LEFT JOIN FETCH library.USERS WHERE library.id = :libraryId", Library.class);
-        query.setParameter("libraryId", libraryId);
-        Library library = query.getSingleResult();
-
-        endTransaction(entityManager);
-        return library;
-    }
-
-    @Override
-    public List<Book> searchBooksByTitle(String title, long libraryId)
+    public List<Book> searchBooksByTitle(String title)
     {
         EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE UPPER(books.title) LIKE :title AND books.library.id = :libraryId", Book.class);
+                "SELECT books FROM Book books WHERE UPPER(books.title) LIKE :title", Book.class);
         query.setParameter("title", "%" + title.toUpperCase() + "%");
-        query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
         endTransaction(entityManager);
@@ -55,14 +39,13 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public List<Book> searchBooksByAuthor(String author, long libraryId)
+    public List<Book> searchBooksByAuthor(String author)
     {
         EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE UPPER(books.author) LIKE :author AND books.library.id = :libraryId", Book.class);
+                "SELECT books FROM Book books WHERE UPPER(books.author) LIKE :author", Book.class);
         query.setParameter("author", "%" + author.toUpperCase() + "%");
-        query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
         endTransaction(entityManager);
@@ -70,14 +53,13 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public List<Book> searchBooksByYear(String year, long libraryId)
+    public List<Book> searchBooksByYear(String year)
     {
         EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE books.publicationYear = :year AND books.library.id = :libraryId", Book.class);
+                "SELECT books FROM Book books WHERE books.publicationYear = :year", Book.class);
         query.setParameter("year", year);
-        query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
         endTransaction(entityManager);
@@ -85,7 +67,7 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public List<Book> searchBooksByCategory(String category, long libraryId)
+    public List<Book> searchBooksByCategory(String category)
     {
         BookType bookType;
         try
@@ -97,9 +79,8 @@ public class LibraryDaoJpaH2 implements LibraryDao
         EntityManager entityManager = startTransaction();
 
         final TypedQuery<Book> query = entityManager.createQuery(
-                "SELECT books FROM Book books WHERE books.bookType = :category AND books.library.id = :libraryId", Book.class);
+                "SELECT books FROM Book books WHERE books.bookType = :category", Book.class);
         query.setParameter("category", bookType);
-        query.setParameter("libraryId", libraryId);
         List<Book> books = query.getResultList();
 
         endTransaction(entityManager);
@@ -107,46 +88,17 @@ public class LibraryDaoJpaH2 implements LibraryDao
     }
 
     @Override
-    public List<Borrow> getClientBorrows(long clientId, long libraryId)
+    public List<Borrow> getClientBorrows(long clientId)
     {
         EntityManager entityManager = startTransaction();
 
         final TypedQuery<Borrow> query = entityManager.createQuery(
-                "SELECT borrow FROM Borrow borrow WHERE borrow.client.id = :clientId AND borrow.library.id = :libraryId", Borrow.class);
+                "SELECT borrow FROM Borrow borrow WHERE borrow.client.id = :clientId", Borrow.class);
         query.setParameter("clientId", clientId);
-        query.setParameter("libraryId", libraryId);
         List<Borrow> borrows = query.getResultList();
 
         endTransaction(entityManager);
         return borrows;
-    }
-
-    @Override
-    public Library getLibraryWithDocuments(long libraryId)
-    {
-        EntityManager entityManager = startTransaction();
-
-        final TypedQuery<Library> query = entityManager.createQuery(
-                "SELECT library FROM Library library LEFT JOIN FETCH library.DOCUMENTS WHERE library.id = :libraryId", Library.class);
-        query.setParameter("libraryId", libraryId);
-        Library library = query.getSingleResult();
-
-        endTransaction(entityManager);
-        return library;
-    }
-
-    @Override
-    public Library getLibraryWithBorrows(long libraryId)
-    {
-        EntityManager entityManager = startTransaction();
-
-        final TypedQuery<Library> query = entityManager.createQuery(
-                "SELECT library FROM Library library LEFT JOIN FETCH library.BORROWS WHERE library.id = :libraryId", Library.class);
-        query.setParameter("libraryId", libraryId);
-        Library library = query.getSingleResult();
-
-        endTransaction(entityManager);
-        return library;
     }
 
     @Override
@@ -201,23 +153,6 @@ public class LibraryDaoJpaH2 implements LibraryDao
 
         endTransaction(entityManager);
         return book;
-    }
-
-    @Override
-    public void saveLibrary(Library library)
-    {
-        save(library);
-    }
-
-    @Override
-    public Library getLibrary(long libraryId)
-    {
-        EntityManager entityManager = startTransaction();
-
-        Library library = entityManager.find(Library.class, libraryId);
-
-        endTransaction(entityManager);
-        return library;
     }
 
     @Override
