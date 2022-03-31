@@ -2,6 +2,7 @@ package library.service;
 
 import library.model.document.Book;
 import library.model.document.CD;
+import library.model.document.DVD;
 import library.model.document.LibraryDocument;
 import library.model.user.Client;
 import library.persistence.LibraryDocumentRepository;
@@ -56,9 +57,35 @@ public class AttendantService
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
-        CD cd = CD.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies).runtime(runtime).build();
+        CD cd = CD.builder()
+            .title(title)
+            .author(author)
+            .publicationYear(publicationYear)
+            .nbCopies(nbCopies)
+            .runtime(runtime)
+            .build();
 
         documentRepo.save(cd);
+    }
+
+    public void createDVD(String title, 
+        String author, 
+        int publicationYear, 
+        int nbCopies, 
+        int runtime) throws IllegalArgumentException
+    {
+        if (nbCopies < 1)
+            throw new IllegalArgumentException("Must have one or more copies");
+
+        DVD dvd = DVD.builder()
+            .title(title)
+            .author(author)
+            .publicationYear(publicationYear)
+            .nbCopies(nbCopies)
+            .runtime(runtime)
+            .build();
+
+        documentRepo.save(dvd);
     }
 
     public Client getClient(long clientId)
