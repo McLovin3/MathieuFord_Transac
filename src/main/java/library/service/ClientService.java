@@ -1,72 +1,82 @@
 package library.service;
 
+import library.model.document.Book;
+import library.model.document.BookType;
+import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.user.Client;
-import lombok.Data;
-import library.model.document.Book;
-import library.persistence.LibraryDao;
+import library.persistence.BorrowRepository;
+import library.persistence.LibraryDocumentRepository;
+import library.persistence.LibraryUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Component
 public class ClientService
 {
-    private final LibraryDao LIBRARY_DAO;
+    @Autowired
+    private LibraryDocumentRepository documentRepo;
 
-    public List<Book> searchBooksByTitle(String title)
+    @Autowired
+    private LibraryUserRepository userRepo;
+
+    @Autowired
+    private BorrowRepository borrowRepo;
+
+    public List<LibraryDocument> searchDocumentsByTitle(String title)
     {
-        return LIBRARY_DAO.searchBooksByTitle(title);
+        return documentRepo.findAllByTitleIgnoreCaseContaining(title);
     }
 
-    public List<Book> searchBooksByAuthor(String author)
+    public List<LibraryDocument> searchBooksByAuthor(String author)
     {
-        return LIBRARY_DAO.searchBooksByAuthor(author);
+        return documentRepo.findAllByAuthorIgnoreCaseContaining(author);
     }
 
-    public List<Book> searchBooksByYear(String year)
+    public List<LibraryDocument> searchBooksByYear(int year)
     {
-        return LIBRARY_DAO.searchBooksByYear(year);
+        return documentRepo.findAllByPublicationYear(year);
     }
 
     public List<Book> searchBooksByCategory(String category)
     {
-        return LIBRARY_DAO.searchBooksByCategory(category);
+        return documentRepo.findAllBooksByCategory(BookType.getBookType(category));
     }
 
-    public void borrowBook(long clientId, long bookId) throws IllegalArgumentException, NoResultException
+    public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
     {
-        Book book = LIBRARY_DAO.getBook(bookId);
-        Client client = LIBRARY_DAO.getClientWithBorrows(clientId);
-        manageBorrowBookExceptions(book, client);
+        LibraryDocument document = documentRepo.findById(documentId);
+        Client client = userRepo.findClientByIdWithBorrows(clientId);
+        manageBorrowDocumentExceptions(document, client);
 
-        book.setNbCopies(book.getNbCopies() - 1);
+        document.setNbCopies(document.getNbCopies() - 1);
         Borrow borrow = Borrow.builder()
                 .borrowDate(LocalDate.now())
-                .libraryDocument(book)
+                .libraryDocument(document)
                 .client(client)
                 .returnDate(LocalDate.now().plusWeeks(3))
                 .build();
 
         client.getBorrows().add(borrow);
-        LIBRARY_DAO.merge(client);
-        LIBRARY_DAO.merge(book);
-        LIBRARY_DAO.save(borrow);
+        userRepo.save(client);
+        borrowRepo.save(borrow);
     }
 
-    private void manageBorrowBookExceptions(Book book, Client client) throws IllegalArgumentException
+    private void manageBorrowDocumentExceptions(LibraryDocument document, Client client) throws IllegalArgumentException
     {
         //TODO When implemented fines, add check if client has fines.
-        if (book == null)
+        if (document == null)
             throw new IllegalArgumentException("Book does not exist");
 
-        if (book.getNbCopies() == 0)
+        if (document.getNbCopies() == 0)
             throw new IllegalArgumentException("No copies left");
     }
 
     public List<Borrow> getClientBorrows(long clientId)
     {
-        return LIBRARY_DAO.getClientBorrows(clientId);
+        return userRepo.findClientByIdWithBorrows(clientId).getBorrows();
     }
 }

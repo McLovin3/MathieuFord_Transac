@@ -1,20 +1,27 @@
 package library.service;
 
-import lombok.Data;
 import library.model.document.Book;
+import library.model.document.LibraryDocument;
 import library.model.user.Client;
-import library.model.user.LibraryUser;
-import library.persistence.LibraryDao;
+import library.persistence.LibraryDocumentRepository;
+import library.persistence.LibraryUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Data
+@Component
 public class AttendantService
 {
-    private final LibraryDao LIBRARY_DAO;
+    @Autowired
+    private LibraryDocumentRepository documentRepo;
+
+    @Autowired
+    private LibraryUserRepository clientRepo;
+
 
     public void createClient(String name, String password)
     {
-        LibraryUser client = Client.builder().name(name).password(password).build();
-        LIBRARY_DAO.saveClient(client);
+        Client client = Client.builder().name(name).password(password).build();
+        clientRepo.save(client);
     }
 
     public void createBook(String title, String author, int publicationYear, int nbCopies, String editor, int nbPages, String bookType) throws IllegalArgumentException
@@ -29,16 +36,16 @@ public class AttendantService
                 .nbPages(nbPages)
                 .bookType(library.model.document.BookType.getBookType(bookType))
                 .build();
-        LIBRARY_DAO.saveBook(book);
+        documentRepo.save(book);
     }
 
     public Client getClient(long clientId)
     {
-        return LIBRARY_DAO.getClient(clientId);
+        return clientRepo.findClientById(clientId);
     }
 
-    public Book getBook(long bookId)
+    public LibraryDocument getBook(long bookId)
     {
-        return LIBRARY_DAO.getBook(bookId);
+        return documentRepo.findById(bookId);
     }
 }
