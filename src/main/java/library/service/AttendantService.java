@@ -11,16 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AttendantService
+public class AttendantService 
 {
     @Autowired
     private LibraryDocumentRepository documentRepo;
+
     @Autowired
     private LibraryUserRepository clientRepo;
 
-    public void createClient(String name, String password)
+    public void createClient(String name, String password) 
     {
-        Client client = Client.builder().name(name).password(password).build();
+        Client client = Client.builder()
+            .name(name)
+            .password(password)
+            .build();
+
         clientRepo.save(client);
     }
 
@@ -29,8 +34,8 @@ public class AttendantService
         int publicationYear, 
         int nbCopies, 
         String editor, 
-        int nbPages, 
-        String bookType) throws IllegalArgumentException
+        int nbPages,
+        String bookType) throws IllegalArgumentException 
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
@@ -68,11 +73,11 @@ public class AttendantService
         documentRepo.save(cd);
     }
 
-    public void createDVD(String title, 
+    public void createDVD(String title,
         String author, 
         int publicationYear, 
         int nbCopies, 
-        int runtime) throws IllegalArgumentException
+        int runtime) throws IllegalArgumentException 
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
@@ -88,12 +93,12 @@ public class AttendantService
         documentRepo.save(dvd);
     }
 
-    public Client getClient(long clientId)
+    public Client getClient(long clientId) 
     {
         return clientRepo.findClientById(clientId);
     }
 
-    public LibraryDocument getBook(long bookId)
+    public LibraryDocument getBook(long bookId) 
     {
         return documentRepo.findById(bookId);
     }

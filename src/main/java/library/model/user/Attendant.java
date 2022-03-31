@@ -6,6 +6,4 @@ import javax.persistence.Entity;
 
 @DiscriminatorValue("ATTENDANT")
 @Entity
-public class Attendant extends LibraryUser
-{
-}
+public class Attendant extends LibraryUser {}
