@@ -6,11 +6,9 @@ import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
 import library.model.user.Client;
-import library.model.user.LibraryUser;
 import library.persistence.BorrowRepository;
 import library.persistence.LibraryDocumentRepository;
-import library.persistence.LibraryUserRepository;
-import org.apache.tomcat.jni.Local;
+import library.persistence.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class ClientService
     private LibraryDocumentRepository documentRepo;
 
     @Autowired
-    private LibraryUserRepository userRepo;
+    private ClientRepository userRepo;
 
     @Autowired
     private BorrowRepository borrowRepo;
@@ -54,7 +52,7 @@ public class ClientService
     public void returnDocument(long clientId, long documentId) throws IllegalArgumentException
     {
         LibraryDocument document = documentRepo.findById(documentId);
-        Client client = userRepo.findClientByIdWithBorrows(clientId);
+        Client client = userRepo.findByIdWithBorrows(clientId);
 
         //Possible exception return
         Borrow borrow = client.getBorrow(document);
@@ -92,7 +90,7 @@ public class ClientService
     public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
     {
         LibraryDocument document = documentRepo.findById(documentId);
-        Client client = userRepo.findClientByIdWithFinesAndBorrows(clientId);
+        Client client = userRepo.findByIdWithFinesAndBorrows(clientId);
 
         //Possible exception return
         manageBorrowDocumentExceptions(document, client);
@@ -128,11 +126,11 @@ public class ClientService
 
     public List<Borrow> getClientBorrows(long clientId)
     {
-        return userRepo.findClientByIdWithBorrows(clientId).getBorrows();
+        return userRepo.findByIdWithBorrows(clientId).getBorrows();
     }
 
     public List<Fine> getClientFines(long clientId)
     {
-        return userRepo.findClientByIdWithFines(clientId).getFines();
+        return userRepo.findByIdWithFines(clientId).getFines();
     }
 }

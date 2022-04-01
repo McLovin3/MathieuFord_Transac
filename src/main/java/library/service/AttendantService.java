@@ -6,7 +6,7 @@ import library.model.document.DVD;
 import library.model.document.LibraryDocument;
 import library.model.user.Client;
 import library.persistence.LibraryDocumentRepository;
-import library.persistence.LibraryUserRepository;
+import library.persistence.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class AttendantService
     private LibraryDocumentRepository documentRepo;
 
     @Autowired
-    private LibraryUserRepository clientRepo;
+    private ClientRepository clientRepo;
 
     public void createClient(String name, String password) 
     {
@@ -93,9 +93,9 @@ public class AttendantService
         documentRepo.save(dvd);
     }
 
-    public Client getClient(long clientId) 
+    public Client getClient(long clientId)
     {
-        return clientRepo.findClientById(clientId);
+        return clientRepo.findById(clientId);
     }
 
     public LibraryDocument getBook(long bookId) 
