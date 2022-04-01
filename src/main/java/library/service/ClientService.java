@@ -60,6 +60,7 @@ public class ClientService
         Borrow borrow = client.getBorrow(document);
         manageReturnExceptions(document, client);
 
+        document.setNbCopies(document.getNbCopies() + 1);
         calculateFines(client, borrow);
         client.getBorrows().remove(borrow);
         userRepo.save(client);
