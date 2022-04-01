@@ -1,5 +1,6 @@
 package library.model.user;
 
+import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
 import lombok.Getter;
@@ -28,6 +29,15 @@ public class Client extends LibraryUser
     public boolean hasFines()
     {
         return !fines.isEmpty();
+    }
+
+    public Borrow getBorrow(LibraryDocument document) throws IllegalArgumentException
+    {
+        for (Borrow borrow : borrows)
+        {
+            if (borrow.getLibraryDocument().getId() == document.getId()) return borrow;
+        }
+        throw new IllegalArgumentException("Client did not borrow book");
     }
 
     @Override

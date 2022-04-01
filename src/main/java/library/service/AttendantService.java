@@ -8,9 +8,9 @@ import library.model.user.Client;
 import library.persistence.LibraryDocumentRepository;
 import library.persistence.LibraryUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class AttendantService 
 {
     @Autowired
