@@ -12,4 +12,6 @@ public interface LibraryUserRepository extends JpaRepository<LibraryUser, Long>
     Client findClientByIdWithBorrows(@Param("id") long id);
     @Query("SELECT client FROM Client client WHERE client.id = :id")
     Client findClientById(@Param("id") long id);
+    @Query("SELECT client FROM Client client LEFT JOIN FETCH client.fines WHERE client.id = :id")
+    Client findClientByIdWithFines(@Param("id") long id);
 }
