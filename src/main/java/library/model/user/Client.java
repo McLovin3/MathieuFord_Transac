@@ -25,6 +25,11 @@ public class Client extends LibraryUser
     @OneToMany (mappedBy = "client")
     private List<Borrow> borrows = new ArrayList<>();
 
+    public boolean hasFines()
+    {
+        return !fines.isEmpty();
+    }
+
     @Override
     public String toString()
     {

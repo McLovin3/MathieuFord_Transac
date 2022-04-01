@@ -56,8 +56,12 @@ public class ClientService
         manageBorrowDocumentExceptions(document, client);
         document.setNbCopies(document.getNbCopies() - 1);
 
-        Borrow borrow = Borrow.builder().borrowDate(LocalDate.now()).libraryDocument(document).client(client)
-                .returnDate(LocalDate.now().plusWeeks(3)).build();
+        Borrow borrow = Borrow.builder()
+                .borrowDate(LocalDate.now())
+                .libraryDocument(document)
+                .client(client)
+                .returnDate(LocalDate.now().plusWeeks(3))
+                .build();
 
         client.getBorrows().add(borrow);
         userRepo.save(client);
@@ -67,7 +71,9 @@ public class ClientService
     private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)
             throws IllegalArgumentException
     {
-        // TODO When implemented fines, add check if client has fines.
+        if (client.hasFines())
+            throw new IllegalArgumentException("Client has fines");
+
         if (document == null)
             throw new IllegalArgumentException("Book does not exist");
 
