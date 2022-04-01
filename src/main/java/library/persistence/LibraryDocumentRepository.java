@@ -6,9 +6,11 @@ import library.model.document.LibraryDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface LibraryDocumentRepository extends JpaRepository<LibraryDocument, Long>
 {
     LibraryDocument findById(long id);
