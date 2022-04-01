@@ -20,7 +20,7 @@ import java.util.List;
 public class Client extends LibraryUser
 {
     @OneToMany (mappedBy = "client")
-    private List<Fine> Fines = new ArrayList<>();
+    private List<Fine> fines = new ArrayList<>();
 
     @OneToMany (mappedBy = "client")
     private List<Borrow> borrows = new ArrayList<>();
