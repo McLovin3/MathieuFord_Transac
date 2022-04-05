@@ -42,6 +42,11 @@ public class Client extends LibraryUser
         throw new IllegalArgumentException("Client did not borrow book");
     }
 
+    public void addFine(Fine fine)
+    {
+        fines.add(fine);
+    }
+
     @Override
     public String toString()
     {
