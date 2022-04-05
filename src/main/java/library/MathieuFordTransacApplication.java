@@ -36,6 +36,7 @@ public class MathieuFordTransacApplication implements CommandLineRunner
         clientService.borrowDocument(1, 2);
         System.out.println(clientService.getClientBorrows(1).get(0).toString());
         clientService.returnDocument(1, 2);
-        System.out.println(clientService.getClientFines(1).get(0).toString());
+//        System.out.println(clientService.getClientFines(1).get(0).toString());
+        System.out.println(clientService.searchDocumentsByTitle("clean").toString());
     }
 }
