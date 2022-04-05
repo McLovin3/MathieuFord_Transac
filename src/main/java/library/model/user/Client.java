@@ -5,6 +5,7 @@ import library.model.library.Borrow;
 import library.model.library.Fine;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
@@ -17,6 +18,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
+@Setter
 @DiscriminatorValue("CLIENT")
 public class Client extends LibraryUser
 {

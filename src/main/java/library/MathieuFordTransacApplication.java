@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 public class MathieuFordTransacApplication implements CommandLineRunner
@@ -33,6 +32,8 @@ public class MathieuFordTransacApplication implements CommandLineRunner
         System.out.println(clientService.searchBooksByAuthor("JULES").get(0).toString());
 
         clientService.borrowDocument(1, 2);
+        System.out.println(clientService.getClientBorrows(1).get(0).toString());
+        clientService.returnDocument(1, 2);
         System.out.println(clientService.getClientBorrows(1).get(0).toString());
     }
 }
