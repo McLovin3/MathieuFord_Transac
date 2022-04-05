@@ -75,14 +75,14 @@ public class ClientService
     private void calculateFines(Client client, Borrow borrow)
     {
         LocalDate currentDate = LocalDate.now();
-        LocalDate returnDate = borrow.getReturnDate();
-        if (returnDate.isBefore(currentDate))
+        LocalDate documentReturnDate = borrow.getReturnDate();
+        if (currentDate.isAfter(documentReturnDate))
         {
             Fine fine = Fine.builder()
                     .client(client)
-                    .amount(DAYS.between(returnDate, currentDate) * 0.25)
+                    .amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
                     .build();
-            client.getFines().add(fine);
+            client.addFine(fine);
             fineRepo.save(fine);
         }
     }
@@ -96,6 +96,7 @@ public class ClientService
             throw new IllegalArgumentException("Client has fines");
     }
 
+    @Transactional
     public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
     {
         LibraryDocument document = documentRepo.findById(documentId);

@@ -15,3 +15,4 @@ public interface ClientRepository extends JpaRepository<Client, Long>
     @Query("SELECT client FROM Client client LEFT JOIN FETCH client.fines fines WHERE client.id = :id")
     Client findByIdWithFines(@Param("id") long id);
 }
+
