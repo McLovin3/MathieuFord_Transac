@@ -19,4 +19,14 @@ public class Fine
     @ManyToOne
     private Client client;
     private double amount;
+
+    @Override
+    public String toString()
+    {
+        return "Fine{" +
+                "id=" + id +
+                ", client=" + client.getId() +
+                ", amount=" + amount +
+                '}';
+    }
 }
