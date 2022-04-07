@@ -33,13 +33,13 @@ public class Client extends LibraryUser
         return !fines.isEmpty();
     }
 
-    public Borrow getBorrow(LibraryDocument document) throws IllegalArgumentException
+    public Borrow getBorrow(long documentId) throws Exception
     {
         for (Borrow borrow : borrows)
         {
-            if (borrow.getLibraryDocument().getId() == document.getId()) return borrow;
+            if (borrow.getLibraryDocument().getId() == documentId) return borrow;
         }
-        throw new IllegalArgumentException("Client did not borrow book");
+        throw new Exception("Client did not borrow document");
     }
 
     public void addFine(Fine fine)

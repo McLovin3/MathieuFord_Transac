@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface FineRepository extends JpaRepository<Fine, Long>
 {
-    List<Fine> findAllByClientId(long clientId);
+    List<Fine> findAllByClientId(long id);
 }

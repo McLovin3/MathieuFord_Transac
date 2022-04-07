@@ -16,8 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+
+//TODO Manage optionals (Do I need to optional lists?)
+//TODO Do I have to put date as parameter in returnDocument or is it only for testing?
+//TODO instead of deleting borrow just mark it as returned
+
+//TODO Refactor
+
+//TODO throw check exceptions
 
 @Service
 @RequiredArgsConstructor
@@ -49,20 +58,24 @@ public class ClientService
     }
 
     @Transactional
-    public void returnDocument(long clientId, long documentId) throws IllegalArgumentException
+    public void returnDocument(long clientId, long documentId) throws NonExistentClientException, NonExistentDocumentException, Exception
     {
         //TODO manage optional
-        LibraryDocument document = DOCUMENT_REPO.findById(documentId).get();
-        Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
-        client.setFines(FINE_REPO.findAllByClient(client));
+        Optional<LibraryDocument> documentOptional = DOCUMENT_REPO.findById(documentId);
+        Optional<Client> clientOptional = CLIENT_REPO.findByIdWithFines(clientId);
+        manageReturnExceptions(documentOptional, clientOptional);
 
-        //Possible exception return
-        Borrow borrow = client.getBorrow(document);
-        manageReturnExceptions(document, client);
+        Client client = clientOptional.get();
+        LibraryDocument document = documentOptional.get();
+
+        client.setBorrows(BORROW_REPO.findAllByClientId(clientId));
+        Borrow borrow = client.getBorrow(document.getId());
+        borrow.setReturned(true);
 
         document.setNbCopies(document.getNbCopies() + 1);
+
         calculateFines(client, borrow);
-        BORROW_REPO.deleteById(borrow.getId());
+        BORROW_REPO.save(borrow);
         DOCUMENT_REPO.save(document);
         CLIENT_REPO.save(client);
     }
@@ -82,26 +95,25 @@ public class ClientService
         }
     }
 
-    private void manageReturnExceptions(LibraryDocument document, Client client) throws IllegalArgumentException
+    private void manageReturnExceptions(Optional<LibraryDocument> document, Optional<Client> client) throws NonExistentClientException, NonExistentDocumentException
     {
-        if (client == null)
-            throw new IllegalArgumentException("Client does not exist");
-
-        if (client.hasFines())
-            throw new IllegalArgumentException("Client has fines");
+        if (client.isEmpty()) throw new NonExistentClientException();
+        if (document.isEmpty()) throw new NonExistentDocumentException();
     }
 
     @Transactional
-    public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
+    public void borrowDocument(long clientId, long documentId) throws NonExistentClientException, NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException
     {
         //TODO manage optional
-        LibraryDocument document = DOCUMENT_REPO.findById(documentId).get();
-        Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
-        client.setFines(CLIENT_REPO.findByIdWithFines(clientId).getFines());
+        Optional<LibraryDocument> documentOptional = DOCUMENT_REPO.findById(documentId);
+        Optional<Client> clientOptional = CLIENT_REPO.findByIdWithFines(clientId);
+        manageBorrowDocumentExceptions(documentOptional, clientOptional);
 
-        //Possible exception return
-        manageBorrowDocumentExceptions(document, client);
+        Client client = clientOptional.get();
+        LibraryDocument document = documentOptional.get();
+        client.setBorrows(BORROW_REPO.findAllByClientId(clientId));
 
+        //TODO return dates different per document
         document.setNbCopies(document.getNbCopies() - 1);
         Borrow borrow = Borrow.builder()
                 .borrowDate(LocalDate.now())
@@ -111,33 +123,28 @@ public class ClientService
                 .build();
 
         client.getBorrows().add(borrow);
+        DOCUMENT_REPO.save(document);
         CLIENT_REPO.save(client);
         BORROW_REPO.save(borrow);
     }
 
-    private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)
-            throws IllegalArgumentException
+    private void manageBorrowDocumentExceptions(Optional<LibraryDocument> document, Optional<Client> client)
+            throws NonExistentClientException, NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException
     {
-        if (client == null)
-            throw new IllegalArgumentException("Client does not exist");
-
-        if (client.hasFines())
-            throw new IllegalArgumentException("Client has fines");
-
-        if (document == null)
-            throw new IllegalArgumentException("Book does not exist");
-
-        if (document.getNbCopies() == 0)
-            throw new IllegalArgumentException("No copies left");
+        if (client.isEmpty()) throw new NonExistentClientException();
+        if (client.get().hasFines()) throw new ClientHasFinesException();
+        if (document.isEmpty()) throw new NonExistentDocumentException();
+        if (document.get().getNbCopies() == 0) throw new NoMoreCopiesException();
     }
 
-    public List<Borrow> getClientBorrows(long clientId)
+    public List<Borrow> getClientBorrows(long clientId) throws NonExistentClientException
     {
-        return CLIENT_REPO.findByIdWithBorrows(clientId).getBorrows();
+        return BORROW_REPO.findAllByClientId(clientId);
+
     }
 
-    public List<Fine> getClientFines(long clientId)
+    public List<Fine> getClientFines(long clientId) throws NonExistentClientException
     {
-        return CLIENT_REPO.findByIdWithFines(clientId).getFines();
+        return FINE_REPO.findAllByClientId(clientId);
     }
 }

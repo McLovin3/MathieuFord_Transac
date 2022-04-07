@@ -96,14 +96,14 @@ public class AttendantService
     public Client getClient(long clientId) throws Exception
     {
         Optional<Client> client = CLIENT_REPO.findById(clientId);
-        if (client.isEmpty()) throw new Exception("Client does not exist");
+        if (client.isEmpty()) throw new NonExistentClientException();
         return client.get();
     }
 
     public LibraryDocument getDocument(long documentId) throws Exception
     {
         Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
-        if (document.isEmpty()) throw new Exception("Document does not exist");
+        if (document.isEmpty()) throw new NonExistentDocumentException();
         return document.get();
     }
 }
