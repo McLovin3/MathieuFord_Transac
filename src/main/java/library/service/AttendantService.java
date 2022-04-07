@@ -93,13 +93,17 @@ public class AttendantService
         DOCUMENT_REPO.save(dvd);
     }
 
-    public Optional<Client> getClient(long clientId)
+    public Client getClient(long clientId) throws Exception
     {
-        return CLIENT_REPO.findById(clientId);
+        Optional<Client> client = CLIENT_REPO.findById(clientId);
+        if (client.isEmpty()) throw new Exception("Client does not exist");
+        return client.get();
     }
 
-    public Optional<LibraryDocument> getBook(long bookId)
+    public LibraryDocument getDocument(long documentId) throws Exception
     {
-        return DOCUMENT_REPO.findById(bookId);
+        Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
+        if (document.isEmpty()) throw new Exception("Document does not exist");
+        return document.get();
     }
 }
