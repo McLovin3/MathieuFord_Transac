@@ -1,7 +1,7 @@
 package library.model.library;
 
-import lombok.*;
 import library.model.user.Client;
+import lombok.*;
 
 import javax.persistence.*;
 

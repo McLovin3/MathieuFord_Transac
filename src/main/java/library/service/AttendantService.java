@@ -5,101 +5,101 @@ import library.model.document.CD;
 import library.model.document.DVD;
 import library.model.document.LibraryDocument;
 import library.model.user.Client;
-import library.persistence.LibraryDocumentRepository;
 import library.persistence.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import library.persistence.LibraryDocumentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class AttendantService 
+@RequiredArgsConstructor
+public class AttendantService
 {
-    @Autowired
-    private LibraryDocumentRepository documentRepo;
+    private final LibraryDocumentRepository DOCUMENT_REPO;
+    private final ClientRepository CLIENT_REPO;
 
-    @Autowired
-    private ClientRepository clientRepo;
-
-    public void createClient(String name, String password) 
+    public void createClient(String name, String password)
     {
         Client client = Client.builder()
-            .name(name)
-            .password(password)
-            .build();
+                .name(name)
+                .password(password)
+                .build();
 
-        clientRepo.save(client);
+        CLIENT_REPO.save(client);
     }
 
-    public void createBook(String title, 
-        String author, 
-        int publicationYear, 
-        int nbCopies, 
-        String editor, 
-        int nbPages,
-        String bookType) throws IllegalArgumentException 
+    public void createBook(String title,
+                           String author,
+                           int publicationYear,
+                           int nbCopies,
+                           String editor,
+                           int nbPages,
+                           String bookType) throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
         Book book = Book.builder()
-            .title(title)
-            .author(author)
-            .publicationYear(publicationYear)
-            .nbCopies(nbCopies)
-            .editor(editor)
-            .nbPages(nbPages)
-            .bookType(library.model.document.BookType.getBookType(bookType))
-            .build();
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .editor(editor)
+                .nbPages(nbPages)
+                .bookType(library.model.document.BookType.getBookType(bookType))
+                .build();
 
-        documentRepo.save(book);
+        DOCUMENT_REPO.save(book);
     }
 
-    public void createCD(String title, 
-        String author, 
-        int publicationYear, 
-        int nbCopies, 
-        int runtime) throws IllegalArgumentException
+    public void createCD(String title,
+                         String author,
+                         int publicationYear,
+                         int nbCopies,
+                         int runtime) throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
         CD cd = CD.builder()
-            .title(title)
-            .author(author)
-            .publicationYear(publicationYear)
-            .nbCopies(nbCopies)
-            .runtime(runtime)
-            .build();
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .runtime(runtime)
+                .build();
 
-        documentRepo.save(cd);
+        DOCUMENT_REPO.save(cd);
     }
 
     public void createDVD(String title,
-        String author, 
-        int publicationYear, 
-        int nbCopies, 
-        int runtime) throws IllegalArgumentException 
+                          String author,
+                          int publicationYear,
+                          int nbCopies,
+                          int runtime) throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
         DVD dvd = DVD.builder()
-            .title(title)
-            .author(author)
-            .publicationYear(publicationYear)
-            .nbCopies(nbCopies)
-            .runtime(runtime)
-            .build();
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .runtime(runtime)
+                .build();
 
-        documentRepo.save(dvd);
+        DOCUMENT_REPO.save(dvd);
     }
 
-    public Client getClient(long clientId)
+    public Optional<Client> getClient(long clientId)
     {
-        return clientRepo.findById(clientId);
+        return CLIENT_REPO.findById(clientId);
     }
 
-    public LibraryDocument getBook(long bookId) 
+    public Optional<LibraryDocument> getBook(long bookId)
     {
-        return documentRepo.findById(bookId);
+        return DOCUMENT_REPO.findById(bookId);
     }
 }

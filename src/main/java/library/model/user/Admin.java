@@ -5,4 +5,6 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ADMIN")
-public class Admin extends LibraryUser {}
+public class Admin extends LibraryUser
+{
+}

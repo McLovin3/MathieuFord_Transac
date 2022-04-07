@@ -1,6 +1,9 @@
 package library.model.document;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -15,7 +18,7 @@ import javax.persistence.*;
 public abstract class LibraryDocument
 {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
     protected String title;
     protected String author;

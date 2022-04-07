@@ -1,8 +1,8 @@
 package library.model.library;
 
 import library.model.document.LibraryDocument;
-import lombok.*;
 import library.model.user.Client;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Borrow
 {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
     private Client client;

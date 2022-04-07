@@ -22,10 +22,10 @@ import java.util.List;
 @DiscriminatorValue("CLIENT")
 public class Client extends LibraryUser
 {
-    @OneToMany (mappedBy = "client")
+    @OneToMany(mappedBy = "client")
     private List<Fine> fines = new ArrayList<>();
 
-    @OneToMany (mappedBy = "client")
+    @OneToMany(mappedBy = "client")
     private List<Borrow> borrows = new ArrayList<>();
 
     public boolean hasFines()

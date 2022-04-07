@@ -17,9 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-//TODO Manage optionals
-//TODO Do I have to put date as parameter in returnDocument or is it only for testing?
-//TODO instead of deleting borrow just mark it as returned
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
@@ -54,7 +51,8 @@ public class ClientService
     @Transactional
     public void returnDocument(long clientId, long documentId) throws IllegalArgumentException
     {
-        LibraryDocument document = DOCUMENT_REPO.findById(documentId);
+        //TODO manage optional
+        LibraryDocument document = DOCUMENT_REPO.findById(documentId).get();
         Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
         client.setFines(FINE_REPO.findAllByClient(client));
 
@@ -96,7 +94,8 @@ public class ClientService
     @Transactional
     public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
     {
-        LibraryDocument document = DOCUMENT_REPO.findById(documentId);
+        //TODO manage optional
+        LibraryDocument document = DOCUMENT_REPO.findById(documentId).get();
         Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
         client.setFines(CLIENT_REPO.findByIdWithFines(clientId).getFines());
 
