@@ -10,56 +10,53 @@ import library.persistence.BorrowRepository;
 import library.persistence.ClientRepository;
 import library.persistence.FineRepository;
 import library.persistence.LibraryDocumentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+//TODO Manage optionals
+//TODO Do I have to put date as parameter in returnDocument or is it only for testing?
+//TODO instead of deleting borrow just mark it as returned
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService
 {
-    @Autowired
-    private LibraryDocumentRepository documentRepo;
-
-    @Autowired
-    private ClientRepository clientRepo;
-
-    @Autowired
-    private BorrowRepository borrowRepo;
-
-    @Autowired
-    private FineRepository fineRepo;
+    private final LibraryDocumentRepository DOCUMENT_REPO;
+    private final ClientRepository CLIENT_REPO;
+    private final BorrowRepository BORROW_REPO;
+    private final FineRepository FINE_REPO;
 
     public List<LibraryDocument> searchDocumentsByTitle(String title)
     {
-        return documentRepo.findAllByTitleIgnoreCaseContaining(title);
+        return DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title);
     }
 
     public List<LibraryDocument> searchBooksByAuthor(String author)
     {
-        return documentRepo.findAllByAuthorIgnoreCaseContaining(author);
+        return DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author);
     }
 
     public List<LibraryDocument> searchBooksByYear(int year)
     {
-        return documentRepo.findAllByPublicationYear(year);
+        return DOCUMENT_REPO.findAllByPublicationYear(year);
     }
 
     public List<Book> searchBooksByCategory(String category)
     {
-        return documentRepo.findAllBooksByCategory(BookType.getBookType(category));
+        return DOCUMENT_REPO.findAllBooksByCategory(BookType.getBookType(category));
     }
 
     @Transactional
     public void returnDocument(long clientId, long documentId) throws IllegalArgumentException
     {
-        LibraryDocument document = documentRepo.findById(documentId);
-        Client client = clientRepo.findByIdWithBorrows(clientId);
-        client.setFines(clientRepo.findByIdWithFines(clientId).getFines());
+        LibraryDocument document = DOCUMENT_REPO.findById(documentId);
+        Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
+        client.setFines(FINE_REPO.findAllByClient(client));
 
         //Possible exception return
         Borrow borrow = client.getBorrow(document);
@@ -67,9 +64,9 @@ public class ClientService
 
         document.setNbCopies(document.getNbCopies() + 1);
         calculateFines(client, borrow);
-        borrowRepo.deleteById(borrow.getId());
-        documentRepo.save(document);
-        clientRepo.save(client);
+        BORROW_REPO.deleteById(borrow.getId());
+        DOCUMENT_REPO.save(document);
+        CLIENT_REPO.save(client);
     }
 
     private void calculateFines(Client client, Borrow borrow)
@@ -83,7 +80,7 @@ public class ClientService
                     .amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
                     .build();
             client.addFine(fine);
-            fineRepo.save(fine);
+            FINE_REPO.save(fine);
         }
     }
 
@@ -99,9 +96,9 @@ public class ClientService
     @Transactional
     public void borrowDocument(long clientId, long documentId) throws IllegalArgumentException
     {
-        LibraryDocument document = documentRepo.findById(documentId);
-        Client client = clientRepo.findByIdWithBorrows(clientId);
-        client.setFines(clientRepo.findByIdWithFines(clientId).getFines());
+        LibraryDocument document = DOCUMENT_REPO.findById(documentId);
+        Client client = CLIENT_REPO.findByIdWithBorrows(clientId);
+        client.setFines(CLIENT_REPO.findByIdWithFines(clientId).getFines());
 
         //Possible exception return
         manageBorrowDocumentExceptions(document, client);
@@ -115,8 +112,8 @@ public class ClientService
                 .build();
 
         client.getBorrows().add(borrow);
-        clientRepo.save(client);
-        borrowRepo.save(borrow);
+        CLIENT_REPO.save(client);
+        BORROW_REPO.save(borrow);
     }
 
     private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)
@@ -137,11 +134,11 @@ public class ClientService
 
     public List<Borrow> getClientBorrows(long clientId)
     {
-        return clientRepo.findByIdWithBorrows(clientId).getBorrows();
+        return CLIENT_REPO.findByIdWithBorrows(clientId).getBorrows();
     }
 
     public List<Fine> getClientFines(long clientId)
     {
-        return clientRepo.findByIdWithFines(clientId).getFines();
+        return CLIENT_REPO.findByIdWithFines(clientId).getFines();
     }
 }
