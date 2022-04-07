@@ -25,5 +25,6 @@ public class Borrow
     private LibraryDocument libraryDocument;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private boolean returned = false;
 }
 
