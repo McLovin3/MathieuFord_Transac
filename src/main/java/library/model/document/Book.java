@@ -36,6 +36,6 @@ public class Book extends LibraryDocument
     @Override
     public int getReturnDays()
     {
-        return 0;
+        return RETURN_DAYS;
     }
 }
