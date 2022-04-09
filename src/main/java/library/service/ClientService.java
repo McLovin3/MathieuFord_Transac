@@ -22,6 +22,7 @@ import java.util.Optional;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
+//TODO DTOS???
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,11 @@ public class ClientService
     private final ClientRepository CLIENT_REPO;
     private final BorrowRepository BORROW_REPO;
     private final FineRepository FINE_REPO;
+
+    public List<LibraryDocument> getAllDocuments()
+    {
+        return DOCUMENT_REPO.findAll();
+    }
 
     public List<LibraryDocument> searchDocumentsByTitle(String title)
     {
@@ -55,7 +61,6 @@ public class ClientService
     @Transactional
     public void returnDocument(long clientId, long documentId) throws NonExistentClientException, NonExistentDocumentException, ClientDidNotBorrowException
     {
-        //TODO manage optional
         Optional<LibraryDocument> documentOptional = DOCUMENT_REPO.findById(documentId);
         Optional<Client> clientOptional = CLIENT_REPO.findByIdWithFines(clientId);
         manageReturnExceptions(documentOptional, clientOptional);
@@ -107,8 +112,6 @@ public class ClientService
         LibraryDocument document = documentOptional.get();
         client.setBorrows(BORROW_REPO.findAllByClientId(clientId));
 
-        //TODO return dates different per document
-        //TODO time in hours
         document.setNbCopies(document.getNbCopies() - 1);
         LocalDateTime currentTime = LocalDateTime.now();
         Borrow borrow = Borrow.builder()
