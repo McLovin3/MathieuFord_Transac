@@ -1,4 +1,4 @@
 package library.form;
 
-public record ClientForm(String username, String password) {
+public record ClientForm(long id, String name, String password) {
 }
