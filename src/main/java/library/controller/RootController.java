@@ -1,4 +1,4 @@
-package library.model.controller;
+package library.controller;
 
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -18,5 +18,12 @@ public class RootController
     public String getRootRequest(Model model)
     {
         return "index";
+    }
+
+    @GetMapping("/books")
+    public String getBookRequest(Model model)
+    {
+        model.addAttribute("books", CLIENT_SERVICE.getAllDocuments());
+        return "books";
     }
 }
