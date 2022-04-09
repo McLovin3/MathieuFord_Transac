@@ -12,6 +12,7 @@ import library.persistence.LibraryDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -107,5 +108,10 @@ public class AttendantService
         Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
         if (document.isEmpty()) throw new NonExistentDocumentException();
         return document.get();
+    }
+
+    public List<Client> getAllClients()
+    {
+        return CLIENT_REPO.findAll();
     }
 }

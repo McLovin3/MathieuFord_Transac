@@ -26,4 +26,11 @@ public class RootController
         model.addAttribute("books", CLIENT_SERVICE.getAllDocuments());
         return "books";
     }
+
+    @GetMapping("/clients")
+    public String getClientsRequest(Model model)
+    {
+        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
+        return "clients";
+    }
 }
