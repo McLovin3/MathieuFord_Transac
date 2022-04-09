@@ -1,10 +1,8 @@
 package library;
 
 import library.service.AttendantService;
-import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +22,8 @@ public class MathieuFordTransacApplication implements CommandLineRunner
     public void run(String... args) throws Exception
     {
         ATTENDANT_SERVICE.createClient("Mathieu", "password");
-        ATTENDANT_SERVICE.createBook("20 thousand leagues under the sea", "Jules Vernes", 1870, 2, "Pierre-Jules Hetzel", 300, "NOVEL");
+        ATTENDANT_SERVICE.createBook("20 thousand leagues under the sea", "Jules Vernes", 1870, 2,
+                "Pierre-Jules Hetzel", 300, "NOVEL");
         ATTENDANT_SERVICE.createBook("Clean Code", "Robert Martin", 2008, 1, "Robert C. martin", 200, "study");
     }
 }

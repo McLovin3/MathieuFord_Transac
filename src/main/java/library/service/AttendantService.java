@@ -24,74 +24,44 @@ public class AttendantService
 
     public void createClient(String name, String password)
     {
-        Client client = Client.builder()
-                .name(name)
-                .password(password)
-                .build();
+        Client client = Client.builder().name(name).password(password).build();
 
         CLIENT_REPO.save(client);
     }
 
-    public void createBook(String title,
-                           String author,
-                           int publicationYear,
-                           int nbCopies,
-                           String editor,
-                           int nbPages,
-                           String bookType) throws IllegalArgumentException
+    public void createBook(String title, String author, int publicationYear, int nbCopies, String editor, int nbPages,
+            String bookType) throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
-        Book book = Book.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .editor(editor)
-                .nbPages(nbPages)
-                .bookType(library.model.document.BookType.getBookType(bookType))
+        Book book = Book.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
+                .editor(editor).nbPages(nbPages).bookType(library.model.document.BookType.getBookType(bookType))
                 .build();
 
         DOCUMENT_REPO.save(book);
     }
 
-    public void createCD(String title,
-                         String author,
-                         int publicationYear,
-                         int nbCopies,
-                         int runtime) throws IllegalArgumentException
+    public void createCD(String title, String author, int publicationYear, int nbCopies, int runtime)
+            throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
-        CD cd = CD.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .runtime(runtime)
-                .build();
+        CD cd = CD.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
+                .runtime(runtime).build();
 
         DOCUMENT_REPO.save(cd);
     }
 
-    public void createDVD(String title,
-                          String author,
-                          int publicationYear,
-                          int nbCopies,
-                          int runtime) throws IllegalArgumentException
+    public void createDVD(String title, String author, int publicationYear, int nbCopies, int runtime)
+            throws IllegalArgumentException
     {
         if (nbCopies < 1)
             throw new IllegalArgumentException("Must have one or more copies");
 
-        DVD dvd = DVD.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .runtime(runtime)
-                .build();
+        DVD dvd = DVD.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
+                .runtime(runtime).build();
 
         DOCUMENT_REPO.save(dvd);
     }
@@ -99,14 +69,16 @@ public class AttendantService
     public Client getClient(long clientId) throws NonExistentClientException
     {
         Optional<Client> client = CLIENT_REPO.findById(clientId);
-        if (client.isEmpty()) throw new NonExistentClientException();
+        if (client.isEmpty())
+            throw new NonExistentClientException();
         return client.get();
     }
 
     public LibraryDocument getDocument(long documentId) throws NonExistentDocumentException
     {
         Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
-        if (document.isEmpty()) throw new NonExistentDocumentException();
+        if (document.isEmpty())
+            throw new NonExistentDocumentException();
         return document.get();
     }
 

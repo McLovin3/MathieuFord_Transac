@@ -1,6 +1,5 @@
 package library.model.user;
 
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

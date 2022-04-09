@@ -23,10 +23,6 @@ public class Fine
     @Override
     public String toString()
     {
-        return "Fine{" +
-                "id=" + id +
-                ", client=" + client.getId() +
-                ", amount=" + amount +
-                '}';
+        return "Fine{" + "id=" + id + ", client=" + client.getId() + ", amount=" + amount + '}';
     }
 }

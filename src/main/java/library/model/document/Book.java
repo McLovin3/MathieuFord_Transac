@@ -28,16 +28,9 @@ public class Book extends LibraryDocument
     @Override
     public String toString()
     {
-        return "Book{" +
-                "editor='" + editor + '\'' +
-                ", nbPages=" + nbPages +
-                ", bookType=" + bookType +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publicationYear=" + publicationYear +
-                ", nbCopies=" + nbCopies +
-                '}';
+        return "Book{" + "editor='" + editor + '\'' + ", nbPages=" + nbPages + ", bookType=" + bookType + ", id=" + id
+                + ", title='" + title + '\'' + ", author='" + author + '\'' + ", publicationYear=" + publicationYear
+                + ", nbCopies=" + nbCopies + '}';
     }
 
     @Override

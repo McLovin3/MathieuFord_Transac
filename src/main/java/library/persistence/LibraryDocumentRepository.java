@@ -20,5 +20,6 @@ public interface LibraryDocumentRepository extends JpaRepository<LibraryDocument
     List<LibraryDocument> findAllByPublicationYear(int year);
 
     @Query("SELECT book FROM Book book WHERE book.bookType = :bookType")
-    List<Book> findAllBooksByCategory(@Param("bookType") BookType category);
+    List<Book> findAllBooksByCategory(@Param("bookType")
+    BookType category);
 }

@@ -24,5 +24,6 @@ public abstract class LibraryDocument
     protected String author;
     protected int publicationYear;
     protected int nbCopies;
+
     public abstract int getReturnDays();
 }

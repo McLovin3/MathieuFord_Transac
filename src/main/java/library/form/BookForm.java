@@ -1,5 +1,4 @@
 package library.form;
 
-public record BookForm()
-{
+public record BookForm() {
 }

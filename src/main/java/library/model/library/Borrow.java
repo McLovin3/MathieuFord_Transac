@@ -7,13 +7,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @ToString
+@Builder
 public class Borrow
 {
     @Id
@@ -25,6 +25,6 @@ public class Borrow
     private LibraryDocument libraryDocument;
     private LocalDateTime borrowDate;
     private LocalDateTime returnDate;
+    @Builder.Default
     private boolean returned = false;
 }
-

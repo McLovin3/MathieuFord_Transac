@@ -59,7 +59,8 @@ public class ClientService
     }
 
     @Transactional
-    public void returnDocument(long clientId, long documentId) throws NonExistentClientException, NonExistentDocumentException, ClientDidNotBorrowException
+    public void returnDocument(long clientId, long documentId)
+            throws NonExistentClientException, NonExistentDocumentException, ClientDidNotBorrowException
     {
         Optional<LibraryDocument> documentOptional = DOCUMENT_REPO.findById(documentId);
         Optional<Client> clientOptional = CLIENT_REPO.findByIdWithFines(clientId);
@@ -86,23 +87,25 @@ public class ClientService
         LocalDateTime documentReturnDate = borrow.getReturnDate();
         if (currentDate.isAfter(documentReturnDate))
         {
-            Fine fine = Fine.builder()
-                    .client(client)
-                    .amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
+            Fine fine = Fine.builder().client(client).amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
                     .build();
             client.addFine(fine);
             FINE_REPO.save(fine);
         }
     }
 
-    private void manageReturnExceptions(Optional<LibraryDocument> document, Optional<Client> client) throws NonExistentClientException, NonExistentDocumentException
+    private void manageReturnExceptions(Optional<LibraryDocument> document, Optional<Client> client)
+            throws NonExistentClientException, NonExistentDocumentException
     {
-        if (client.isEmpty()) throw new NonExistentClientException();
-        if (document.isEmpty()) throw new NonExistentDocumentException();
+        if (client.isEmpty())
+            throw new NonExistentClientException();
+        if (document.isEmpty())
+            throw new NonExistentDocumentException();
     }
 
     @Transactional
-    public void borrowDocument(long clientId, long documentId) throws NonExistentClientException, NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException
+    public void borrowDocument(long clientId, long documentId) throws NonExistentClientException,
+            NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException
     {
         Optional<LibraryDocument> documentOptional = DOCUMENT_REPO.findById(documentId);
         Optional<Client> clientOptional = CLIENT_REPO.findByIdWithFines(clientId);
@@ -114,12 +117,8 @@ public class ClientService
 
         document.setNbCopies(document.getNbCopies() - 1);
         LocalDateTime currentTime = LocalDateTime.now();
-        Borrow borrow = Borrow.builder()
-                .borrowDate(currentTime)
-                .libraryDocument(document)
-                .client(client)
-                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60))
-                .build();
+        Borrow borrow = Borrow.builder().borrowDate(currentTime).libraryDocument(document).client(client)
+                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60)).build();
 
         client.getBorrows().add(borrow);
         DOCUMENT_REPO.save(document);
@@ -128,12 +127,20 @@ public class ClientService
     }
 
     private void manageBorrowDocumentExceptions(Optional<LibraryDocument> document, Optional<Client> client)
-            throws NonExistentClientException, NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException
+            throws NonExistentClientException, NonExistentDocumentException, ClientHasFinesException,
+            NoMoreCopiesException
     {
-        if (client.isEmpty()) throw new NonExistentClientException();
-        if (client.get().hasFines()) throw new ClientHasFinesException();
-        if (document.isEmpty()) throw new NonExistentDocumentException();
-        if (document.get().getNbCopies() == 0) throw new NoMoreCopiesException();
+        if (client.isEmpty())
+            throw new NonExistentClientException();
+
+        if (client.get().hasFines())
+            throw new ClientHasFinesException();
+
+        if (document.isEmpty())
+            throw new NonExistentDocumentException();
+
+        if (document.get().getNbCopies() == 0)
+            throw new NoMoreCopiesException();
     }
 
     public List<Borrow> getClientBorrows(long clientId)

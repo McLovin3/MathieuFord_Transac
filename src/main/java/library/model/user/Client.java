@@ -3,6 +3,7 @@ package library.model.user;
 import library.exception.ClientDidNotBorrowException;
 import library.model.library.Borrow;
 import library.model.library.Fine;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,9 +24,11 @@ import java.util.List;
 public class Client extends LibraryUser
 {
     @OneToMany(mappedBy = "client")
+    @Builder.Default
     private List<Fine> fines = new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
+    @Builder.Default
     private List<Borrow> borrows = new ArrayList<>();
 
     public boolean hasFines()
@@ -37,7 +40,8 @@ public class Client extends LibraryUser
     {
         for (Borrow borrow : borrows)
         {
-            if (borrow.getLibraryDocument().getId() == documentId) return borrow;
+            if (borrow.getLibraryDocument().getId() == documentId)
+                return borrow;
         }
         throw new ClientDidNotBorrowException();
     }
@@ -50,10 +54,6 @@ public class Client extends LibraryUser
     @Override
     public String toString()
     {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "Client{" + "id=" + id + ", name='" + name + '\'' + ", password='" + password + '\'' + '}';
     }
 }
