@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Java Town Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body class="bg-info">
+    <div class="row bg-primary justify-content-center">
+        <h1 class="col-6 text-center">Create client</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form action="#" th:action="@{/createBook}" th:object="${bookForm}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <table>
+                    <tr>
+                        <td><label>Title</label></td>
+                        <td><input type="text" th:field="*{Title}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Author</label></td>
+                        <td><input type="text" th:field="*{Author}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Book type</label></td>
+                        <td>
+                            <select th:field="*{bookType}">
+                                <option value="Novel">Novel</option>
+                                <option value="School">School</option>
+                                <option value="Study">Study</option>
+                                <option value="Magazine">Magazine</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Pages</label></td>
+                        <td><input type="number" min="1" th:field="*{nbPages}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Editor</label></td>
+                        <td><input type="text" th:field="*{editor}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Publication year</label></td>
+                        <td><input type="number" min="1" th:field="*{publicationYear}" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Number of Copies</label></td>
+                        <td><input type="number" min="1" th:field="*{nbCopies}" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="save" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
