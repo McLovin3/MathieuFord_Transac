@@ -134,8 +134,7 @@ public class RootController
     @GetMapping("/borrows/{id}")
     public String getBorrows(Model model, @PathVariable(required = true) Long id)
     {
-        // TODO must use DTO
-        model.addAttribute("borrows", CLIENT_SERVICE.getClientBorrows(id));
+        model.addAttribute("borrows", BorrowDTO.BooksToDTO(CLIENT_SERVICE.getClientBorrows(id)));
         return "borrows";
     }
 }
