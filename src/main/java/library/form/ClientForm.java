@@ -1,4 +1,13 @@
 package library.form;
 
-public record ClientForm(long id, String name, String password) {
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class ClientForm 
+{
+    private long id;
+    private String name;
+    private String password;
 }
