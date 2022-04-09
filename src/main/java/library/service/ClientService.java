@@ -125,6 +125,7 @@ public class ClientService
                 .borrowDate(currentTime)
                 .libraryDocument(document)
                 .client(client)
+                .returned(false)
                 .returnDate(currentTime.plusSeconds(document.getReturnDays() * 24 * 60 * 60))
                 .build();
 
@@ -149,6 +150,8 @@ public class ClientService
 
         if (document.get().getNbCopies() == 0)
             throw new NoMoreCopiesException();
+
+        //TODO if Client already has document    
     }
 
     public List<Borrow> getClientBorrows(long clientId)

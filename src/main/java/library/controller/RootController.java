@@ -103,4 +103,23 @@ public class RootController
         //TODO Why redirect?
         return "redirect:/";
     }
+
+    @GetMapping("/returnDocument")
+    private String getReturnDocument(Model model)
+    {
+        model.addAttribute("borrowForm", new BorrowForm());
+        return "returnDocument";
+    }
+
+    @PostMapping("/returnDocument")
+    public String postReturnDocument(@ModelAttribute BorrowForm borrowForm)
+    {
+        try
+        {
+            CLIENT_SERVICE.returnDocument(borrowForm.getClientId(), borrowForm.getDocumentId());
+        }
+        catch (Exception exception) {exception.printStackTrace();}
+        //TODO Why redirect?
+        return "redirect:/";
+    }
 }
