@@ -2,7 +2,9 @@ package library.controller;
 
 import library.exception.NotEnoughCopiesException;
 import library.form.BookForm;
+import library.form.BorrowForm;
 import library.form.ClientForm;
+import library.model.library.Borrow;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -29,15 +31,15 @@ public class RootController
     @GetMapping("/books")
     public String getBookRequest(Model model)
     {
+        // TODO must use DTO
         model.addAttribute("books", CLIENT_SERVICE.getAllDocuments());
         return "books";
     }
 
-    // TODO must use DTO
-
     @GetMapping("/clients")
     public String getClientsRequest(Model model)
     {
+        // TODO must use DTO
         model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
         return "clients";
     }
@@ -80,6 +82,25 @@ public class RootController
         {
         }
         // TODO how to manage exception?
+        return "redirect:/";
+    }
+
+    @GetMapping("/borrowDocument")
+    private String getBorrowDocument(Model model)
+    {
+        model.addAttribute("borrowForm", new BorrowForm());
+        return "borrowDocument";
+    }
+
+    @PostMapping("/borrowDocument")
+    public String postBorrowDocument(@ModelAttribute BorrowForm borrowForm)
+    {
+        try
+        {
+            CLIENT_SERVICE.borrowDocument(borrowForm.getClientId(), borrowForm.getDocumentId());
+        }
+        catch (Exception exception) {}
+        //TODO Why redirect?
         return "redirect:/";
     }
 }

@@ -125,7 +125,7 @@ public class ClientService
                 .borrowDate(currentTime)
                 .libraryDocument(document)
                 .client(client)
-                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60))
+                .returnDate(currentTime.plusSeconds(document.getReturnDays() * 24 * 60 * 60))
                 .build();
 
         client.getBorrows().add(borrow);
