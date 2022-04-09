@@ -25,6 +25,5 @@ public class Borrow
     private LibraryDocument libraryDocument;
     private LocalDateTime borrowDate;
     private LocalDateTime returnDate;
-    @Builder.Default
-    private boolean returned = false;
+    private boolean returned;
 }
