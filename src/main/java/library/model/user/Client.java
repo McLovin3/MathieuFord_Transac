@@ -1,5 +1,6 @@
 package library.model.user;
 
+import library.exception.ClientDidNotBorrowException;
 import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
@@ -33,13 +34,13 @@ public class Client extends LibraryUser
         return !fines.isEmpty();
     }
 
-    public Borrow getBorrow(long documentId) throws Exception
+    public Borrow getBorrow(long documentId) throws ClientDidNotBorrowException
     {
         for (Borrow borrow : borrows)
         {
             if (borrow.getLibraryDocument().getId() == documentId) return borrow;
         }
-        throw new Exception("Client did not borrow document");
+        throw new ClientDidNotBorrowException();
     }
 
     public void addFine(Fine fine)

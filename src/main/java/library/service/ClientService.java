@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,8 +77,8 @@ public class ClientService
 
     private void calculateFines(Client client, Borrow borrow)
     {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate documentReturnDate = borrow.getReturnDate();
+        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime documentReturnDate = borrow.getReturnDate();
         if (currentDate.isAfter(documentReturnDate))
         {
             Fine fine = Fine.builder()
@@ -110,11 +110,12 @@ public class ClientService
         //TODO return dates different per document
         //TODO time in hours
         document.setNbCopies(document.getNbCopies() - 1);
+        LocalDateTime currentTime = LocalDateTime.now();
         Borrow borrow = Borrow.builder()
-                .borrowDate(LocalDate.now())
+                .borrowDate(currentTime)
                 .libraryDocument(document)
                 .client(client)
-                .returnDate(LocalDate.now().plusWeeks(3))
+                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60))
                 .build();
 
         client.getBorrows().add(borrow);
@@ -132,13 +133,13 @@ public class ClientService
         if (document.get().getNbCopies() == 0) throw new NoMoreCopiesException();
     }
 
-    public List<Borrow> getClientBorrows(long clientId) throws NonExistentClientException
+    public List<Borrow> getClientBorrows(long clientId)
     {
         return BORROW_REPO.findAllByClientId(clientId);
 
     }
 
-    public List<Fine> getClientFines(long clientId) throws NonExistentClientException
+    public List<Fine> getClientFines(long clientId)
     {
         return FINE_REPO.findAllByClientId(clientId);
     }

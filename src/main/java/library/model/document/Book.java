@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @SuperBuilder
 @AllArgsConstructor
@@ -18,6 +19,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("BOOK")
 public class Book extends LibraryDocument
 {
+    @Transient
+    private final int RETURN_DAYS = 21;
     private String editor;
     private int nbPages;
     private BookType bookType;
@@ -35,5 +38,11 @@ public class Book extends LibraryDocument
                 ", publicationYear=" + publicationYear +
                 ", nbCopies=" + nbCopies +
                 '}';
+    }
+
+    @Override
+    public int getReturnDays()
+    {
+        return 0;
     }
 }

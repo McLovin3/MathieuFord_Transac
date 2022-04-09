@@ -5,7 +5,7 @@ import library.model.user.Client;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -23,8 +23,8 @@ public class Borrow
     private Client client;
     @OneToOne
     private LibraryDocument libraryDocument;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
+    private LocalDateTime borrowDate;
+    private LocalDateTime returnDate;
     private boolean returned = false;
 }
 

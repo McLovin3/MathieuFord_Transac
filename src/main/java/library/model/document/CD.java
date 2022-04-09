@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -16,5 +17,13 @@ import javax.persistence.Entity;
 @DiscriminatorValue("CD")
 public class CD extends LibraryDocument
 {
+    @Transient
+    private final int RETURN_DAYS = 14;
     private int runtime;
+
+    @Override
+    public int getReturnDays()
+    {
+        return RETURN_DAYS;
+    }
 }
