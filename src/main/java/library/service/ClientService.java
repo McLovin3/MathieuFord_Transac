@@ -87,8 +87,11 @@ public class ClientService
         LocalDateTime documentReturnDate = borrow.getReturnDate();
         if (currentDate.isAfter(documentReturnDate))
         {
-            Fine fine = Fine.builder().client(client).amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
+            Fine fine = Fine.builder()
+                    .client(client)
+                    .amount(DAYS.between(documentReturnDate, currentDate) * 0.25)
                     .build();
+
             client.addFine(fine);
             FINE_REPO.save(fine);
         }
@@ -117,8 +120,13 @@ public class ClientService
 
         document.setNbCopies(document.getNbCopies() - 1);
         LocalDateTime currentTime = LocalDateTime.now();
-        Borrow borrow = Borrow.builder().borrowDate(currentTime).libraryDocument(document).client(client)
-                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60)).build();
+
+        Borrow borrow = Borrow.builder()
+                .borrowDate(currentTime)
+                .libraryDocument(document)
+                .client(client)
+                .returnDate(currentTime.plusSeconds((long) document.getReturnDays() * 24 * 60 * 60))
+                .build();
 
         client.getBorrows().add(borrow);
         DOCUMENT_REPO.save(document);

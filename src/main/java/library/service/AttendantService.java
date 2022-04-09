@@ -2,6 +2,7 @@ package library.service;
 
 import library.exception.NonExistentClientException;
 import library.exception.NonExistentDocumentException;
+import library.exception.NotEnoughCopiesException;
 import library.model.document.Book;
 import library.model.document.CD;
 import library.model.document.DVD;
@@ -30,38 +31,54 @@ public class AttendantService
     }
 
     public void createBook(String title, String author, int publicationYear, int nbCopies, String editor, int nbPages,
-            String bookType) throws IllegalArgumentException
+            String bookType) throws NotEnoughCopiesException
     {
         if (nbCopies < 1)
-            throw new IllegalArgumentException("Must have one or more copies");
+            throw new NotEnoughCopiesException();
 
-        Book book = Book.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
-                .editor(editor).nbPages(nbPages).bookType(library.model.document.BookType.getBookType(bookType))
+        Book book = Book.builder()
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .editor(editor)
+                .nbPages(nbPages)
+                .bookType(library.model.document.BookType.getBookType(bookType))
                 .build();
 
         DOCUMENT_REPO.save(book);
     }
 
     public void createCD(String title, String author, int publicationYear, int nbCopies, int runtime)
-            throws IllegalArgumentException
+            throws NotEnoughCopiesException
     {
         if (nbCopies < 1)
-            throw new IllegalArgumentException("Must have one or more copies");
+            throw new NotEnoughCopiesException();
 
-        CD cd = CD.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
-                .runtime(runtime).build();
+        CD cd = CD.builder()
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .runtime(runtime)
+                .build();
 
         DOCUMENT_REPO.save(cd);
     }
 
     public void createDVD(String title, String author, int publicationYear, int nbCopies, int runtime)
-            throws IllegalArgumentException
+            throws NotEnoughCopiesException
     {
         if (nbCopies < 1)
-            throw new IllegalArgumentException("Must have one or more copies");
+            throw new NotEnoughCopiesException();
 
-        DVD dvd = DVD.builder().title(title).author(author).publicationYear(publicationYear).nbCopies(nbCopies)
-                .runtime(runtime).build();
+        DVD dvd = DVD.builder()
+                .title(title)
+                .author(author)
+                .publicationYear(publicationYear)
+                .nbCopies(nbCopies)
+                .runtime(runtime)
+                .build();
 
         DOCUMENT_REPO.save(dvd);
     }
