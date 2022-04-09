@@ -1,7 +1,6 @@
 package library.model.user;
 
 import library.exception.ClientDidNotBorrowException;
-import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
 import lombok.Getter;
