@@ -4,7 +4,6 @@ import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.ClientDTO;
 import library.exception.NotEnoughCopiesException;
-import library.model.library.Borrow;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+//TODO seperate controllers?
 @Controller
 @RequiredArgsConstructor
 public class RootController

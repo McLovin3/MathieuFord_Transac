@@ -22,7 +22,6 @@ import java.util.Optional;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
-//TODO DTOS???
 
 @Service
 @RequiredArgsConstructor
@@ -155,14 +154,11 @@ public class ClientService
 
         if (document.get().getNbCopies() == 0)
             throw new NoMoreCopiesException();
-
-        // TODO if Client already has document
     }
 
     public List<Borrow> getClientBorrows(long clientId)
     {
         return BORROW_REPO.findAllByClientId(clientId);
-
     }
 
     public List<Fine> getClientFines(long clientId)
