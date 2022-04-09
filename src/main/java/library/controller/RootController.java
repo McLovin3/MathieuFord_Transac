@@ -1,9 +1,9 @@
 package library.controller;
 
+import library.dto.BookDTO;
+import library.dto.BorrowDTO;
+import library.dto.ClientDTO;
 import library.exception.NotEnoughCopiesException;
-import library.form.BookForm;
-import library.form.BorrowForm;
-import library.form.ClientForm;
 import library.model.library.Borrow;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -32,8 +32,7 @@ public class RootController
     @GetMapping("/books")
     public String getBookRequest(Model model)
     {
-        // TODO must use DTO
-        model.addAttribute("books", CLIENT_SERVICE.getAllDocuments());
+        model.addAttribute("books", BookDTO.BooksToDTO(CLIENT_SERVICE.getAllBooks()));
         return "books";
     }
 
@@ -48,12 +47,12 @@ public class RootController
     @GetMapping("/createClient")
     public String getCreateClient(Model model)
     {
-        model.addAttribute("clientForm", new ClientForm());
+        model.addAttribute("clientForm", new ClientDTO());
         return "createClient";
     }
 
     @PostMapping("/createClient")
-    public String postClient(@ModelAttribute ClientForm clientform)
+    public String postClient(@ModelAttribute ClientDTO clientform)
     {
         ATTENDANT_SERVICE.createClient(clientform.getName(), clientform.getPassword());
         return "redirect:/";
@@ -62,12 +61,12 @@ public class RootController
     @GetMapping("/createBook")
     public String getCreateBook(Model model)
     {
-        model.addAttribute("bookForm", new BookForm());
+        model.addAttribute("bookForm", new BookDTO());
         return "createBook";
     }
 
     @PostMapping("/createBook")
-    private String postBook(@ModelAttribute BookForm bookForm)
+    private String postBook(@ModelAttribute BookDTO bookForm)
     {
         try
         {
@@ -89,12 +88,12 @@ public class RootController
     @GetMapping("/borrowDocument")
     private String getBorrowDocument(Model model)
     {
-        model.addAttribute("borrowForm", new BorrowForm());
+        model.addAttribute("borrowForm", new BorrowDTO());
         return "borrowDocument";
     }
 
     @PostMapping("/borrowDocument")
-    public String postBorrowDocument(@ModelAttribute BorrowForm borrowForm)
+    public String postBorrowDocument(@ModelAttribute BorrowDTO borrowForm)
     {
         try
         {
@@ -110,12 +109,12 @@ public class RootController
     @GetMapping("/returnDocument")
     private String getReturnDocument(Model model)
     {
-        model.addAttribute("borrowForm", new BorrowForm());
+        model.addAttribute("borrowForm", new BorrowDTO());
         return "returnDocument";
     }
 
     @PostMapping("/returnDocument")
-    public String postReturnDocument(@ModelAttribute BorrowForm borrowForm)
+    public String postReturnDocument(@ModelAttribute BorrowDTO borrowForm)
     {
         try
         {
