@@ -95,14 +95,14 @@ public class AttendantService
         DOCUMENT_REPO.save(dvd);
     }
 
-    public Client getClient(long clientId) throws Exception
+    public Client getClient(long clientId) throws NonExistentClientException
     {
         Optional<Client> client = CLIENT_REPO.findById(clientId);
         if (client.isEmpty()) throw new NonExistentClientException();
         return client.get();
     }
 
-    public LibraryDocument getDocument(long documentId) throws Exception
+    public LibraryDocument getDocument(long documentId) throws NonExistentDocumentException
     {
         Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
         if (document.isEmpty()) throw new NonExistentDocumentException();
