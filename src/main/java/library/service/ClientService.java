@@ -1,5 +1,9 @@
 package library.service;
 
+import library.exception.ClientHasFinesException;
+import library.exception.NoMoreCopiesException;
+import library.exception.NonExistentClientException;
+import library.exception.NonExistentDocumentException;
 import library.model.document.Book;
 import library.model.document.BookType;
 import library.model.document.LibraryDocument;

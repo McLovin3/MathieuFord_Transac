@@ -1,6 +1,6 @@
-package library.service;
+package library.exception;
 
-class NonExistentClientException extends Exception
+public class NonExistentClientException extends Exception
 {
     public NonExistentClientException()
     {

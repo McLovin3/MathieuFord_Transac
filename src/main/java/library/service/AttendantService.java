@@ -1,5 +1,7 @@
 package library.service;
 
+import library.exception.NonExistentClientException;
+import library.exception.NonExistentDocumentException;
 import library.model.document.Book;
 import library.model.document.CD;
 import library.model.document.DVD;

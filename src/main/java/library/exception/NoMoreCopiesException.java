@@ -1,4 +1,4 @@
-package library.service;
+package library.exception;
 
 public class NoMoreCopiesException extends Exception
 {
