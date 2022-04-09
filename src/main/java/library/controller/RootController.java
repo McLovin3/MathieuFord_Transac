@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -99,8 +100,10 @@ public class RootController
         {
             CLIENT_SERVICE.borrowDocument(borrowForm.getClientId(), borrowForm.getDocumentId());
         }
-        catch (Exception exception) {}
-        //TODO Why redirect?
+        catch (Exception exception)
+        {
+        }
+        // TODO Why redirect?
         return "redirect:/";
     }
 
@@ -118,8 +121,19 @@ public class RootController
         {
             CLIENT_SERVICE.returnDocument(borrowForm.getClientId(), borrowForm.getDocumentId());
         }
-        catch (Exception exception) {exception.printStackTrace();}
-        //TODO Why redirect?
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        // TODO Why redirect?
         return "redirect:/";
+    }
+
+    @GetMapping("/borrows/{id}")
+    public String getBorrows(Model model, @PathVariable(required = true) Long id)
+    {
+        // TODO must use DTO
+        model.addAttribute("borrows", CLIENT_SERVICE.getClientBorrows(id));
+        return "borrows";
     }
 }
