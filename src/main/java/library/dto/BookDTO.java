@@ -27,15 +27,18 @@ public class BookDTO
         List<BookDTO> bookDTOs = new ArrayList<>();
         for (Book book : books)
         {
-            bookDTOs.add(new BookDTO(
-                    book.getId(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    book.getBookType().toString(),
-                    book.getEditor(),
-                    book.getNbPages(),
-                    book.getPublicationYear(),
-                    book.getNbCopies()));
+            if (book.getBookType() != null)
+            {
+                bookDTOs.add(new BookDTO(
+                        book.getId(),
+                        book.getTitle(),
+                        book.getAuthor(),
+                        book.getBookType().toString(),
+                        book.getEditor(),
+                        book.getNbPages(),
+                        book.getPublicationYear(),
+                        book.getNbCopies()));
+            }
         }
         return bookDTOs;
     }

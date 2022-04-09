@@ -39,8 +39,7 @@ public class RootController
     @GetMapping("/clients")
     public String getClientsRequest(Model model)
     {
-        // TODO must use DTO
-        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
+        model.addAttribute("clients", ClientDTO.clientsToDTO(ATTENDANT_SERVICE.getAllClients()));
         return "clients";
     }
 
@@ -80,6 +79,7 @@ public class RootController
         }
         catch (NotEnoughCopiesException exception)
         {
+            exception.printStackTrace();
         }
         // TODO how to manage exception?
         return "redirect:/";
@@ -101,7 +101,9 @@ public class RootController
         }
         catch (Exception exception)
         {
+            exception.printStackTrace();
         }
+        // TODO how to manage exception?
         // TODO Why redirect?
         return "redirect:/";
     }
@@ -124,6 +126,7 @@ public class RootController
         {
             exception.printStackTrace();
         }
+        // TODO how to manage exception?
         // TODO Why redirect?
         return "redirect:/";
     }
