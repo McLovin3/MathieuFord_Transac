@@ -40,7 +40,7 @@ public class Client extends LibraryUser
     {
         for (Borrow borrow : borrows)
         {
-            if (borrow.getLibraryDocument() != null && borrow.getLibraryDocument().getId() == documentId)
+            if (borrow.getClient() != null && borrow.getDocument().getId() == documentId)
                 return borrow;
         }
         throw new ClientDidNotBorrowException();

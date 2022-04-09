@@ -123,7 +123,7 @@ public class ClientService
 
         Borrow borrow = Borrow.builder()
                 .borrowDate(currentTime)
-                .libraryDocument(document)
+                .document(document)
                 .client(client)
                 .returned(false)
                 .returnDate(currentTime.plusSeconds(document.getReturnDays() * 24 * 60 * 60))

@@ -22,7 +22,7 @@ public class Borrow
     @ManyToOne
     private Client client;
     @OneToOne
-    private LibraryDocument libraryDocument;
+    private LibraryDocument document;
     private LocalDateTime borrowDate;
     private LocalDateTime returnDate;
     private boolean returned;
