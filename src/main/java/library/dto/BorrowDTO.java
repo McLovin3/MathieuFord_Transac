@@ -1,11 +1,11 @@
-package library.form;
+package library.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BorrowForm {
+public class BorrowDTO {
     private long id;
     private long clientId;
     private long documentId;

@@ -33,6 +33,11 @@ public class ClientService
     private final BorrowRepository BORROW_REPO;
     private final FineRepository FINE_REPO;
 
+    public List<Book> getAllBooks()
+    {
+        return DOCUMENT_REPO.findAllBooks();
+    }
+
     public List<LibraryDocument> getAllDocuments()
     {
         return DOCUMENT_REPO.findAll();
@@ -151,7 +156,7 @@ public class ClientService
         if (document.get().getNbCopies() == 0)
             throw new NoMoreCopiesException();
 
-        //TODO if Client already has document    
+        // TODO if Client already has document
     }
 
     public List<Borrow> getClientBorrows(long clientId)
