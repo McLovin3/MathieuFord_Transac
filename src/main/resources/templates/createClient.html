@@ -19,11 +19,11 @@
                 <table>
                     <tr>
                         <td><label>Name</label></td>
-                        <td><input type="text" th:field="*{name}" /></td>
+                        <td><input type="text" required minlength="3" th:field="*{name}" /></td>
                     </tr>
                     <tr>
                         <td><label>Password</label></td>
-                        <td><input type="text" th:field="*{password}" /></td>
+                        <td><input type="text" required minlength="3" th:field="*{password}" /></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="save" /></td>

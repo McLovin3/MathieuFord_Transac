@@ -19,11 +19,11 @@
                 <table>
                     <tr>
                         <td><label>Title</label></td>
-                        <td><input type="text" th:field="*{Title}" /></td>
+                        <td><input minlength="5" required type="text" th:field="*{Title}" /></td>
                     </tr>
                     <tr>
                         <td><label>Author</label></td>
-                        <td><input type="text" th:field="*{Author}" /></td>
+                        <td><input minlength="3" required type="text" th:field="*{Author}" /></td>
                     </tr>
                     <tr>
                         <td><label>Book type</label></td>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <td><label>Editor</label></td>
-                        <td><input type="text" th:field="*{editor}" /></td>
+                        <td><input type="text" required minlength="3"  th:field="*{editor}" /></td>
                     </tr>
                     <tr>
                         <td><label>Publication year</label></td>
