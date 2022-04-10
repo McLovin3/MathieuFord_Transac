@@ -19,6 +19,7 @@ public class Fine
     @ManyToOne
     private Client client;
     private double amount;
+    boolean paid;
 
     @Override
     public String toString()
