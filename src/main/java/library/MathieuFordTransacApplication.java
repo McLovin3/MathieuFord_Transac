@@ -28,6 +28,8 @@ public class MathieuFordTransacApplication implements CommandLineRunner
         ATTENDANT_SERVICE.createClient(new ClientDTO(0, "Mathieu", "password"));
         ATTENDANT_SERVICE.createBook(new BookDTO(0, "20 thousand leagues under the sea", "Jules Vernes", "NOVEL", "Pierre-Jules Hetzel", 300, 1870, 2));
         ATTENDANT_SERVICE.createBook(new BookDTO(0, "Clean Code", "Robert Martin", "study", "Robert C. Martin", 200, 2008,2));
-        System.out.println(CLIENT_SERVICE.searchBooksByYear(1870).get(0).toString());
+        System.out.println(CLIENT_SERVICE.searchDocumentsByYear(1870).get(0).toString());
+        System.out.println(CLIENT_SERVICE.getAllDocuments().get(0).toString());
+        System.out.println(CLIENT_SERVICE.getAllBooks().get(0).toString());
     }
 }
