@@ -32,12 +32,13 @@ class DataConversion
                     && borrow.getBorrowDate() != null
                     && borrow.getDocument() != null)
             {
-                borrowDTOs.add(new BorrowDTO(borrow.getId(),
-                        borrow.getClient().getId(),
-                        borrow.getDocument().getId(),
-                        borrow.getBorrowDate().toString(),
-                        borrow.getReturnDate().toString(),
-                        borrow.isReturned()));
+                borrowDTOs.add(BorrowDTO.builder()
+                        .id(borrow.getId())
+                        .clientId(borrow.getClient().getId())
+                        .documentId(borrow.getDocument().getId())
+                        .borrowDate(borrow.getBorrowDate().toString())
+                        .returnDate(borrow.getReturnDate().toString())
+                        .returned(borrow.isReturned()).build());
             }
         }
         return borrowDTOs;
@@ -48,7 +49,12 @@ class DataConversion
         List<ClientDTO> clientDTOs = new ArrayList<>();
         for (Client client : clients)
         {
-            clientDTOs.add(new ClientDTO(client.getId(), client.getName(), client.getPassword()));
+
+            clientDTOs.add(ClientDTO.builder()
+                    .id(client.getId())
+                    .name(client.getName())
+                    .password(client.getPassword())
+                    .build());
         }
         return clientDTOs;
     }
@@ -65,14 +71,16 @@ class DataConversion
         {
             if (book.getBookType() != null)
             {
-                bookDTOs.add(new BookDTO(book.getId(),
-                        book.getTitle(),
-                        book.getAuthor(),
-                        book.getBookType().toString(),
-                        book.getEditor(),
-                        book.getNbPages(),
-                        book.getPublicationYear(),
-                        book.getNbCopies()));
+                bookDTOs.add(BookDTO.builder()
+                        .id(book.getId())
+                        .title(book.getTitle())
+                        .author(book.getAuthor())
+                        .bookType(book.getBookType().toString())
+                        .editor(book.getEditor())
+                        .nbPages(book.getNbPages())
+                        .publicationYear(book.getPublicationYear())
+                        .nbCopies(book.getNbCopies())
+                        .build());
             }
         }
         return bookDTOs;
@@ -85,9 +93,11 @@ class DataConversion
         {
             if (fine.getClient() != null)
             {
-                fineDTOS.add(new FineDTO(fine.getId(),
-                        fine.getClient().getId(),
-                        fine.getAmount()));
+                fineDTOS.add(FineDTO.builder()
+                        .id(fine.getId())
+                        .clientId(fine.getClient().getId())
+                        .amount(fine.getAmount())
+                        .build());
             }
         }
         return fineDTOS;
@@ -105,6 +115,7 @@ class DataConversion
                 {
                     documentDTOs.add(DocumentDTO.builder()
                             .id(book.getId())
+                            .title(book.getTitle())
                             .bookType(book.getBookType().toString())
                             .author(book.getAuthor())
                             .editor(book.getEditor())
@@ -122,6 +133,7 @@ class DataConversion
 
                 documentDTOs.add(DocumentDTO.builder()
                         .id(dvd.getId())
+                        .title(dvd.getTitle())
                         .publicationYear(dvd.getPublicationYear())
                         .nbCopies(dvd.getNbCopies())
                         .runtime(dvd.getRuntime())
@@ -131,13 +143,14 @@ class DataConversion
 
             else if (document instanceof CD)
             {
-                CD dvd = (CD) document;
+                CD cd = (CD) document;
 
                 documentDTOs.add(DocumentDTO.builder()
-                        .id(dvd.getId())
-                        .publicationYear(dvd.getPublicationYear())
-                        .nbCopies(dvd.getNbCopies())
-                        .runtime(dvd.getRuntime())
+                        .id(cd.getId())
+                        .title(cd.getTitle())
+                        .publicationYear(cd.getPublicationYear())
+                        .nbCopies(cd.getNbCopies())
+                        .runtime(cd.getRuntime())
                         .documentType("CD")
                         .build());
             }
