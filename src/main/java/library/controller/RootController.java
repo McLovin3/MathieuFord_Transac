@@ -6,6 +6,7 @@ import library.dto.ClientDTO;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,43 +38,37 @@ public class RootController
     @GetMapping("/clients")
     public String getClientsRequest(Model model)
     {
-        model.addAttribute("clients", ClientDTO.clientsToDTO(ATTENDANT_SERVICE.getAllClients()));
+        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
         return "clients";
     }
 
     @GetMapping("/createClient")
     public String getCreateClient(Model model)
     {
-        model.addAttribute("clientForm", new ClientDTO());
+        model.addAttribute("clientDTO", new ClientDTO());
         return "createClient";
     }
 
     @PostMapping("/createClient")
-    public String postClient(@ModelAttribute ClientDTO clientform)
+    public String postClient(@ModelAttribute ClientDTO clientDTO)
     {
-        ATTENDANT_SERVICE.createClient(clientform.name(), clientform.password());
+        ATTENDANT_SERVICE.createClient(clientDTO);
         return "redirect:/";
     }
 
     @GetMapping("/createBook")
     public String getCreateBook(Model model)
     {
-        model.addAttribute("bookForm", new BookDTO());
+        model.addAttribute("bookDTO",new BookDTO());
         return "createBook";
     }
 
     @PostMapping("/createBook")
-    private String postBook(@ModelAttribute BookDTO bookForm)
+    private String postBook(@ModelAttribute BookDTO bookDTO)
     {
         try
         {
-            ATTENDANT_SERVICE.createBook(bookForm.title(),
-                    bookForm.author(),
-                    bookForm.publicationYear(),
-                    bookForm.nbCopies(),
-                    bookForm.editor(),
-                    bookForm.nbPages(),
-                    bookForm.bookType());
+            ATTENDANT_SERVICE.createBook(bookDTO);
         } catch (NotEnoughCopiesException exception)
         {
             exception.printStackTrace();
@@ -86,16 +81,16 @@ public class RootController
     @GetMapping("/borrowDocument")
     private String getBorrowDocument(Model model)
     {
-        model.addAttribute("borrowForm", new BorrowDTO());
+        model.addAttribute("borrowDTO", new BorrowDTO());
         return "borrowDocument";
     }
 
     @PostMapping("/borrowDocument")
-    public String postBorrowDocument(@ModelAttribute BorrowDTO borrowForm)
+    public String postBorrowDocument(@ModelAttribute BorrowDTO borrowDTO)
     {
         try
         {
-            CLIENT_SERVICE.borrowDocument(borrowForm.clientId(), borrowForm.documentId());
+            CLIENT_SERVICE.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
         } catch (Exception exception)
         {
             exception.printStackTrace();
@@ -108,16 +103,16 @@ public class RootController
     @GetMapping("/returnDocument")
     private String getReturnDocument(Model model)
     {
-        model.addAttribute("borrowForm", new BorrowDTO());
+        model.addAttribute("borrowDTO", new BorrowDTO());
         return "returnDocument";
     }
 
     @PostMapping("/returnDocument")
-    public String postReturnDocument(@ModelAttribute BorrowDTO borrowForm)
+    public String postReturnDocument(@ModelAttribute BorrowDTO borrowDTO)
     {
         try
         {
-            CLIENT_SERVICE.returnDocument(borrowForm.clientId(), borrowForm.documentId());
+            CLIENT_SERVICE.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
         } catch (Exception exception)
         {
             exception.printStackTrace();
@@ -127,9 +122,9 @@ public class RootController
     }
 
     @GetMapping("/borrows/{id}")
-    public String getBorrows(Model model, @PathVariable(required = true) Long id)
+    public String getBorrows(Model model, @PathVariable() Long id)
     {
-        model.addAttribute("borrows", BorrowDTO.BooksToDTO(CLIENT_SERVICE.getClientBorrows(id)));
+        model.addAttribute("borrows", CLIENT_SERVICE.getClientBorrows(id));
         return "borrows";
     }
 }
