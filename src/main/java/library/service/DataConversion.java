@@ -3,8 +3,10 @@ package library.service;
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.ClientDTO;
+import library.dto.FineDTO;
 import library.model.document.Book;
 import library.model.library.Borrow;
+import library.model.library.Fine;
 import library.model.user.Client;
 
 import java.util.ArrayList;
@@ -12,7 +14,9 @@ import java.util.List;
 
 class DataConversion
 {
-    private DataConversion(){}
+    private DataConversion()
+    {
+    }
 
     public static List<BorrowDTO> borrowsToDTO(List<Borrow> borrows)
     {
@@ -68,5 +72,20 @@ class DataConversion
             }
         }
         return bookDTOs;
+    }
+
+    public static List<FineDTO> finesToDTO(List<Fine> fines)
+    {
+        List<FineDTO> fineDTOS = new ArrayList<>();
+        for (Fine fine : fines)
+        {
+            if (fine.getClient() != null)
+            {
+                fineDTOS.add(new FineDTO(fine.getId(),
+                        fine.getClient().getId(),
+                        fine.getAmount()));
+            }
+        }
+        return fineDTOS;
     }
 }
