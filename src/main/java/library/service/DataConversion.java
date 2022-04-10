@@ -3,8 +3,12 @@ package library.service;
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.ClientDTO;
+import library.dto.DocumentDTO;
 import library.dto.FineDTO;
 import library.model.document.Book;
+import library.model.document.CD;
+import library.model.document.DVD;
+import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
 import library.model.user.Client;
@@ -87,5 +91,57 @@ class DataConversion
             }
         }
         return fineDTOS;
+    }
+
+    public static List<DocumentDTO> DocumentsToDTO(List<LibraryDocument> documents)
+    {
+        List<DocumentDTO> documentDTOs = new ArrayList<>();
+        for (LibraryDocument document : documents)
+        {
+            if (document instanceof Book)
+            {
+                Book book = (Book) document;
+                if (book.getBookType() != null)
+                {
+                    documentDTOs.add(DocumentDTO.builder()
+                            .id(book.getId())
+                            .bookType(book.getBookType().toString())
+                            .author(book.getAuthor())
+                            .editor(book.getEditor())
+                            .nbPages(book.getNbPages())
+                            .publicationYear(book.getPublicationYear())
+                            .nbCopies(book.getNbCopies())
+                            .documentType("BOOK")
+                            .build());
+                }
+            }
+
+            else if (document instanceof DVD)
+            {
+                DVD dvd = (DVD) document;
+
+                documentDTOs.add(DocumentDTO.builder()
+                        .id(dvd.getId())
+                        .publicationYear(dvd.getPublicationYear())
+                        .nbCopies(dvd.getNbCopies())
+                        .runtime(dvd.getRuntime())
+                        .documentType("DVD")
+                        .build());
+            }
+
+            else if (document instanceof CD)
+            {
+                CD dvd = (CD) document;
+
+                documentDTOs.add(DocumentDTO.builder()
+                        .id(dvd.getId())
+                        .publicationYear(dvd.getPublicationYear())
+                        .nbCopies(dvd.getNbCopies())
+                        .runtime(dvd.getRuntime())
+                        .documentType("CD")
+                        .build());
+            }
+        }
+        return documentDTOs;
     }
 }

@@ -2,9 +2,9 @@ package library.service;
 
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
+import library.dto.DocumentDTO;
 import library.dto.FineDTO;
 import library.exception.*;
-import library.model.document.Book;
 import library.model.document.BookType;
 import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
@@ -41,29 +41,29 @@ public class ClientService
         return DataConversion.booksToDTO(DOCUMENT_REPO.findAllBooks());
     }
 
-    public List<LibraryDocument> getAllDocuments()
+    public List<DocumentDTO> getAllDocuments()
     {
-        return DOCUMENT_REPO.findAll();
+        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAll());
     }
 
-    public List<LibraryDocument> searchDocumentsByTitle(String title)
+    public List<DocumentDTO> searchDocumentsByTitle(String title)
     {
-        return DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title);
+        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title));
     }
 
-    public List<LibraryDocument> searchBooksByAuthor(String author)
+    public List<DocumentDTO> searchBooksByAuthor(String author)
     {
-        return DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author);
+        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author));
     }
 
-    public List<LibraryDocument> searchBooksByYear(int year)
+    public List<DocumentDTO> searchBooksByYear(int year)
     {
-        return DOCUMENT_REPO.findAllByPublicationYear(year);
+        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByPublicationYear(year));
     }
 
-    public List<Book> searchBooksByCategory(String category)
+    public List<BookDTO> searchBooksByCategory(String category)
     {
-        return DOCUMENT_REPO.findAllBooksByCategory(BookType.getBookType(category));
+        return DataConversion.booksToDTO(DOCUMENT_REPO.findAllBooksByCategory(BookType.getBookType(category)));
     }
 
     @Transactional
