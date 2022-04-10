@@ -1,5 +1,8 @@
 package library.service;
 
+import library.dto.BookDTO;
+import library.dto.ClientDTO;
+import library.dto.DiscDTO;
 import library.exception.NonExistentClientException;
 import library.exception.NonExistentDocumentException;
 import library.exception.NotEnoughCopiesException;
@@ -23,75 +26,74 @@ public class AttendantService
     private final LibraryDocumentRepository DOCUMENT_REPO;
     private final ClientRepository CLIENT_REPO;
 
-    public void createClient(String name, String password)
+    public void createClient(ClientDTO clientDTO)
     {
-        Client client = Client.builder().name(name).password(password).build();
+        Client client = Client.builder().name(clientDTO.name()).password(clientDTO.password()).build();
 
         CLIENT_REPO.save(client);
     }
 
-    public void createBook(String title, String author, int publicationYear, int nbCopies, String editor, int nbPages,
-            String bookType) throws NotEnoughCopiesException
+    public void createBook(BookDTO bookDTO) throws NotEnoughCopiesException
     {
-        if (nbCopies < 1)
+        if (bookDTO.nbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         Book book = Book.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .editor(editor)
-                .nbPages(nbPages)
-                .bookType(library.model.document.BookType.getBookType(bookType))
+                .title(bookDTO.title())
+                .author(bookDTO.author())
+                .publicationYear(bookDTO.publicationYear())
+                .nbCopies(bookDTO.nbCopies())
+                .editor(bookDTO.editor())
+                .nbPages(bookDTO.nbPages())
+                .bookType(library.model.document.BookType.getBookType(bookDTO.bookType()))
                 .build();
 
         DOCUMENT_REPO.save(book);
     }
 
-    public void createCD(String title, String author, int publicationYear, int nbCopies, int runtime)
+    public void createCD(DiscDTO discDTO)
             throws NotEnoughCopiesException
     {
-        if (nbCopies < 1)
+        if (discDTO.nbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         CD cd = CD.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .runtime(runtime)
+                .title(discDTO.title())
+                .author(discDTO.author())
+                .publicationYear(discDTO.publicationYear())
+                .nbCopies(discDTO.nbCopies())
+                .runtime(discDTO.runtime())
                 .build();
 
         DOCUMENT_REPO.save(cd);
     }
 
-    //TODO replace parameters with dto
-    public void createDVD(String title, String author, int publicationYear, int nbCopies, int runtime)
+    public void createDVD(DiscDTO discDTO)
             throws NotEnoughCopiesException
     {
-        if (nbCopies < 1)
+        if (discDTO.nbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         DVD dvd = DVD.builder()
-                .title(title)
-                .author(author)
-                .publicationYear(publicationYear)
-                .nbCopies(nbCopies)
-                .runtime(runtime)
+                .title(discDTO.title())
+                .author(discDTO.author())
+                .publicationYear(discDTO.publicationYear())
+                .nbCopies(discDTO.nbCopies())
+                .runtime(discDTO.runtime())
                 .build();
 
         DOCUMENT_REPO.save(dvd);
     }
 
-    public Client getClient(long clientId) throws NonExistentClientException
+    public ClientDTO getClient(long clientId) throws NonExistentClientException
     {
         Optional<Client> client = CLIENT_REPO.findById(clientId);
         if (client.isEmpty())
             throw new NonExistentClientException();
-        return client.get();
+        return DataConversion.clientToDTO(client.get());
     }
 
+    //TODO return DTO
     public LibraryDocument getDocument(long documentId) throws NonExistentDocumentException
     {
         Optional<LibraryDocument> document = DOCUMENT_REPO.findById(documentId);
@@ -100,8 +102,8 @@ public class AttendantService
         return document.get();
     }
 
-    public List<Client> getAllClients()
+    public List<ClientDTO> getAllClients()
     {
-        return CLIENT_REPO.findAll();
+        return DataConversion.clientsToDTO(CLIENT_REPO.findAll());
     }
 }
