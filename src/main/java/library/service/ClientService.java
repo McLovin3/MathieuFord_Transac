@@ -1,6 +1,8 @@
 package library.service;
 
 import library.dto.BookDTO;
+import library.dto.BorrowDTO;
+import library.dto.FineDTO;
 import library.exception.*;
 import library.model.document.Book;
 import library.model.document.BookType;
@@ -12,7 +14,6 @@ import library.persistence.BorrowRepository;
 import library.persistence.ClientRepository;
 import library.persistence.FineRepository;
 import library.persistence.LibraryDocumentRepository;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
 //TODO return DTOS
-//TODO replace parameters with dto
 
 @Service
 @RequiredArgsConstructor
@@ -160,13 +160,13 @@ public class ClientService
             throw new NoMoreCopiesException();
     }
 
-    public List<Borrow> getClientBorrows(long clientId)
+    public List<BorrowDTO> getClientBorrows(long clientId)
     {
-        return BORROW_REPO.findAllByClientId(clientId);
+        return DataConversion.borrowsToDTO(BORROW_REPO.findAllByClientId(clientId));
     }
 
-    public List<Fine> getClientFines(long clientId)
+    public List<FineDTO> getClientFines(long clientId)
     {
-        return FINE_REPO.findAllByClientId(clientId);
+        return DataConversion.finesToDTO(FINE_REPO.findAllByClientId(clientId));
     }
 }
