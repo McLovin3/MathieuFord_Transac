@@ -27,10 +27,10 @@
                 <tbody>
                     <th:block th:each="borrow, stat : ${borrows}">
                         <tr>
-                            <td th:text="${borrow.getClient().getId()}"></td>
-                            <td th:text="${borrow.getLibraryDocument().getId()}"></td>
-                            <td th:text="${borrow.getBorrowDate().toString()}"></td>
-                            <td th:text="${borrow.getReturnDate().toString()}"></td>
+                            <td th:text="${borrow.getClientId()}"></td>
+                            <td th:text="${borrow.getDocumentId()}"></td>
+                            <td th:text="${borrow.getBorrowDate()}"></td>
+                            <td th:text="${borrow.getReturnDate()}"></td>
                             <td th:text="${borrow.isReturned()}"></td>
                         </tr>
                     </th:block>

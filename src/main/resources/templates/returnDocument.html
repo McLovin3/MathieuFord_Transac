@@ -14,7 +14,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-8">
-            <form action="#" th:action="@{/returnDocument}" th:object="${borrowForm}" method="post">
+            <form action="#" th:action="@{/returnDocument}" th:object="${borrowDTO}" method="post">
                 <input type="hidden" th:field="*{id}" />
                 <table>
                     <tr>
