@@ -6,7 +6,6 @@ import library.dto.ClientDTO;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
