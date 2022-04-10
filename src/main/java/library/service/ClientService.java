@@ -51,12 +51,12 @@ public class ClientService
         return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title));
     }
 
-    public List<DocumentDTO> searchBooksByAuthor(String author)
+    public List<DocumentDTO> searchDocumentsByAuthor(String author)
     {
         return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author));
     }
 
-    public List<DocumentDTO> searchBooksByYear(int year)
+    public List<DocumentDTO> searchDocumentsByYear(int year)
     {
         return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByPublicationYear(year));
     }
