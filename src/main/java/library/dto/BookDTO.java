@@ -1,15 +1,20 @@
 package library.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-public record BookDTO(long id,
-                      String title,
-                      String author,
-                      String bookType,
-                      String editor,
-                      int nbPages,
-                      int publicationYear,
-                      int nbCopies)
+public class BookDTO
 {
+    private long id;
+    private String title;
+    private String author;
+    private String bookType;
+    private String editor;
+    private int nbPages;
+    private int publicationYear;
+    private int nbCopies;
 }
