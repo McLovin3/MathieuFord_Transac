@@ -12,6 +12,7 @@ import library.persistence.BorrowRepository;
 import library.persistence.ClientRepository;
 import library.persistence.FineRepository;
 import library.persistence.LibraryDocumentRepository;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
 //TODO return DTOS
+//TODO replace parameters with dto
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class ClientService
 
     public List<BookDTO> getAllBooks()
     {
-        return BookDTO.BooksToDTO(DOCUMENT_REPO.findAllBooks());
+        return DataConversion.booksToDTO(DOCUMENT_REPO.findAllBooks());
     }
 
     public List<LibraryDocument> getAllDocuments()
