@@ -1,27 +1,21 @@
 package library.dto;
 
+import library.model.document.Book;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import library.model.document.Book;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class BookDTO
+public record BookDTO(long id,
+                      String title,
+                      String author,
+                      String bookType,
+                      String editor,
+                      int nbPages,
+                      int publicationYear,
+                      int nbCopies)
 {
-    private long id;
-    private String title;
-    private String author;
-    private String bookType;
-    private String editor;
-    private int nbPages;
-    private int publicationYear;
-    private int nbCopies;
-
     public static List<BookDTO> BooksToDTO(List<Book> books)
     {
         List<BookDTO> bookDTOs = new ArrayList<>();
@@ -29,8 +23,7 @@ public class BookDTO
         {
             if (book.getBookType() != null)
             {
-                bookDTOs.add(new BookDTO(
-                        book.getId(),
+                bookDTOs.add(new BookDTO(book.getId(),
                         book.getTitle(),
                         book.getAuthor(),
                         book.getBookType().toString(),

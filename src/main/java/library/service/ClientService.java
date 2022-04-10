@@ -1,5 +1,6 @@
 package library.service;
 
+import library.dto.BookDTO;
 import library.exception.*;
 import library.model.document.Book;
 import library.model.document.BookType;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
+//TODO return DTOS
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +34,9 @@ public class ClientService
     private final BorrowRepository BORROW_REPO;
     private final FineRepository FINE_REPO;
 
-    public List<Book> getAllBooks()
+    public List<BookDTO> getAllBooks()
     {
-        return DOCUMENT_REPO.findAllBooks();
+        return BookDTO.BooksToDTO(DOCUMENT_REPO.findAllBooks());
     }
 
     public List<LibraryDocument> getAllDocuments()

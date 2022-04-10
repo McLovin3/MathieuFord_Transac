@@ -66,6 +66,7 @@ public class AttendantService
         DOCUMENT_REPO.save(cd);
     }
 
+    //TODO replace parameters with dto
     public void createDVD(String title, String author, int publicationYear, int nbCopies, int runtime)
             throws NotEnoughCopiesException
     {

@@ -1,21 +1,16 @@
 package library.dto;
 
+import library.model.user.Client;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import library.model.user.Client;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ClientDTO
+public record ClientDTO(long id,
+                       String name,
+                       String password)
 {
-    private long id;
-    private String name;
-    private String password;
 
     public static List<ClientDTO> clientsToDTO(List<Client> clients)
     {

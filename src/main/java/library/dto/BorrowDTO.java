@@ -1,24 +1,19 @@
 package library.dto;
 
+import library.model.library.Borrow;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import library.model.library.Borrow;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class BorrowDTO
+public record BorrowDTO(long id,
+                        long clientId,
+                        long documentId,
+                        String borrowDate,
+                        String returnDate,
+                        boolean returned)
 {
-    private long id;
-    private long clientId;
-    private long documentId;
-    private String borrowDate;
-    private String returnDate;
-    private boolean returned;
 
     public static List<BorrowDTO> BooksToDTO(List<Borrow> borrows)
     {
