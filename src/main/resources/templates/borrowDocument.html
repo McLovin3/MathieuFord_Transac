@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,20 +10,31 @@
 
 <body class="bg-info">
     <div class="row bg-primary justify-content-center">
-        <h1 class="col-6 text-center">Borrow Document</h1>
+        <h1 class="col-6 text-center">Emprunter un document</h1>
     </div>
     <div class="row justify-content-center">
         <div class="col-8">
             <form action="#" th:action="@{/borrowDocument}" th:object="${borrowDTO}" method="post">
-                <input type="hidden" th:field="*{id}" />
                 <table>
                     <tr>
-                        <td><label>Client id</label></td>
-                        <td><input min="1" required type="number" th:field="*{clientId}" /></td>
+                        <td><label>Identification du client</label></td>
+                        <td>
+                            <select th:field="*{clientId}">
+                                <th:block th:each="client, stat : ${clients}">
+                                    <option th:value="${client.id}" th:text="${client.id}"></option>
+                                </th:block>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
-                        <td><label>Document id</label></td>
-                        <td><input min="1" required type="number" th:field="*{documentId}" /></td>
+                        <td><label>Identification du livre</label></td>
+                        <td>
+                            <select th:field="*{documentId}">
+                                <th:block th:each="book, stat : ${books}">
+                                    <option th:value="${book.id}" th:text="${book.id}"></option>
+                                </th:block>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="save" /></td>

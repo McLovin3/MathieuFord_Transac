@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+//TODO https://en.wikipedia.org/wiki/Post/Redirect/Get#:~:text=Post%2FRedirect%2FGet%20(PRG,submitting%20the%20form%20another%20time.
+//TODO https://www.baeldung.com/spring-thymeleaf-error-messages
+//TODO french interface
+//TODO manage errors
+
 @Controller
 @RequiredArgsConstructor
 public class RootController
@@ -58,7 +63,7 @@ public class RootController
     @GetMapping("/createBook")
     public String getCreateBook(Model model)
     {
-        model.addAttribute("bookDTO",new BookDTO());
+        model.addAttribute("bookDTO", new BookDTO());
         return "createBook";
     }
 
@@ -68,12 +73,11 @@ public class RootController
         try
         {
             ATTENDANT_SERVICE.createBook(bookDTO);
-        } catch (NotEnoughCopiesException exception)
+        }
+        catch (NotEnoughCopiesException exception)
         {
             exception.printStackTrace();
         }
-        //TODO Bindingresult
-        // TODO how to manage exception?
         return "redirect:/";
     }
 
@@ -81,6 +85,8 @@ public class RootController
     private String getBorrowDocument(Model model)
     {
         model.addAttribute("borrowDTO", new BorrowDTO());
+        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
+        model.addAttribute("books", CLIENT_SERVICE.getAllBooks());
         return "borrowDocument";
     }
 
@@ -90,12 +96,11 @@ public class RootController
         try
         {
             CLIENT_SERVICE.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             exception.printStackTrace();
         }
-        // TODO how to manage exception?
-        // TODO Why redirect?
         return "redirect:/";
     }
 
@@ -103,6 +108,8 @@ public class RootController
     private String getReturnDocument(Model model)
     {
         model.addAttribute("borrowDTO", new BorrowDTO());
+        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
+        model.addAttribute("books", CLIENT_SERVICE.getAllBooks());
         return "returnDocument";
     }
 
@@ -112,11 +119,11 @@ public class RootController
         try
         {
             CLIENT_SERVICE.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             exception.printStackTrace();
         }
-        // TODO how to manage exception?
         return "redirect:/";
     }
 
