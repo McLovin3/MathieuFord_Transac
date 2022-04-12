@@ -109,52 +109,62 @@ class DataConversion
         for (LibraryDocument document : documents)
         {
             if (document instanceof Book)
-            {
-                Book book = (Book) document;
-                if (book.getBookType() != null)
-                {
-                    documentDTOs.add(DocumentDTO.builder()
-                            .id(book.getId())
-                            .title(book.getTitle())
-                            .bookType(book.getBookType().toString())
-                            .author(book.getAuthor())
-                            .editor(book.getEditor())
-                            .nbPages(book.getNbPages())
-                            .publicationYear(book.getPublicationYear())
-                            .nbCopies(book.getNbCopies())
-                            .documentType("BOOK")
-                            .build());
-                }
-            }
+                addBookDTO(documentDTOs, document);
 
             else if (document instanceof DVD)
-            {
-                DVD dvd = (DVD) document;
-
-                documentDTOs.add(DocumentDTO.builder()
-                        .id(dvd.getId())
-                        .title(dvd.getTitle())
-                        .publicationYear(dvd.getPublicationYear())
-                        .nbCopies(dvd.getNbCopies())
-                        .runtime(dvd.getRuntime())
-                        .documentType("DVD")
-                        .build());
-            }
+                addDvdDTO(documentDTOs, document);
 
             else if (document instanceof CD)
-            {
-                CD cd = (CD) document;
+                addCdDTO(documentDTOs, document);
 
-                documentDTOs.add(DocumentDTO.builder()
-                        .id(cd.getId())
-                        .title(cd.getTitle())
-                        .publicationYear(cd.getPublicationYear())
-                        .nbCopies(cd.getNbCopies())
-                        .runtime(cd.getRuntime())
-                        .documentType("CD")
-                        .build());
-            }
         }
         return documentDTOs;
+    }
+
+    private static void addCdDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    {
+        CD cd = (CD) document;
+
+        documentDTOs.add(DocumentDTO.builder()
+                .id(cd.getId())
+                .title(cd.getTitle())
+                .publicationYear(cd.getPublicationYear())
+                .nbCopies(cd.getNbCopies())
+                .runtime(cd.getRuntime())
+                .documentType("CD")
+                .build());
+    }
+
+    private static void addDvdDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    {
+        DVD dvd = (DVD) document;
+
+        documentDTOs.add(DocumentDTO.builder()
+                .id(dvd.getId())
+                .title(dvd.getTitle())
+                .publicationYear(dvd.getPublicationYear())
+                .nbCopies(dvd.getNbCopies())
+                .runtime(dvd.getRuntime())
+                .documentType("DVD")
+                .build());
+    }
+
+    private static void addBookDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    {
+        Book book = (Book) document;
+        if (book.getBookType() != null)
+        {
+            documentDTOs.add(DocumentDTO.builder()
+                    .id(book.getId())
+                    .title(book.getTitle())
+                    .bookType(book.getBookType().toString())
+                    .author(book.getAuthor())
+                    .editor(book.getEditor())
+                    .nbPages(book.getNbPages())
+                    .publicationYear(book.getPublicationYear())
+                    .nbCopies(book.getNbCopies())
+                    .documentType("BOOK")
+                    .build());
+        }
     }
 }
