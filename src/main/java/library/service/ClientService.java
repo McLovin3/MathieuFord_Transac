@@ -25,7 +25,6 @@ import java.util.Optional;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 //TODO Refactor
-//TODO return DTOS
 
 @Service
 @RequiredArgsConstructor
