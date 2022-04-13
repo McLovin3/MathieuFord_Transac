@@ -3,7 +3,6 @@ package library.controller;
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.ClientDTO;
-import library.exception.ClientDidNotBorrowException;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -15,10 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-//TODO https://en.wikipedia.org/wiki/Post/Redirect/Get#:~:text=Post%2FRedirect%2FGet%20(PRG,submitting%20the%20form%20another%20time.
-//TODO https://www.baeldung.com/spring-thymeleaf-error-messages
-//TODO manage errors
 
 @Controller
 @RequiredArgsConstructor
