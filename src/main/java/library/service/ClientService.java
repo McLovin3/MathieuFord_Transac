@@ -119,7 +119,7 @@ public class ClientService
 
     @Transactional
     public void borrowDocument(long clientId, long documentId) throws 
-            NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException, NonExistentClientException
+            NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException, NonExistentClientException, ClientAlreadyHasBorrowException
     {
         Client client = getClientWithFinesAndBorrows(clientId);
         LibraryDocument document = getDocument(documentId);
@@ -144,14 +144,20 @@ public class ClientService
 
     private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)
             throws ClientHasFinesException,
-            NoMoreCopiesException
+            NoMoreCopiesException, ClientAlreadyHasBorrowException
     {
-
         if (client.hasFines())
             throw new ClientHasFinesException();
 
         if (document.getNbCopies() == 0)
             throw new NoMoreCopiesException();
+
+        try
+        {
+            Borrow borrow = client.getBorrow(document.getId());
+            if (!borrow.isReturned()) throw new ClientAlreadyHasBorrowException();
+        }
+        catch (ClientDidNotBorrowException exception) {};
     }
 
     public List<BorrowDTO> getClientBorrows(long clientId)
