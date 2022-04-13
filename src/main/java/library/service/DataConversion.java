@@ -36,8 +36,8 @@ class DataConversion
                         .id(borrow.getId())
                         .clientId(borrow.getClient().getId())
                         .documentId(borrow.getDocument().getId())
-                        .borrowDate(borrow.getBorrowDate().toString())
-                        .returnDate(borrow.getReturnDate().toString())
+                        .borrowDate(borrow.getBorrowDate().toString().substring(0, borrow.getBorrowDate().toString().indexOf('T')))
+                        .returnDate(borrow.getReturnDate().toString().substring(0, borrow.getReturnDate().toString().indexOf('T')))
                         .returned(borrow.isReturned()).build());
             }
         }
@@ -50,11 +50,7 @@ class DataConversion
         for (Client client : clients)
         {
 
-            clientDTOs.add(ClientDTO.builder()
-                    .id(client.getId())
-                    .name(client.getName())
-                    .password(client.getPassword())
-                    .build());
+            clientDTOs.add(clientToDTO(client));
         }
         return clientDTOs;
     }
@@ -109,62 +105,64 @@ class DataConversion
         for (LibraryDocument document : documents)
         {
             if (document instanceof Book)
-                addBookDTO(documentDTOs, document);
+                documentDTOs.add(bookToDocumentDTO(document));
 
             else if (document instanceof DVD)
-                addDvdDTO(documentDTOs, document);
+                documentDTOs.add(dvdToDocumentDTO(document));
 
             else if (document instanceof CD)
-                addCdDTO(documentDTOs, document);
+                documentDTOs.add(cdToDocumentDTO(document));
 
         }
         return documentDTOs;
     }
 
-    private static void addCdDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    private static DocumentDTO cdToDocumentDTO(LibraryDocument document)
     {
         CD cd = (CD) document;
 
-        documentDTOs.add(DocumentDTO.builder()
+        return DocumentDTO.builder()
                 .id(cd.getId())
                 .title(cd.getTitle())
                 .publicationYear(cd.getPublicationYear())
                 .nbCopies(cd.getNbCopies())
                 .runtime(cd.getRuntime())
                 .documentType("CD")
-                .build());
+                .build();
     }
 
-    private static void addDvdDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    private static DocumentDTO dvdToDocumentDTO(LibraryDocument document)
     {
         DVD dvd = (DVD) document;
 
-        documentDTOs.add(DocumentDTO.builder()
+        return DocumentDTO.builder()
                 .id(dvd.getId())
                 .title(dvd.getTitle())
                 .publicationYear(dvd.getPublicationYear())
                 .nbCopies(dvd.getNbCopies())
                 .runtime(dvd.getRuntime())
                 .documentType("DVD")
-                .build());
+                .build();
     }
 
-    private static void addBookDTO(List<DocumentDTO> documentDTOs, LibraryDocument document)
+    private static DocumentDTO bookToDocumentDTO(LibraryDocument document)
     {
         Book book = (Book) document;
+
+        DocumentDTO documentDTO = DocumentDTO.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .editor(book.getEditor())
+                .nbPages(book.getNbPages())
+                .publicationYear(book.getPublicationYear())
+                .nbCopies(book.getNbCopies())
+                .documentType("BOOK")
+                .build();
+
         if (book.getBookType() != null)
-        {
-            documentDTOs.add(DocumentDTO.builder()
-                    .id(book.getId())
-                    .title(book.getTitle())
-                    .bookType(book.getBookType().toString())
-                    .author(book.getAuthor())
-                    .editor(book.getEditor())
-                    .nbPages(book.getNbPages())
-                    .publicationYear(book.getPublicationYear())
-                    .nbCopies(book.getNbCopies())
-                    .documentType("BOOK")
-                    .build());
-        }
+            documentDTO.setBookType(book.getBookType().toString());
+
+        return documentDTO;
     }
 }
