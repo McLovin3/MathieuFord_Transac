@@ -3,6 +3,7 @@ package library.controller;
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.ClientDTO;
+import library.exception.ClientDidNotBorrowException;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 //TODO https://en.wikipedia.org/wiki/Post/Redirect/Get#:~:text=Post%2FRedirect%2FGet%20(PRG,submitting%20the%20form%20another%20time.
 //TODO https://www.baeldung.com/spring-thymeleaf-error-messages
-//TODO french interface
 //TODO manage errors
 
 @Controller
@@ -76,6 +77,7 @@ public class RootController
         }
         catch (NotEnoughCopiesException exception)
         {
+            // HTML form validation should prevent this exception to be caught
             exception.printStackTrace();
         }
         return "redirect:/";
@@ -91,7 +93,7 @@ public class RootController
     }
 
     @PostMapping("/borrowDocument")
-    public String postBorrowDocument(@ModelAttribute BorrowDTO borrowDTO)
+    public String postBorrowDocument(@ModelAttribute BorrowDTO borrowDTO, RedirectAttributes redirectAttributes)
     {
         try
         {
@@ -99,7 +101,8 @@ public class RootController
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
+            return "redirect:/borrowDocument";
         }
         return "redirect:/";
     }
@@ -114,7 +117,7 @@ public class RootController
     }
 
     @PostMapping("/returnDocument")
-    public String postReturnDocument(@ModelAttribute BorrowDTO borrowDTO)
+    public String postReturnDocument(@ModelAttribute BorrowDTO borrowDTO, RedirectAttributes redirectAttributes)
     {
         try
         {
@@ -122,7 +125,8 @@ public class RootController
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
+            return "redirect:/returnDocument";
         }
         return "redirect:/";
     }
