@@ -65,12 +65,15 @@ public class ClientService
 
     @Transactional
     public void returnDocument(long clientId, long documentId)
-            throws ClientDidNotBorrowException, NonExistentClientException, NonExistentDocumentException
+            throws ClientDidNotBorrowException, NonExistentClientException, NonExistentDocumentException,
+            DocumentAlreadyReturnException
     {
         Client client = getClientWithFinesAndBorrows(clientId);
         LibraryDocument document = getDocument(documentId);
 
         Borrow borrow = client.getBorrow(document.getId());
+        if (borrow.isReturned())
+            throw new DocumentAlreadyReturnException();
         borrow.setReturned(true);
 
         document.setNbCopies(document.getNbCopies() + 1);
@@ -118,8 +121,8 @@ public class ClientService
     }
 
     @Transactional
-    public void borrowDocument(long clientId, long documentId) throws 
-            NonExistentDocumentException, ClientHasFinesException, NoMoreCopiesException, NonExistentClientException, ClientAlreadyHasBorrowException
+    public void borrowDocument(long clientId, long documentId) throws NonExistentDocumentException,
+            ClientHasFinesException, NoMoreCopiesException, NonExistentClientException, ClientAlreadyHasBorrowException
     {
         Client client = getClientWithFinesAndBorrows(clientId);
         LibraryDocument document = getDocument(documentId);
@@ -155,9 +158,13 @@ public class ClientService
         try
         {
             Borrow borrow = client.getBorrow(document.getId());
-            if (!borrow.isReturned()) throw new ClientAlreadyHasBorrowException();
+            if (!borrow.isReturned())
+                throw new ClientAlreadyHasBorrowException();
         }
-        catch (ClientDidNotBorrowException exception) {};
+        catch (ClientDidNotBorrowException exception)
+        {
+        }
+        ;
     }
 
     public List<BorrowDTO> getClientBorrows(long clientId)
