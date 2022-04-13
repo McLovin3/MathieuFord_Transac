@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <td><label>Nombre de pages</label></td>
-                        <td><input type="number" min="1" th:field="*{nbPages}" /></td>
+                        <td><input type="number" required min="1" th:field="*{nbPages}" /></td>
                     </tr>
                     <tr>
                         <td><label>Éditeur</label></td>
@@ -46,11 +46,11 @@
                     </tr>
                     <tr>
                         <td><label>Année de publication</label></td>
-                        <td><input type="number" min="1" th:field="*{publicationYear}" /></td>
+                        <td><input type="number" required min="1" th:field="*{publicationYear}" /></td>
                     </tr>
                     <tr>
                         <td><label>Nombre d'exemplaires</label></td>
-                        <td><input type="number" min="1" th:field="*{nbCopies}" /></td>
+                        <td><input type="number" required min="1" th:field="*{nbCopies}" /></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="save" /></td>
