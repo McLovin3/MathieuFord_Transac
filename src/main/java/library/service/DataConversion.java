@@ -100,7 +100,7 @@ class DataConversion
         return fineDTOS;
     }
 
-    public static List<DocumentDTO> DocumentsToDTO(List<LibraryDocument> documents)
+    public static List<DocumentDTO> documentsToDTO(List<LibraryDocument> documents)
     {
         List<DocumentDTO> documentDTOs = new ArrayList<>();
         for (LibraryDocument document : documents)

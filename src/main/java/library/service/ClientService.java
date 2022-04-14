@@ -40,22 +40,22 @@ public class ClientService
 
     public List<DocumentDTO> getAllDocuments()
     {
-        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAll());
+        return DataConversion.documentsToDTO(DOCUMENT_REPO.findAll());
     }
 
     public List<DocumentDTO> searchDocumentsByTitle(String title)
     {
-        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title));
+        return DataConversion.documentsToDTO(DOCUMENT_REPO.findAllByTitleIgnoreCaseContaining(title));
     }
 
     public List<DocumentDTO> searchDocumentsByAuthor(String author)
     {
-        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author));
+        return DataConversion.documentsToDTO(DOCUMENT_REPO.findAllByAuthorIgnoreCaseContaining(author));
     }
 
     public List<DocumentDTO> searchDocumentsByYear(int year)
     {
-        return DataConversion.DocumentsToDTO(DOCUMENT_REPO.findAllByPublicationYear(year));
+        return DataConversion.documentsToDTO(DOCUMENT_REPO.findAllByPublicationYear(year));
     }
 
     public List<BookDTO> searchBooksByCategory(String category)
@@ -161,10 +161,7 @@ public class ClientService
             if (!borrow.isReturned())
                 throw new ClientAlreadyHasBorrowException();
         }
-        catch (ClientDidNotBorrowException exception)
-        {
-        }
-        ;
+        catch (ClientDidNotBorrowException exception){}
     }
 
     public List<BorrowDTO> getClientBorrows(long clientId)
