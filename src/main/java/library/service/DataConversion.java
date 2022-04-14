@@ -13,6 +13,7 @@ import library.model.library.Borrow;
 import library.model.library.Fine;
 import library.model.user.Client;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,8 @@ class DataConversion
                         .id(borrow.getId())
                         .clientId(borrow.getClient().getId())
                         .documentId(borrow.getDocument().getId())
-                        .borrowDate(borrow.getBorrowDate().toString().substring(0, borrow.getBorrowDate().toString().indexOf('T')))
-                        .returnDate(borrow.getReturnDate().toString().substring(0, borrow.getReturnDate().toString().indexOf('T')))
+                        .borrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))
+                        .returnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))
                         .returned(borrow.isReturned()).build());
             }
         }
