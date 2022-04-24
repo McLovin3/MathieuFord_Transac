@@ -2,7 +2,7 @@ import { useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
 import UsersComponent from "../components/UsersComponent";
 
-function Home() {
+export default function Home() {
     const clients = [
         {
             id: 1,
@@ -44,7 +44,5 @@ function Home() {
             setIsClients(!isClients);
             setUsers(!isClients ? clients : employees);
         }}></ButtonComponent>
-    </div >);
+    </div>);
 }
-
-export default Home;
