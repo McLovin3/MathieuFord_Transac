@@ -1,25 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Button from './components/Button';
 
 function App() {
+  let isClients = true;
+
+  const [clients, setClients] = useState(
+    [
+      {
+        id: 1,
+        name: 'Homer',
+      },
+      {
+        id: 2,
+        name: 'Bart',
+      },
+      {
+        id: 3,
+        name: 'Maggie',
+      },
+    ]
+  )
+
+  const [employees, setEmployees] = useState(
+    [
+      {
+        id: 1,
+        name: 'Fry',
+      },
+      {
+        id: 2,
+        name: 'Leela',
+      },
+      {
+        id: 3,
+        name: 'Bender',
+      },
+    ]
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <body>
+      <h1>Bibliothèque Java Town</h1>
+      <Button text={'YAY BUTTON'} onClick={() => isClients = !isClients}></Button>
+    </body>
   );
 }
 
