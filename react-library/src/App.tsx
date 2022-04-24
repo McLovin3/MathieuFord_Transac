@@ -1,49 +1,52 @@
 import { useState } from 'react';
 import './App.css';
-import Button from './components/Button';
+import ButtonComponent from './components/ButtonComponent';
+import UsersComponent from './components/UsersComponent';
 
 function App() {
-  let isClients = true;
+  const clients = [
+    {
+      id: 1,
+      name: 'Homer',
+    },
+    {
+      id: 2,
+      name: 'Bart',
+    },
+    {
+      id: 3,
+      name: 'Maggie',
+    },
+  ];
 
-  const [clients, setClients] = useState(
-    [
-      {
-        id: 1,
-        name: 'Homer',
-      },
-      {
-        id: 2,
-        name: 'Bart',
-      },
-      {
-        id: 3,
-        name: 'Maggie',
-      },
-    ]
-  )
+  const employees = [
+    {
+      id: 1,
+      name: 'Fry',
+    },
+    {
+      id: 2,
+      name: 'Leela',
+    },
+    {
+      id: 3,
+      name: 'Bender',
+    },
+  ];
 
-  const [employees, setEmployees] = useState(
-    [
-      {
-        id: 1,
-        name: 'Fry',
-      },
-      {
-        id: 2,
-        name: 'Leela',
-      },
-      {
-        id: 3,
-        name: 'Bender',
-      },
-    ]
-  )
+  const [users, setUsers] = useState(clients);
+  const [isClients, setIsClients] = useState(true);
 
   return (
-    <body>
+    <div style={{ textAlign: "center" }}>
       <h1>Bibliothèque Java Town</h1>
-      <Button text={'YAY BUTTON'} onClick={() => isClients = !isClients}></Button>
-    </body>
+      <h2>{isClients ? "Clients : " : "Employés : "}</h2>
+      <UsersComponent users={users}></UsersComponent>
+      <ButtonComponent text={isClients ? "Je suis un employé" : "Je suis un client"} onClick={() => {
+        setIsClients(!isClients);
+        setUsers(!isClients ? clients : employees);
+      }}></ButtonComponent>
+    </div >
   );
 }
 
