@@ -40,7 +40,11 @@ export default function Home() {
         <h1>Bibliothèque Java Town</h1>
         <h2>{isClients ? "Clients : " : "Employés : "}</h2>
         <UsersComponent users={users}></UsersComponent>
-        <ButtonComponent text={isClients ? "Je suis un employé" : "Je suis un client"} onClick={() => {
+        <ButtonComponent text={"Je suis un employé"} disabled={!isClients} onClick={() => {
+            setIsClients(!isClients);
+            setUsers(!isClients ? clients : employees);
+        }}></ButtonComponent>
+        <ButtonComponent text={"Je suis un Client"} disabled={isClients} onClick={() => {
             setIsClients(!isClients);
             setUsers(!isClients ? clients : employees);
         }}></ButtonComponent>
