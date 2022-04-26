@@ -7,7 +7,7 @@ export default function UsersComponent({ users }) {
     </>)
 }
 
-UsersComponent.PropTypes =
+UsersComponent.propTypes =
 {
-    users: PropTypes.arrayOf(User),
+    users: PropTypes.array,
 }
