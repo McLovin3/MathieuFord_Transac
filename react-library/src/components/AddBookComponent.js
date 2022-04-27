@@ -26,41 +26,41 @@ export default function AddBookComponent({ postBook }) {
     }
 
     return (
-        <form className='add-form' onSubmit={onSubmit}>
-            <div className='form-control'>
+        <form className="col-10 mx-auto" onSubmit={onSubmit}>
+            <div className="form-group">
                 <label>Titre</label>
-                <input required minLength="3" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
+                <input className="form-control" required minLength="3" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Autheur</label>
-                <input required minLength="3" type="text" value={author} onChange={(field) => setAuthor(field.target.value)}></input>
+                <input className="form-control" required minLength="3" type="text" value={author} onChange={(field) => setAuthor(field.target.value)}></input>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Type de livre</label>
-                <select value={bookType} onChange={(field) => setBookType(field.target.value)}>
+                <select className="form-control" value={bookType} onChange={(field) => setBookType(field.target.value)}>
                     <option value="Novel">Roman</option>
                     <option value="School">École</option>
                     <option value="Study">Étude</option>
                     <option value="Magazine">Magazine</option>
                 </select>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Nombre de pages</label>
-                <input required min="1" type="number" value={nbPages} onChange={(field) => setNbPages(field.target.value)}></input>
+                <input className="form-control" required min="1" type="number" value={nbPages} onChange={(field) => setNbPages(field.target.value)}></input>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Éditeur</label>
-                <input required minLength="3" type="text" value={editor} onChange={(field) => setEditor(field.target.value)}></input>
+                <input className="form-control" required minLength="3" type="text" value={editor} onChange={(field) => setEditor(field.target.value)}></input>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Année de publication</label>
-                <input required min="1" type="number" value={publicationYear} onChange={(field) => setPublicationYear(field.target.value)}></input>
+                <input className="form-control" required min="1" type="number" value={publicationYear} onChange={(field) => setPublicationYear(field.target.value)}></input>
             </div>
-            <div className='form-control'>
+            <div className="form-group">
                 <label>Nombre d'exemplaires</label>
-                <input required min="1" type="number" value={nbCopies} onChange={(field) => setNbCopies(field.target.value)}></input>
+                <input className="form-control" required min="1" type="number" value={nbCopies} onChange={(field) => setNbCopies(field.target.value)}></input>
             </div>
-            <input type='submit' value='Enregistrer' className='btn btn-block' />
+            <input type="submit" value="Enregistrer" className="btn" />
         </form>
     );
 }
