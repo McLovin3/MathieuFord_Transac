@@ -20,8 +20,28 @@ export default function BooksComponent() {
     }
 
     return (
-        <>
-            {books.map((book) => <BookComponent key={book.id} book={book} />)}
-        </>
+        <div>
+            <h2>Livres</h2>
+            <div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Autheur</th>
+                            <th>Type de livre</th>
+                            <th>Nombre de pages</th>
+                            <th>Éditeur</th>
+                            <th>Année de publication</th>
+                            <th>Exemplaires disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <>
+                            {books.map((book) => <BookComponent key={book.id} book={book} />)}
+                        </>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
