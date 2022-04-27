@@ -4,16 +4,16 @@ import { useState } from 'react';
 export default function AddBookComponent({ postBook }) {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
-    const [bookType, setBookType] = useState("");
+    const [bookType, setBookType] = useState("Novel");
     const [nbPages, setNbPages] = useState("");
     const [editor, setEditor] = useState("");
     const [publicationYear, setPublicationYear] = useState("");
     const [nbCopies, setNbCopies] = useState("");
 
 
-    const onSubmit = (form) => {
+    const onSubmit = async (form) => {
         form.preventDefault();
-        postBook({
+        await postBook({
             title,
             author,
             bookType,
@@ -22,7 +22,7 @@ export default function AddBookComponent({ postBook }) {
             publicationYear,
             nbCopies
         });
-        //TODO redirect to book page
+        window.location.href = '/books'
     }
 
     return (
