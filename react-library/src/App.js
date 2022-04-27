@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import AddBook from './components/AddBook';
 import UsersComponent from './components/UsersComponents';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
   return (
     <div className="container">
       <h1>Bibliotèque Java town</h1>
-      <UsersComponent users={users}></UsersComponent>
+      <AddBook></AddBook>
     </div >
   );
 }
