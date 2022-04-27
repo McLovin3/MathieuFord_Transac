@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-export default function AddBook({ postBook }) {
+export default function AddBookComponent({ postBook }) {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [bookType, setBookType] = useState("");
@@ -65,7 +65,7 @@ export default function AddBook({ postBook }) {
     );
 }
 
-AddBook.propTypes =
+AddBookComponent.propTypes =
 {
     postBook: PropTypes.func,
 }
