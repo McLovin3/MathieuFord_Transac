@@ -22,7 +22,7 @@ export default function BooksComponent() {
     return (
         <div>
             <h2>Livres</h2>
-            <div>
+            <div className="col-10 mx-auto">
                 <table className="table">
                     <thead>
                         <tr>
