@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function AddBook({ postBook }) {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
-    const [type, setType] = useState("");
+    const [bookType, setBookType] = useState("");
     const [nbPages, setNbPages] = useState("");
     const [editor, setEditor] = useState("");
     const [publicationYear, setPublicationYear] = useState("");
@@ -13,23 +13,31 @@ export default function AddBook({ postBook }) {
 
     const onSubmit = (form) => {
         form.preventDefault();
-        //TODO object?
-        postBook(title, author, type, nbPages, editor, publicationYear, nbCopies);
+        postBook({
+            title,
+            author,
+            bookType,
+            nbPages,
+            editor,
+            publicationYear,
+            nbCopies
+        });
+        //TODO redirect to book page
     }
 
     return (
         <form className='add-form' onSubmit={onSubmit}>
             <div className='form-control'>
-                <label for="title">Titre</label>
-                <input id="title" required minLength="5" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
+                <label>Titre</label>
+                <input required minLength="5" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
             </div>
             <div className='form-control'>
-                <label for="autheur">Autheur</label>
-                <input id="autheur" required minLength="3" type="text" value={author} onChange={(field) => setAuthor(field.target.value)}></input>
+                <label>Autheur</label>
+                <input required minLength="3" type="text" value={author} onChange={(field) => setAuthor(field.target.value)}></input>
             </div>
             <div className='form-control'>
-                <label for="type">Type de livre</label>
-                <select id="type" value={type} onChange={(field) => setType(field.target.value)}>
+                <label>Type de livre</label>
+                <select value={bookType} onChange={(field) => setBookType(field.target.value)}>
                     <option value="Novel">Roman</option>
                     <option value="School">École</option>
                     <option value="Study">Étude</option>
@@ -37,20 +45,20 @@ export default function AddBook({ postBook }) {
                 </select>
             </div>
             <div className='form-control'>
-                <label for="nbPages">Nombre de pages</label>
-                <input id="nbPages" required min="1" type="number" value={nbPages} onChange={(field) => setNbPages(field.target.value)}></input>
+                <label>Nombre de pages</label>
+                <input required min="1" type="number" value={nbPages} onChange={(field) => setNbPages(field.target.value)}></input>
             </div>
             <div className='form-control'>
-                <label for="editor">Éditeur</label>
-                <input id="editor" required minLength="3" type="text" value={editor} onChange={(field) => setEditor(field.target.value)}></input>
+                <label>Éditeur</label>
+                <input required minLength="3" type="text" value={editor} onChange={(field) => setEditor(field.target.value)}></input>
             </div>
             <div className='form-control'>
-                <label for="publicationYear">Année de publication</label>
-                <input id="publicationYear" required min="1" type="number" value={publicationYear} onChange={(field) => setPublicationYear(field.target.value)}></input>
+                <label>Année de publication</label>
+                <input required min="1" type="number" value={publicationYear} onChange={(field) => setPublicationYear(field.target.value)}></input>
             </div>
             <div className='form-control'>
-                <label for="nbCopies">Nombre d'exemplaires</label>
-                <input id="nbCopies" required min="1" type="number" value={nbCopies} onChange={(field) => setNbCopies(field.target.value)}></input>
+                <label>Nombre d'exemplaires</label>
+                <input required min="1" type="number" value={nbCopies} onChange={(field) => setNbCopies(field.target.value)}></input>
             </div>
             <input type='submit' value='Enregistrer' className='btn btn-block' />
         </form>
@@ -59,5 +67,5 @@ export default function AddBook({ postBook }) {
 
 AddBook.propTypes =
 {
-    onSubmit: PropTypes.func,
+    postBook: PropTypes.func,
 }

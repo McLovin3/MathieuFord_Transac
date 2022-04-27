@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import AddBook from './components/AddBook';
-import UsersComponent from './components/UsersComponents';
 
 function App() {
 
@@ -19,12 +18,23 @@ function App() {
     return employees;
   }
 
+  const postBook = (book) => {
+    fetch("http://localhost:5000/books",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(book)
+      });
+  }
+
   const [users, setUsers] = useState([]);
 
   return (
     <div className="container">
       <h1>Bibliotèque Java town</h1>
-      <AddBook></AddBook>
+      <AddBook postBook={postBook}></AddBook>
     </div >
   );
 }
