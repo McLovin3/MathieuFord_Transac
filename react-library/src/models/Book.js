@@ -1,4 +1,5 @@
 export default class Book {
+    id
     title;
     author;
     bookType;
