@@ -29,7 +29,7 @@ export default function AddBookComponent({ postBook }) {
         <form className='add-form' onSubmit={onSubmit}>
             <div className='form-control'>
                 <label>Titre</label>
-                <input required minLength="5" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
+                <input required minLength="3" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
             </div>
             <div className='form-control'>
                 <label>Autheur</label>
