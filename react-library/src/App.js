@@ -5,14 +5,25 @@ import BooksComponent from './components/BooksComponent';
 
 function App() {
 
-  const postBook = (book) => {
-    fetch("http://localhost:5000/books",
+  const postBook = async (book) => {
+    await fetch("http://localhost:5000/books",
       {
         method: "POST",
         headers: {
           "content-type": "application/json"
         },
         body: JSON.stringify(book)
+      });
+  }
+
+  const postClient = async (client) => {
+    await fetch("http://localhost:5000/clients",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(client)
       });
   }
 
