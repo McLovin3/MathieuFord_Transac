@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddBook from './components/AddBook';
 
@@ -32,10 +33,14 @@ function App() {
   const [users, setUsers] = useState([]);
 
   return (
-    <div className="container">
-      <h1>Bibliotèque Java town</h1>
-      <AddBook postBook={postBook}></AddBook>
-    </div >
+    <Router>
+      <div className="container">
+        <h1>Bibliotèque Java town</h1>
+        <Routes>
+          <Route path="addBook" element={<AddBook postBook={postBook} />} />
+        </Routes>
+      </div >
+    </Router>
   );
 }
 
