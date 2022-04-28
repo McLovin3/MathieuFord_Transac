@@ -41,7 +41,7 @@ function App() {
     <Router>
       <div className="col-6 text-center mx-auto mt-5 border border-2 border-dark bg-info rounded p-3">
         <h1>Bibliotèque Java town</h1>
-        <h2>{selectedUser.name}</h2>
+        <h2>{selectedUser == null ? "" : selectedUser.name}</h2>
         <Routes>
           <Route path="/" element={<HomeComponent onClick={setUser} />} />
           <Route path="addBook" element={<AddBookComponent postBook={postBook} />} />
