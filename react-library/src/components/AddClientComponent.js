@@ -24,7 +24,7 @@ export default function AddClientComponent({ postClient }) {
                 <label>Mot de passe</label>
                 <input className="form-control" required minLength="3" type="password" value={password} onChange={(field) => setPassword(field.target.value)}></input>
             </div>
-            <input type="submit" value="Enregistrer" className="btn" />
+            <input type="submit" value="Enregistrer" className="btn btn-primary" />
         </form>
     );
 }
