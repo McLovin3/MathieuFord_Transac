@@ -19,8 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class RootController
 {
-    private final AttendantService ATTENDANT_SERVICE;
-    private final ClientService CLIENT_SERVICE;
+    private final AttendantService attendantService;
+    private final ClientService clientService;
 
     @GetMapping("/")
     public String getRootRequest(Model model)
@@ -31,14 +31,14 @@ public class RootController
     @GetMapping("/books")
     public String getBookRequest(Model model)
     {
-        model.addAttribute("books", CLIENT_SERVICE.getAllBooks());
+        model.addAttribute("books", clientService.getAllBooks());
         return "books";
     }
 
     @GetMapping("/clients")
     public String getClientsRequest(Model model)
     {
-        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
+        model.addAttribute("clients", attendantService.getAllClients());
         return "clients";
     }
 
@@ -52,7 +52,7 @@ public class RootController
     @PostMapping("/createClient")
     public String postClient(@ModelAttribute ClientDTO clientDTO)
     {
-        ATTENDANT_SERVICE.createClient(clientDTO);
+        attendantService.createClient(clientDTO);
         return "redirect:/";
     }
 
@@ -68,7 +68,7 @@ public class RootController
     {
         try
         {
-            ATTENDANT_SERVICE.createBook(bookDTO);
+            attendantService.createBook(bookDTO);
         }
         catch (NotEnoughCopiesException exception)
         {
@@ -82,8 +82,8 @@ public class RootController
     private String getBorrowDocument(Model model)
     {
         model.addAttribute("borrowDTO", new BorrowDTO());
-        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
-        model.addAttribute("books", CLIENT_SERVICE.getAllBooks());
+        model.addAttribute("clients", attendantService.getAllClients());
+        model.addAttribute("books", clientService.getAllBooks());
         return "borrowDocument";
     }
 
@@ -92,7 +92,7 @@ public class RootController
     {
         try
         {
-            CLIENT_SERVICE.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            clientService.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
         }
         catch (Exception exception)
         {
@@ -106,8 +106,8 @@ public class RootController
     private String getReturnDocument(Model model)
     {
         model.addAttribute("borrowDTO", new BorrowDTO());
-        model.addAttribute("clients", ATTENDANT_SERVICE.getAllClients());
-        model.addAttribute("books", CLIENT_SERVICE.getAllBooks());
+        model.addAttribute("clients", attendantService.getAllClients());
+        model.addAttribute("books", clientService.getAllBooks());
         return "returnDocument";
     }
 
@@ -116,7 +116,7 @@ public class RootController
     {
         try
         {
-            CLIENT_SERVICE.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            clientService.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
         }
         catch (Exception exception)
         {
@@ -129,7 +129,7 @@ public class RootController
     @GetMapping("/borrows/{id}")
     public String getBorrows(Model model, @PathVariable() Long id)
     {
-        model.addAttribute("borrows", CLIENT_SERVICE.getClientBorrows(id));
+        model.addAttribute("borrows", clientService.getClientBorrows(id));
         return "borrows";
     }
 }

@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @RequiredArgsConstructor
 public class MathieuFordTransacApplication implements CommandLineRunner
 {
-    private final AttendantService ATTENDANT_SERVICE;
-    private final ClientService CLIENT_SERVICE;
+    private final AttendantService attendantService;
+    private final ClientService clientService;
 
     public static void main(String[] args)
     {
@@ -25,11 +25,11 @@ public class MathieuFordTransacApplication implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception
     {
-        ATTENDANT_SERVICE.createClient(new ClientDTO(0, "Mathieu", "password"));
-        ATTENDANT_SERVICE.createBook(new BookDTO(0, "20 thousand leagues under the sea", "Jules Vernes", "NOVEL", "Pierre-Jules Hetzel", 300, 1870, 2));
-        ATTENDANT_SERVICE.createBook(new BookDTO(0, "Clean Code", "Robert Martin", "study", "Robert C. Martin", 200, 2008,2));
-        System.out.println(CLIENT_SERVICE.searchDocumentsByYear(1870).get(0).toString());
-        System.out.println(CLIENT_SERVICE.getAllDocuments().get(0).toString());
-        System.out.println(CLIENT_SERVICE.getAllBooks().get(0).toString());
+        attendantService.createClient(new ClientDTO(0, "Mathieu", "password"));
+        attendantService.createBook(new BookDTO(0, "20 thousand leagues under the sea", "Jules Vernes", "NOVEL", "Pierre-Jules Hetzel", 300, 1870, 2));
+        attendantService.createBook(new BookDTO(0, "Clean Code", "Robert Martin", "study", "Robert C. Martin", 200, 2008,2));
+        System.out.println(clientService.searchDocumentsByYear(1870).get(0).toString());
+        System.out.println(clientService.getAllDocuments().get(0).toString());
+        System.out.println(clientService.getAllBooks().get(0).toString());
     }
 }

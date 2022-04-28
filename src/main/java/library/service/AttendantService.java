@@ -21,14 +21,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AttendantService
 {
-    private final LibraryDocumentRepository DOCUMENT_REPO;
-    private final ClientRepository CLIENT_REPO;
+    private final LibraryDocumentRepository documentRepo;
+    private final ClientRepository clientRepo;
 
     public void createClient(ClientDTO clientDTO)
     {
         Client client = Client.builder().name(clientDTO.getName()).password(clientDTO.getPassword()).build();
 
-        CLIENT_REPO.save(client);
+        clientRepo.save(client);
     }
 
     public void createBook(BookDTO bookDTO) throws NotEnoughCopiesException
@@ -46,7 +46,7 @@ public class AttendantService
                 .bookType(library.model.document.BookType.getBookType(bookDTO.getBookType()))
                 .build();
 
-        DOCUMENT_REPO.save(book);
+        documentRepo.save(book);
     }
 
     public void createCD(DiscDTO discDTO)
@@ -63,7 +63,7 @@ public class AttendantService
                 .runtime(discDTO.getRuntime())
                 .build();
 
-        DOCUMENT_REPO.save(cd);
+        documentRepo.save(cd);
     }
 
     public void createDVD(DiscDTO discDTO)
@@ -80,12 +80,12 @@ public class AttendantService
                 .runtime(discDTO.getRuntime())
                 .build();
 
-        DOCUMENT_REPO.save(dvd);
+        documentRepo.save(dvd);
     }
 
     public ClientDTO getClient(long clientId) throws NonExistentClientException
     {
-        Optional<Client> client = CLIENT_REPO.findById(clientId);
+        Optional<Client> client = clientRepo.findById(clientId);
         if (client.isEmpty())
             throw new NonExistentClientException();
         return DataConversion.clientToDTO(client.get());
@@ -93,6 +93,6 @@ public class AttendantService
 
     public List<ClientDTO> getAllClients()
     {
-        return DataConversion.clientsToDTO(CLIENT_REPO.findAll());
+        return DataConversion.clientsToDTO(clientRepo.findAll());
     }
 }
