@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import UserComponent from "./UserComponent"
 
-export default function UsersComponent({ users }) {
+export default function UsersComponent({ users, onClick }) {
     return (<>
         {users.map((user) => (<UserComponent key={user.id} user={user}></UserComponent>))}
     </>)
@@ -10,4 +10,5 @@ export default function UsersComponent({ users }) {
 UsersComponent.propTypes =
 {
     users: PropTypes.array,
+    onClick : PropTypes.func
 }
