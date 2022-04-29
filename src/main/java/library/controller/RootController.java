@@ -2,7 +2,7 @@ package library.controller;
 
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
-import library.dto.ClientDTO;
+import library.dto.UserDTO;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -44,12 +44,12 @@ public class RootController
     @GetMapping("/createClient")
     public String getCreateClient(Model model)
     {
-        model.addAttribute("clientDTO", new ClientDTO());
+        model.addAttribute("clientDTO", new UserDTO());
         return "createClient";
     }
 
     @PostMapping("/createClient")
-    public String postClient(@ModelAttribute ClientDTO clientDTO)
+    public String postClient(@ModelAttribute UserDTO clientDTO)
     {
         attendantService.createClient(clientDTO);
         return "redirect:/";
