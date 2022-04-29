@@ -1,19 +1,23 @@
 package library.service;
 
 import library.dto.BookDTO;
-import library.dto.ClientDTO;
+import library.dto.UserDTO;
 import library.dto.DiscDTO;
 import library.exception.NonExistentClientException;
 import library.exception.NotEnoughCopiesException;
 import library.model.document.Book;
 import library.model.document.CD;
 import library.model.document.DVD;
+import library.model.user.Attendant;
 import library.model.user.Client;
+import library.model.user.LibraryUser;
+import library.persistence.AttendantRepository;
 import library.persistence.ClientRepository;
 import library.persistence.LibraryDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +27,9 @@ public class AttendantService
 {
     private final LibraryDocumentRepository documentRepo;
     private final ClientRepository clientRepo;
+    private final AttendantRepository attendantRepo;
 
-    public void createClient(ClientDTO clientDTO)
+    public void createClient(UserDTO clientDTO)
     {
         Client client = Client.builder().name(clientDTO.getName()).password(clientDTO.getPassword()).build();
 
@@ -83,16 +88,37 @@ public class AttendantService
         documentRepo.save(dvd);
     }
 
-    public ClientDTO getClient(long clientId) throws NonExistentClientException
+    public UserDTO getClient(long clientId) throws NonExistentClientException
     {
         Optional<Client> client = clientRepo.findById(clientId);
         if (client.isEmpty())
             throw new NonExistentClientException();
-        return DataConversion.clientToDTO(client.get());
+        return DataConversion.userToDTO(client.get());
     }
 
-    public List<ClientDTO> getAllClients()
+    public List<UserDTO> getAllClients()
     {
-        return DataConversion.clientsToDTO(clientRepo.findAll());
+        List<Client> clients = clientRepo.findAll();
+        List<LibraryUser> users = new LinkedList<>();
+
+        for (Client client : clients)
+        {
+            users.add((LibraryUser) client);
+        }
+
+        return DataConversion.usersToDTO(users);
+    }
+
+    public List<UserDTO> getAllAttendants()
+    {
+        List<Attendant> attendants = attendantRepo.findAll();
+        List<LibraryUser> users = new LinkedList<>();
+
+        for (Attendant attendant : attendants)
+        {
+            users.add((LibraryUser) attendant);
+        }
+
+        return DataConversion.usersToDTO(users);
     }
 }
