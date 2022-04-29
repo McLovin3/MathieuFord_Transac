@@ -7,7 +7,6 @@ import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+// @Controller
 @RequiredArgsConstructor
 public class RootController
 {
