@@ -2,7 +2,7 @@ package library.service;
 
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
-import library.dto.ClientDTO;
+import library.dto.UserDTO;
 import library.dto.DocumentDTO;
 import library.dto.FineDTO;
 import library.model.document.Book;
@@ -11,7 +11,7 @@ import library.model.document.DVD;
 import library.model.document.LibraryDocument;
 import library.model.library.Borrow;
 import library.model.library.Fine;
-import library.model.user.Client;
+import library.model.user.LibraryUser;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -45,20 +45,19 @@ class DataConversion
         return borrowDTOs;
     }
 
-    public static List<ClientDTO> clientsToDTO(List<Client> clients)
+    public static List<UserDTO> usersToDTO(List<LibraryUser> users)
     {
-        List<ClientDTO> clientDTOs = new ArrayList<>();
-        for (Client client : clients)
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (LibraryUser user : users)
         {
-
-            clientDTOs.add(clientToDTO(client));
+            userDTOs.add(userToDTO(user));
         }
-        return clientDTOs;
+        return userDTOs;
     }
 
-    public static ClientDTO clientToDTO(Client client)
+    public static UserDTO userToDTO(LibraryUser user)
     {
-        return new ClientDTO(client.getId(), client.getName(), client.getPassword());
+        return new UserDTO(user.getId(), user.getName(), user.getPassword());
     }
 
     public static List<BookDTO> booksToDTO(List<Book> books)
