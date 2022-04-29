@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import library.dto.BookDTO;
+import library.dto.ClientDTO;
+import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
@@ -17,10 +19,17 @@ import lombok.RequiredArgsConstructor;
 public class RestLibraryController {
 
     private final ClientService clientService;
+    private final AttendantService attendantService;
 
     @GetMapping("/books")
     @CrossOrigin(originPatterns = "http://localhost:3000")
     public List<BookDTO> getBooks() {
         return clientService.getAllBooks();
+    }
+
+    @GetMapping("/clients")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public List<ClientDTO> getClients() {
+        return attendantService.getAllClients();
     }
 }
