@@ -1,6 +1,7 @@
+import React from 'react';
 import Book from '../models/Book';
 
-export default function BookComponent({ book }) {
+const BookComponent = ({ book }) => {
     return (
         <tr>
             <td>{book.title}</td>
@@ -13,6 +14,8 @@ export default function BookComponent({ book }) {
         </tr>
     );
 }
+
+export default BookComponent;
 
 BookComponent.propTypes =
 {

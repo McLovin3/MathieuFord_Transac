@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function AddClientComponent({ postClient }) {
+const AddClientComponent = ({ postClient }) => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
@@ -28,6 +29,8 @@ export default function AddClientComponent({ postClient }) {
         </form>
     );
 }
+
+export default AddClientComponent;
 
 AddClientComponent.propTypes =
 {

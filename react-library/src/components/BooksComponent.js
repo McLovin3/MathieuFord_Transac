@@ -1,7 +1,8 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import BookComponent from './BookComponent';
 
-export default function BooksComponent() {
+const BooksComponent = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -45,3 +46,5 @@ export default function BooksComponent() {
         </div>
     );
 }
+
+export default BooksComponent;

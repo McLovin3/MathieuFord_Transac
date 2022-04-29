@@ -5,6 +5,7 @@ import AddBookComponent from './components/AddBookComponent';
 import AddClientComponent from './components/AddClientComponent';
 import BooksComponent from './components/BooksComponent';
 import HomeComponent from './components/HomeComponent';
+import EmployeeComponent from './components/EmployeeComponent';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
         <h2>{selectedUser == null ? "" : selectedUser.name}</h2>
         <Routes>
           <Route path="/" element={<HomeComponent onClick={setUser} />} />
+          <Route path="employee" element={<EmployeeComponent />} />
           <Route path="addBook" element={<AddBookComponent postBook={postBook} />} />
           <Route path="addClient" element={<AddClientComponent postClient={postClient} />} />
           <Route path="books" element={<BooksComponent />} />
@@ -53,5 +55,6 @@ function App() {
   );
 }
 
+//TODO components in arrow function import react in all components and change anchors to links
 
 export default App;

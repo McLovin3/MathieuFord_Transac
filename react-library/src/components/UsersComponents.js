@@ -1,9 +1,7 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function UsersComponent({ users, isClient, onClick }) {
-
-
-
+const UsersComponent = ({ users, isClient, onClick }) => {
     return (<>
         {users.map((user) => (<h3 key={user.id} onClick={() => {
             onClick(user);
@@ -14,6 +12,8 @@ export default function UsersComponent({ users, isClient, onClick }) {
         }} user={user}>{user.name}</h3>))}
     </>)
 }
+
+export default UsersComponent;
 
 UsersComponent.propTypes =
 {

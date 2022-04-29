@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import UsersComponent from './UsersComponents';
 
-export default function HomeComponent({onClick}) {
+const HomeComponent = ({onClick}) => {
     const [users, setUsers] = useState([]);
     const [isClients, setIsClients] = useState(true);
 
@@ -36,6 +37,7 @@ export default function HomeComponent({onClick}) {
     );
 }
 
+export default HomeComponent;
 
 HomeComponent.propTypes =
 {

@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function AddBookComponent({ postBook }) {
+const AddBookComponent = ({ postBook }) => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [bookType, setBookType] = useState("Novel");
@@ -64,6 +65,8 @@ export default function AddBookComponent({ postBook }) {
         </form>
     );
 }
+
+export default AddBookComponent;
 
 AddBookComponent.propTypes =
 {
