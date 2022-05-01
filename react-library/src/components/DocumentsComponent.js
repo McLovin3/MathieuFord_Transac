@@ -33,6 +33,8 @@ const DocumentsComponent = () => {
                             <th>Nombre de pages</th>
                             <th>Éditeur</th>
                             <th>Année de publication</th>
+                            <th>Durée</th>
+                            <th>Type de document</th>
                             <th>Exemplaires disponibles</th>
                         </tr>
                     </thead>

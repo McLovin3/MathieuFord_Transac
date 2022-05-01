@@ -24,11 +24,17 @@ const AttendantComponent = () => {
     return (
         <div className="row p-5">
             <h2>{attendant.name}</h2>
-            <div className="col-6">
+            <div className="col-3">
                 <Link className="btn btn-primary" to="addClient">Ajouter un client</Link>
             </div>
-            <div className="col-6">
+            <div className="col-3">
                 <Link className="btn btn-primary" to="addBook">Ajouter un Livre</Link>
+            </div>
+            <div className="col-3">
+                <Link className="btn btn-primary" to="addCD">Ajouter un CD</Link>
+            </div>
+            <div className="col-3">
+                <Link className="btn btn-primary" to="addDVD">Ajouter un DVD</Link>
             </div>
         </div>
     );

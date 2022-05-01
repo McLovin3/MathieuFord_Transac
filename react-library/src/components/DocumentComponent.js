@@ -9,6 +9,8 @@ const DocumentComponent = ({ document }) => {
             <td>{document.nbPages}</td>
             <td>{document.editor}</td>
             <td>{document.publicationYear}</td>
+            <td>{document.runtime}</td>
+            <td>{document.documentType}</td>
             <td>{document.nbCopies}</td>
         </tr>
     );
