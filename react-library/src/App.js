@@ -6,6 +6,7 @@ import BooksComponent from './components/BooksComponent';
 import HomeComponent from './components/HomeComponent';
 import AttendantComponent from './components/AttendantComponent';
 import ClientComponent from './components/ClientComponent';
+import BorrowsComponent from './components/BorrowsComponent';
 
 function App() {
 
@@ -38,16 +39,15 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeComponent />} />
           <Route path="attendant/:id" element={<AttendantComponent />} />
-          <Route path="client/:id" element={<ClientComponent />} />
           <Route path="attendant/:id/addBook" element={<AddBookComponent postBook={postBook} />} />
           <Route path="attendant/:id/addClient" element={<AddClientComponent postClient={postClient} />} />
+          <Route path="client/:id" element={<ClientComponent />} />
           <Route path="client/:id/books" element={<BooksComponent />} />
+          <Route path="client/:id/borrows" element={<BorrowsComponent />} />
         </Routes>
       </div >
     </Router>
   );
 }
-
-//TODO components in arrow function import react in all components and change anchors to links
 
 export default App;
