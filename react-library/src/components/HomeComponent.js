@@ -29,7 +29,7 @@ const HomeComponent = () => {
 
     return (
         <div>
-            <UsersComponent users={users}></UsersComponent>
+            <UsersComponent isClient={isClients} users={users}></UsersComponent>
             <button className="btn btn-primary" onClick={() => { setIsClients(!isClients); }}>
                 {isClients ? "Je suis un employé" : "Je suis un client"}</button>
         </div>
