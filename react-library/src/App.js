@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddBookComponent from './components/AddBookComponent';
 import AddClientComponent from './components/AddClientComponent';
-import BooksComponent from './components/BooksComponent';
+import DocumentsComponent from './components/DocumentsComponent';
 import HomeComponent from './components/HomeComponent';
 import AttendantComponent from './components/AttendantComponent';
 import ClientComponent from './components/ClientComponent';
@@ -42,7 +42,7 @@ function App() {
           <Route path="attendant/:id/addBook" element={<AddBookComponent postBook={postBook} />} />
           <Route path="attendant/:id/addClient" element={<AddClientComponent postClient={postClient} />} />
           <Route path="client/:id" element={<ClientComponent />} />
-          <Route path="client/:id/books" element={<BooksComponent />} />
+          <Route path="client/:id/books" element={<DocumentsComponent />} />
           <Route path="client/:id/borrows" element={<BorrowsComponent />} />
         </Routes>
       </div >

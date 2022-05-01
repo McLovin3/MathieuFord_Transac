@@ -1,28 +1,28 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import BookComponent from './BookComponent';
+import DocumentComponent from './DocumentComponent';
 
-const BooksComponent = () => {
-    const [books, setBooks] = useState([]);
+const DocumentsComponent = () => {
+    const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        const getBooks = async () => {
-            const books = await fetchBooks();
-            setBooks(books);
+        const getDocuments = async () => {
+            const documents = await fetchDocuments();
+            setDocuments(documents);
         }
-        getBooks();
+        getDocuments();
     }, []);
 
 
-    const fetchBooks = async () => {
-        const response = await fetch("http://localhost:5000/books");
-        const books = await response.json();
-        return books;
+    const fetchDocuments = async () => {
+        const response = await fetch("http://localhost:5000/documents");
+        const documents = await response.json();
+        return documents;
     }
 
     return (
         <div>
-            <h2>Livres</h2>
+            <h2>Documents</h2>
             <div className="col-10 mx-auto">
                 <table className="table">
                     <thead>
@@ -38,7 +38,7 @@ const BooksComponent = () => {
                     </thead>
                     <tbody>
                         <>
-                            {books.map((book) => <BookComponent key={book.id} book={book} />)}
+                            {documents.map((document) => <DocumentComponent key={document.id} book={document} />)}
                         </>
                     </tbody>
                 </table>
@@ -47,4 +47,4 @@ const BooksComponent = () => {
     );
 }
 
-export default BooksComponent;
+export default DocumentsComponent;

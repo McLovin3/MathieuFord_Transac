@@ -27,7 +27,7 @@
       "name": "Client 3"
     }
   ],
-  "books": [
+  "documents": [
     {
       "title": "Test",
       "author": "Mathieu",
@@ -36,7 +36,28 @@
       "editor": "Funny",
       "publicationYear": "2012",
       "nbCopies": "3",
+      "documentType": "Book",
       "id": 1
+    }
+  ],
+  "borrows": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "documentId": 1,
+      "documentName": "Test",
+      "borrowDate": "5-1-2022",
+      "returnDate": "5-22-2022",
+      "returned": true
+    },
+    {
+      "id": 2,
+      "clientId": 2,
+      "documentId": 1,
+      "documentName": "Test",
+      "borrowDate": "5-1-2022",
+      "returnDate": "5-22-2022",
+      "returned": false
     }
   ]
 }
