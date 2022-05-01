@@ -25,6 +25,8 @@ const ClientComponent = () => {
             <h2>{client.name}</h2>
             <div className="col-6">
                 <Link className="btn btn-primary" to="books">Livres</Link>
+            </div>
+            <div className="col-6">
                 <Link className="btn btn-primary" to="borrows" state={{ "userId": client.id }}>Emprunts</Link>
             </div>
         </div>
