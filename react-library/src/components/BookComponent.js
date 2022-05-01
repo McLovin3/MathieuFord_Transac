@@ -1,5 +1,4 @@
 import React from 'react';
-import Book from '../models/Book';
 
 const BookComponent = ({ book }) => {
     return (
@@ -16,9 +15,3 @@ const BookComponent = ({ book }) => {
 }
 
 export default BookComponent;
-
-BookComponent.propTypes =
-{
-    book: Book,
-}
-
