@@ -23,7 +23,8 @@ const AddBookComponent = ({ postBook }) => {
             publicationYear,
             nbCopies
         });
-        window.location.href = '/books'
+        //TODO prob not good way
+        window.location.href = "attendant";
     }
 
     return (

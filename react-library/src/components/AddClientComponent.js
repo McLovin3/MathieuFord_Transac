@@ -12,7 +12,8 @@ const AddClientComponent = ({ postClient }) => {
             name,
             password,
         });
-        //TODO redirect to Client page
+        //TODO prob not good way
+        window.location.href = "attendant";
     }
 
     return (

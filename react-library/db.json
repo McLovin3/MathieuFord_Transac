@@ -5,11 +5,11 @@
       "name": "Attendant 1"
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Attendant 2"
     },
     {
-      "id": 1,
+      "id": 3,
       "name": "Attendant 3"
     }
   ],
@@ -19,13 +19,24 @@
       "name": "Client 1"
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Client 2"
     },
     {
-      "id": 1,
+      "id": 3,
       "name": "Client 3"
     }
   ],
-  "books": []
+  "books": [
+    {
+      "title": "Test",
+      "author": "Mathieu",
+      "bookType": "School",
+      "nbPages": "120",
+      "editor": "Funny",
+      "publicationYear": "2012",
+      "nbCopies": "3",
+      "id": 1
+    }
+  ]
 }

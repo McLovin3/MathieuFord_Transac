@@ -5,10 +5,10 @@ const AttendantComponent = () => {
     return (
         <div className="row p-5">
             <div className="col-6">
-                <Link className="btn btn-primary" to="/addClient">Ajouter un client</Link>
+                <Link className="btn btn-primary" to="addClient">Ajouter un client</Link>
             </div>
             <div className="col-6">
-                <Link className="btn btn-primary" to="/addBook">Ajouter un Livre</Link>
+                <Link className="btn btn-primary" to="addBook">Ajouter un Livre</Link>
             </div>
         </div>
     );

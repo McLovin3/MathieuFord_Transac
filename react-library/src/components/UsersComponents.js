@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const UsersComponent = ({ users, isClient, onClick }) => {
-    return (<>
-        {users.map((user) => (<Link key={user.id} to={isClient ? "client" : "attendant"} onClick={onClick(user)}>{user.name}</Link>))}
-    </>)
+const UsersComponent = ({ users, isClient }) => {
+    return (<div className='row'>
+        {users.map((user) => (<Link key={user.id} to={isClient ? "client/" + user.id : "attendant/" + user.id}>{user.name}</Link>))}
+    </div>)
 }
 
 export default UsersComponent;

@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import UsersComponent from './UsersComponents';
 
-const HomeComponent = ({ onClick }) => {
+const HomeComponent = () => {
     const [users, setUsers] = useState([]);
     const [isClients, setIsClients] = useState(true);
 
@@ -30,7 +29,7 @@ const HomeComponent = ({ onClick }) => {
 
     return (
         <div>
-            <UsersComponent users={users} onClick={onClick}></UsersComponent>
+            <UsersComponent users={users}></UsersComponent>
             <button className="btn btn-primary" onClick={() => { setIsClients(!isClients); }}>
                 {isClients ? "Je suis un employé" : "Je suis un client"}</button>
         </div>
@@ -39,7 +38,4 @@ const HomeComponent = ({ onClick }) => {
 
 export default HomeComponent;
 
-HomeComponent.propTypes =
-{
-    onClick: PropTypes.func,
-}
+
