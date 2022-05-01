@@ -12,10 +12,7 @@ const BorrowsComponent = () => {
     useEffect(() => {
         const getBorrows = async () => {
             let tempBorrows = await fetchBorrows();
-            tempBorrows = Array.from(tempBorrows).filter(borrow => {
-                console.log(borrow);
-                return borrow.clientId === userId;
-            });
+            tempBorrows = Array.from(tempBorrows).filter(borrow => borrow.clientId === userId);
             setBorrows(tempBorrows);
         }
         getBorrows();
@@ -27,6 +24,22 @@ const BorrowsComponent = () => {
         return tempBorrows;
     }
 
+    const putBorrow = async (borrow) => {
+        const borrowIndex = borrows.findIndex(tempBorrow => tempBorrow.id === borrow.id);
+        borrows.at(borrowIndex).returned = true;
+        setBorrows([...borrows]);
+        await fetch("http://localhost:5000/borrows/" + borrow.id,
+            {
+                method: "PUT",
+                headers:
+                {
+                    "Content-Type":
+                        "application/json"
+                },
+                body:
+                    JSON.stringify(borrow)
+            });
+    }
 
     return (
         <div>
@@ -43,7 +56,7 @@ const BorrowsComponent = () => {
                     </thead>
                     <tbody>
                         <>
-                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} borrow={borrow} />)}
+                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} borrow={borrow} returnDocument={putBorrow} />)}
                         </>
                     </tbody>
                 </table>
