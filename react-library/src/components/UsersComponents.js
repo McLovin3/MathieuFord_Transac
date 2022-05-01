@@ -1,15 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const UsersComponent = ({ users, isClient, onClick }) => {
     return (<>
-        {users.map((user) => (<h3 key={user.id} onClick={() => {
-            onClick(user);
-            if (isClient) {
-                window.location.href = "/client";
-            }
-            else window.location.href = "/employee";
-        }} user={user}>{user.name}</h3>))}
+        {users.map((user) => (<Link key={user.id} to={isClient ? "client" : "attendant"} onClick={onClick(user)}>{user.name}</Link>))}
     </>)
 }
 
