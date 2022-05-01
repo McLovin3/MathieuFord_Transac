@@ -1,16 +1,31 @@
 {
-  "employees": [
+  "attendants": [
     {
       "id": 1,
-      "name": "Joe"
+      "name": "Attendant 1"
+    },
+    {
+      "id": 1,
+      "name": "Attendant 2"
+    },
+    {
+      "id": 1,
+      "name": "Attendant 3"
     }
   ],
   "clients": [
     {
       "id": 1,
-      "name": "Homer"
+      "name": "Client 1"
+    },
+    {
+      "id": 1,
+      "name": "Client 2"
+    },
+    {
+      "id": 1,
+      "name": "Client 3"
     }
   ],
-  "books": [
-  ]
+  "books": []
 }

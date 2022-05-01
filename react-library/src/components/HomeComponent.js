@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import UsersComponent from './UsersComponents';
 
-const HomeComponent = ({onClick}) => {
+const HomeComponent = ({ onClick }) => {
     const [users, setUsers] = useState([]);
     const [isClients, setIsClients] = useState(true);
 
@@ -23,7 +23,7 @@ const HomeComponent = ({onClick}) => {
 
     //TODO move this to app
     const fetchEmployees = async () => {
-        const response = await fetch("http://localhost:5000/employees");
+        const response = await fetch("http://localhost:5000/attendants");
         const employees = await response.json();
         return employees;
     }

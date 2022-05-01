@@ -5,7 +5,7 @@ import AddBookComponent from './components/AddBookComponent';
 import AddClientComponent from './components/AddClientComponent';
 import BooksComponent from './components/BooksComponent';
 import HomeComponent from './components/HomeComponent';
-import EmployeeComponent from './components/EmployeeComponent';
+import AttendantComponent from './components/AttendantComponent';
 
 function App() {
 
@@ -45,7 +45,7 @@ function App() {
         <h2>{selectedUser == null ? "" : selectedUser.name}</h2>
         <Routes>
           <Route path="/" element={<HomeComponent onClick={setUser} />} />
-          <Route path="employee" element={<EmployeeComponent />} />
+          <Route path="attendant" element={<AttendantComponent />} />
           <Route path="addBook" element={<AddBookComponent postBook={postBook} />} />
           <Route path="addClient" element={<AddClientComponent postClient={postClient} />} />
           <Route path="books" element={<BooksComponent />} />
