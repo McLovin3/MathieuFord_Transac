@@ -6,6 +6,7 @@ import AddClientComponent from './components/AddClientComponent';
 import BooksComponent from './components/BooksComponent';
 import HomeComponent from './components/HomeComponent';
 import AttendantComponent from './components/AttendantComponent';
+import ClientComponent from './components/ClientComponent';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeComponent onClick={setUser} />} />
           <Route path="attendant" element={<AttendantComponent />} />
+          <Route path="client" element={<ClientComponent />} />
           <Route path="addBook" element={<AddBookComponent postBook={postBook} />} />
           <Route path="addClient" element={<AddClientComponent postClient={postClient} />} />
           <Route path="books" element={<BooksComponent />} />
