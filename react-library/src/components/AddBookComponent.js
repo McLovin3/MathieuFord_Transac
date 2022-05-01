@@ -61,7 +61,7 @@ const AddBookComponent = ({ postBook }) => {
                 <label>Nombre d'exemplaires</label>
                 <input className="form-control" required min="1" type="number" value={nbCopies} onChange={(field) => setNbCopies(field.target.value)}></input>
             </div>
-            <input type="submit" value="Enregistrer" className="btn" />
+            <input type="submit" value="Enregistrer" className="btn btn-primary" />
         </form>
     );
 }
