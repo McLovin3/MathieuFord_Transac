@@ -38,6 +38,7 @@ const AddCDComponent = () => {
 
     return (
         <form className="col-10 mx-auto" onSubmit={onSubmit}>
+            <h2>Ajout de CD</h2>
             <div className="form-group">
                 <label>Titre</label>
                 <input className="form-control" required minLength="3" type="text" value={title} onChange={(field) => setTitle(field.target.value)}></input>
