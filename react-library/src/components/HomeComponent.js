@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import UsersComponent from './UsersComponents';
 
-const HomeComponent = ({onClick}) => {
+const HomeComponent = () => {
     const [users, setUsers] = useState([]);
     const [isClients, setIsClients] = useState(true);
 
@@ -23,14 +22,14 @@ const HomeComponent = ({onClick}) => {
 
     //TODO move this to app
     const fetchEmployees = async () => {
-        const response = await fetch("http://localhost:5000/employees");
+        const response = await fetch("http://localhost:5000/attendants");
         const employees = await response.json();
         return employees;
     }
 
     return (
         <div>
-            <UsersComponent users={users} onClick={onClick}></UsersComponent>
+            <UsersComponent isClient={isClients} users={users}></UsersComponent>
             <button className="btn btn-primary" onClick={() => { setIsClients(!isClients); }}>
                 {isClients ? "Je suis un employé" : "Je suis un client"}</button>
         </div>
@@ -39,7 +38,4 @@ const HomeComponent = ({onClick}) => {
 
 export default HomeComponent;
 
-HomeComponent.propTypes =
-{
-    onClick: PropTypes.func,
-}
+
