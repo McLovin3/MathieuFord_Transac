@@ -12,7 +12,7 @@ const AddBookComponent = () => {
     const [nbCopies, setNbCopies] = useState("");
 
     const postBook = async (book) => {
-        await fetch("http://localhost:5000/books",
+        await fetch("http://localhost:5000/documents",
             {
                 method: "POST",
                 headers: {
@@ -31,8 +31,16 @@ const AddBookComponent = () => {
             nbPages,
             editor,
             publicationYear,
-            nbCopies
+            nbCopies,
+            documentType: "BOOK"
         });
+        setTitle("");
+        setAuthor("");
+        setBookType("");
+        setNbPages("");
+        setEditor("");
+        setPublicationYear("");
+        setNbCopies("");
     }
 
     return (

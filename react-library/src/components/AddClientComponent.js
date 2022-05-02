@@ -15,6 +15,8 @@ const AddClientComponent = () => {
                 },
                 body: JSON.stringify(client)
             });
+        setName("");
+        setPassword("");
     }
 
     const onSubmit = (form) => {
