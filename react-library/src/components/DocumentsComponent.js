@@ -36,6 +36,7 @@ const DocumentsComponent = () => {
                             <th>Durée</th>
                             <th>Type de document</th>
                             <th>Exemplaires disponibles</th>
+                            <th>Emprunter</th>
                         </tr>
                     </thead>
                     <tbody>
