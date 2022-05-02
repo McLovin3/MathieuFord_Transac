@@ -6,11 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import library.dto.BookDTO;
 import library.dto.UserDTO;
+import library.exception.NonExistentClientException;
 import library.dto.DocumentDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -29,6 +30,21 @@ public class RestLibraryController
     public ResponseEntity<List<UserDTO>> getClients()
     {
         return new ResponseEntity<>(attendantService.getAllClients(), HttpStatus.OK);
+    }
+
+    @GetMapping("/clients/{id}")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<UserDTO> getClient(@PathVariable("id") int clientId)
+    {
+        try
+        {
+            return new ResponseEntity<>(attendantService.getClient(clientId), HttpStatus.OK);
+        }
+        catch (NonExistentClientException exception)
+        {
+            //TODO return exception message?
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/attendants")
