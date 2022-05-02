@@ -40,7 +40,7 @@ const DocumentsComponent = () => {
                     </thead>
                     <tbody>
                         <>
-                            {documents.map((document) => <DocumentComponent key={document.id} book={document} />)}
+                            {documents.map((document) => <DocumentComponent key={document.id} document={document} />)}
                         </>
                     </tbody>
                 </table>
