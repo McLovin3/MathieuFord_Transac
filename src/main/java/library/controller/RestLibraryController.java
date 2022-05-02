@@ -2,6 +2,8 @@ package library.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,35 +21,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RestLibraryController
 {
-
     private final ClientService clientService;
     private final AttendantService attendantService;
 
-    @GetMapping("/books")
-    @CrossOrigin(originPatterns = "http://localhost:3000")
-    public List<BookDTO> getBooks()
-    {
-        return clientService.getAllBooks();
-    }
-
     @GetMapping("/clients")
     @CrossOrigin(originPatterns = "http://localhost:3000")
-    public List<UserDTO> getClients()
+    public ResponseEntity<List<UserDTO>> getClients()
     {
-        return attendantService.getAllClients();
+        return new ResponseEntity<>(attendantService.getAllClients(), HttpStatus.OK);
     }
 
     @GetMapping("/attendants")
     @CrossOrigin(originPatterns = "http://localhost:3000")
-    public List<UserDTO> get()
+    public ResponseEntity<List<UserDTO>> get()
     {
-        return attendantService.getAllAttendants();
+        return new ResponseEntity<>(attendantService.getAllAttendants(), HttpStatus.OK);
     }
 
     @GetMapping("/documents")
     @CrossOrigin(originPatterns = "http://localhost:3000")
-    public List<DocumentDTO> getDocuments()
+    public ResponseEntity<List<DocumentDTO>> getDocuments()
     {
-        return clientService.getAllDocuments();
+        return new ResponseEntity<>(clientService.getAllDocuments(), HttpStatus.OK);
     }
 }
