@@ -1,17 +1,32 @@
 import React from "react";
+import { useState } from "react";
 
-const BorrowComponent = ({ borrow, returnDocument }) => {
+const BorrowComponent = ({ borrow }) => {
+    const [borrowState, setBorrowState] = useState(borrow);
 
-    const temp = () => {
-        returnDocument(borrow)
+    const putBorrow = async () => {
+        borrow.returned = true;
+        await fetch("http://localhost:5000/borrows/" + borrow.id,
+            {
+                method: "PUT",
+                headers:
+                {
+                    "Content-Type":
+                        "application/json"
+                },
+                body:
+                    JSON.stringify(borrow)
+            });
+        setBorrowState(borrow);
     }
+
 
     return (
         <tr>
-            <td>{borrow.documentName}</td>
-            <td>{borrow.borrowDate}</td>
-            <td>{borrow.returnDate}</td>
-            <td>{borrow.returned ? "Retourner" : <button className="btn btn-success" onClick={temp}>Retourner</button>}</td>
+            <td>{borrowState.documentName}</td>
+            <td>{borrowState.borrowDate}</td>
+            <td>{borrowState.returnDate}</td>
+            <td>{borrowState.returned ? "Retourner" : <button className="btn btn-success" onClick={putBorrow}>Retourner</button>}</td>
         </tr>
     );
 }

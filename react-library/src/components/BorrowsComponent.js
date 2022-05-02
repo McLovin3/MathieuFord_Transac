@@ -24,23 +24,6 @@ const BorrowsComponent = () => {
         return tempBorrows;
     }
 
-    const putBorrow = async (borrow) => {
-        const borrowIndex = borrows.findIndex(tempBorrow => tempBorrow.id === borrow.id);
-        borrows.at(borrowIndex).returned = true;
-        setBorrows([...borrows]);
-        await fetch("http://localhost:5000/borrows/" + borrow.id,
-            {
-                method: "PUT",
-                headers:
-                {
-                    "Content-Type":
-                        "application/json"
-                },
-                body:
-                    JSON.stringify(borrow)
-            });
-    }
-
     return (
         <div>
             <h2>Emprunts</h2>
@@ -56,7 +39,7 @@ const BorrowsComponent = () => {
                     </thead>
                     <tbody>
                         <>
-                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} borrow={borrow} returnDocument={putBorrow} />)}
+                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} borrow={borrow} />)}
                         </>
                     </tbody>
                 </table>
