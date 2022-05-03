@@ -10,8 +10,14 @@ const ClientComponent = () => {
 
     useEffect(() => {
         const getClient = async () => {
-            const client = await (await fetchClient(window.location.href.split("/").pop())).json();
-            setClient(client);
+            try {
+                const response = await fetchClient(window.location.href.split("/").pop());
+                if (response.ok) setClient(await response.json());
+                else window.location.href = "/";
+            }
+            catch (error) {
+                window.location.url = "/";
+            }
         }
         getClient();
     }, []);
