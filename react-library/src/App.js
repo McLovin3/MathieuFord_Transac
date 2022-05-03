@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddBookComponent from './components/AddBookComponent';
 import AddClientComponent from './components/AddClientComponent';
@@ -16,7 +16,7 @@ function App() {
       <div className="col-10 text-center mx-auto mt-5 border border-2 border-dark bg-info rounded p-3">
         <Link to="/" className="h1 text-decoration-none text-dark">Bibliotèque Java town</Link>
         <Routes>
-          <Route path="/" element={<HomeComponent />} />
+          <Route exact path="/" element={<HomeComponent />} />
           <Route path="attendant/:id" element={<AttendantComponent />} />
           <Route path="attendant/:id/addBook" element={<AddBookComponent />} />
           <Route path="attendant/:id/addClient" element={<AddClientComponent />} />
@@ -25,6 +25,8 @@ function App() {
           <Route path="client/:id" element={<ClientComponent />} />
           <Route path="client/:id/documents" element={<DocumentsComponent />} />
           <Route path="client/:id/borrows" element={<BorrowsComponent />} />
+          <Route path="notFound" element={<h2>Page existe pas</h2>} />
+          <Route path="*" element={<Navigate replace to={"/notFound"} />} />
         </Routes>
       </div >
     </Router>
