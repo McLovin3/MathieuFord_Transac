@@ -3,7 +3,7 @@ package library.service;
 import library.dto.BookDTO;
 import library.dto.UserDTO;
 import library.dto.DiscDTO;
-import library.exception.NonExistentClientException;
+import library.exception.NonExistentUserException;
 import library.exception.NotEnoughCopiesException;
 import library.model.document.Book;
 import library.model.document.CD;
@@ -88,12 +88,12 @@ public class AttendantService
         documentRepo.save(dvd);
     }
 
-    public UserDTO getClient(long clientId) throws NonExistentClientException
+    public UserDTO getClient(long clientId) throws NonExistentUserException
     {
-        Optional<Client> client = clientRepo.findById(clientId);
-        if (client.isEmpty())
-            throw new NonExistentClientException();
-        return DataConversion.userToDTO(client.get());
+        Optional<Client> clientOptional = clientRepo.findById(clientId);
+        if (clientOptional.isEmpty())
+            throw new NonExistentUserException();
+        return DataConversion.userToDTO(clientOptional.get());
     }
 
     public List<UserDTO> getAllClients()
@@ -120,5 +120,13 @@ public class AttendantService
         }
 
         return DataConversion.usersToDTO(users);
+    }
+
+    public UserDTO getAttendant(long attendantId) throws NonExistentUserException
+    {
+        Optional<Attendant> attendantOptional = attendantRepo.findById(attendantId);
+        if (attendantOptional.isEmpty())
+            throw new NonExistentUserException();
+        return DataConversion.userToDTO(attendantOptional.get());
     }
 }
