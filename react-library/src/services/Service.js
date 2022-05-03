@@ -12,7 +12,7 @@ export async function postBook(book) {
 }
 
 export async function postCD(CD) {
-    return await fetch(URL + "http://localhost:8080/documents",
+    return await fetch(URL + "documents",
         {
             method: "POST",
             headers: {
