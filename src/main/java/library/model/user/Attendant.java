@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @Setter
-@DiscriminatorValue("Attendant")
+@DiscriminatorValue("ATTENDANT")
 @Entity
 public class Attendant extends LibraryUser
 {
