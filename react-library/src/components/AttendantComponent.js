@@ -15,7 +15,7 @@ const AttendantComponent = () => {
         const getAttendant = async () => {
             try {
                 const response = await fetchAttendant(window.location.href.split("/").pop());
-                if (response.ok) setAttendant(response.json());
+                if (response.ok) setAttendant(await response.json());
                 else window.location.href = "/";
             }
             catch (error) {
