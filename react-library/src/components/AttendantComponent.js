@@ -1,11 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { fetchAttendant } from "../services/Service";
+import AddBookComponent from "./AddBookComponent";
+import AddCDComponent from "./AddCDComponent";
+import AddClientComponent from "./AddClientComponent";
+import AddDVDComponent from "./AddDVDComponent";
 
 const AttendantComponent = () => {
 
     const [attendant, setAttendant] = useState("");
+    const [component, setComponent] = useState(<></>);
 
     useEffect(() => {
         const getAttendant = async () => {
@@ -16,20 +20,23 @@ const AttendantComponent = () => {
     }, []);
 
     return (
-        <div className="row p-5">
-            <h2>{attendant.name}</h2>
-            <div className="col-3">
-                <Link className="btn btn-primary" to="addClient">Ajouter un client</Link>
+        <div className="col">
+            <div className="row p-5">
+                <h2>{attendant.name}</h2>
+                <div className="col-3">
+                    <button className="btn btn-primary" onClick={() => setComponent(<AddClientComponent />)}>Ajouter un client</button>
+                </div>
+                <div className="col-3">
+                    <button className="btn btn-primary" onClick={() => setComponent(<AddBookComponent />)}>Ajouter un Livre</button>
+                </div>
+                <div className="col-3">
+                    <button className="btn btn-primary" onClick={() => setComponent(<AddCDComponent />)}>Ajouter un CD</button>
+                </div>
+                <div className="col-3">
+                    <button className="btn btn-primary" onClick={() => setComponent(<AddDVDComponent />)}>Ajouter un DVD</button>
+                </div>
             </div>
-            <div className="col-3">
-                <Link className="btn btn-primary" to="addBook">Ajouter un Livre</Link>
-            </div>
-            <div className="col-3">
-                <Link className="btn btn-primary" to="addCD">Ajouter un CD</Link>
-            </div>
-            <div className="col-3">
-                <Link className="btn btn-primary" to="addDVD">Ajouter un DVD</Link>
-            </div>
+            {component}
         </div>
     );
 }
