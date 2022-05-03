@@ -19,7 +19,7 @@ const BorrowsComponent = () => {
     }, [userId]);
 
     const fetchBorrows = async () => {
-        const response = await fetch("http://localhost:5000/borrows");
+        const response = await fetch("http://localhost:8080/borrows");
         const tempBorrows = response.json();
         return tempBorrows;
     }

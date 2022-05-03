@@ -15,7 +15,7 @@ const DocumentsComponent = () => {
 
 
     const fetchDocuments = async () => {
-        const response = await fetch("http://localhost:5000/documents");
+        const response = await fetch("http://localhost:8080/documents");
         const documents = await response.json();
         return documents;
     }

@@ -4,11 +4,10 @@ import { useState } from 'react';
 const DocumentComponent = ({ document }) => {
     const [documentState, setDocumentState] = useState(document);
 
-    //TODO do I manage dates here or in backend?
     const postBorrow = async () => {
         const path = window.location.href.split("/");
         const clientId = path.at(path.length - 2);
-        await fetch("http://localhost:5000/borrows",
+        await fetch("http://localhost:8080/borrows",
             {
                 method: "POST",
                 headers:

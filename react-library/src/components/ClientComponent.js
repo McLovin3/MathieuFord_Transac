@@ -15,7 +15,7 @@ const ClientComponent = () => {
     }, []);
 
     const fetchClient = async () => {
-        const response = await fetch("http://localhost:5000/clients/" + window.location.href.split("/").pop());
+        const response = await fetch("http://localhost:8080/clients/" + window.location.href.split("/").pop());
         const client = await response.json();
         return client;
     }

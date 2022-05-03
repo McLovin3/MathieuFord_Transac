@@ -7,7 +7,7 @@ const AddClientComponent = () => {
     const [password, setPassword] = useState("");
 
     const postClient = async (client) => {
-        await fetch("http://localhost:5000/clients",
+        await fetch("http://localhost:8080/clients",
             {
                 method: "POST",
                 headers: {

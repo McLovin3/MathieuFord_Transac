@@ -10,8 +10,6 @@ import BorrowsComponent from './components/BorrowsComponent';
 import AddCDComponent from './components/AddCDComponent';
 import AddDVDComponent from './components/AddDVDComponent';
 
-//TODO do server requests need to be here?
-
 function App() {
   return (
     <Router>

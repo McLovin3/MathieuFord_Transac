@@ -9,7 +9,7 @@ const AddDVDComponent = () => {
     const [nbCopies, setNbCopies] = useState("");
 
     const postDVD = async (DVD) => {
-        await fetch("http://localhost:5000/documents",
+        await fetch("http://localhost:8080/documents",
             {
                 method: "POST",
                 headers: {

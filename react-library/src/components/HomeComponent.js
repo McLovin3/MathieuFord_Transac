@@ -15,14 +15,13 @@ const HomeComponent = () => {
     }, [isClients]);
 
     const fetchClients = async () => {
-        const response = await fetch("http://localhost:5000/clients");
+        const response = await fetch("http://localhost:8080/clients");
         const clients = await response.json();
         return clients;
     }
 
-    //TODO move this to app
     const fetchEmployees = async () => {
-        const response = await fetch("http://localhost:5000/attendants");
+        const response = await fetch("http://localhost:8080/attendants");
         const employees = await response.json();
         return employees;
     }

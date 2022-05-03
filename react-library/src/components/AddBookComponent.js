@@ -12,7 +12,7 @@ const AddBookComponent = () => {
     const [nbCopies, setNbCopies] = useState("");
 
     const postBook = async (book) => {
-        await fetch("http://localhost:5000/documents",
+        await fetch("http://localhost:8080/documents",
             {
                 method: "POST",
                 headers: {

@@ -16,7 +16,7 @@ const AttendantComponent = () => {
 
 
     const fetchAttendant = async () => {
-        const response = await fetch("http://localhost:5000/attendants/" + window.location.href.split("/").pop());
+        const response = await fetch("http://localhost:8080/attendants/" + window.location.href.split("/").pop());
         const attendant = await response.json();
         return attendant;
     }
