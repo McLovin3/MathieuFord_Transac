@@ -3,11 +3,12 @@ import { useState } from 'react';
 
 const DocumentComponent = ({ document }) => {
     const [documentState, setDocumentState] = useState(document);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const postBorrow = async () => {
         const path = window.location.href.split("/");
         const clientId = path.at(path.length - 2);
-        await fetch("http://localhost:8080/borrows",
+        const response = await fetch("http://localhost:8080/borrows",
             {
                 method: "POST",
                 headers:
@@ -17,8 +18,13 @@ const DocumentComponent = ({ document }) => {
                 body: JSON.stringify({ "documentId": document.id, "clientId": clientId })
             }
         );
-        document.nbCopies--;
-        setDocumentState(document);
+        if (!response.ok) {
+            setErrorMessage("Le client a déjà ce document");
+        }
+        else {
+            document.nbCopies--;
+            setDocumentState(document);
+        }
     }
 
     return (
@@ -32,7 +38,10 @@ const DocumentComponent = ({ document }) => {
             <td>{documentState.runtime == null ? "X" : documentState.runtime}</td>
             <td>{documentState.documentType}</td>
             <td>{documentState.nbCopies}</td>
-            <td>{documentState.nbCopies === 0 ? "" : <button className="btn btn-primary" onClick={postBorrow}>Emprunter</button>}</td>
+            <td>
+                {documentState.nbCopies === 0 ? "" : <button className="btn btn-primary" onClick={postBorrow}>Emprunter</button>}
+                <p className="text-danger">{errorMessage}</p>
+            </td>
         </tr>
     );
 }
