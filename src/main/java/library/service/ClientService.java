@@ -58,7 +58,7 @@ public class ClientService {
 
     @Transactional
     public void returnDocument(long clientId, long documentId)
-            throws ClientDidNotBorrowException, NonExistentClientException, NonExistentDocumentException,
+            throws ClientDidNotBorrowException, NonExistentUserException, NonExistentDocumentException,
             DocumentAlreadyReturnException {
         Client client = getClientWithFinesAndBorrows(clientId);
         LibraryDocument document = getDocument(documentId);
@@ -83,11 +83,11 @@ public class ClientService {
         return documentOptional.get();
     }
 
-    private Client getClientWithFinesAndBorrows(long clientId) throws NonExistentClientException {
+    private Client getClientWithFinesAndBorrows(long clientId) throws NonExistentUserException {
         Optional<Client> clientOptional = clientRepo.findByIdWithFines(clientId);
 
         if (clientOptional.isEmpty())
-            throw new NonExistentClientException();
+            throw new NonExistentUserException();
         Client client = clientOptional.get();
 
         client.setBorrows(borrowRepo.findAllByClientId(clientId));
@@ -110,7 +110,7 @@ public class ClientService {
 
     @Transactional
     public void borrowDocument(long clientId, long documentId) throws NonExistentDocumentException,
-            ClientHasFinesException, NoMoreCopiesException, NonExistentClientException,
+            ClientHasFinesException, NoMoreCopiesException, NonExistentUserException,
             ClientAlreadyHasBorrowException {
         Client client = getClientWithFinesAndBorrows(clientId);
         LibraryDocument document = getDocument(documentId);
