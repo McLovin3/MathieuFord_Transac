@@ -48,6 +48,22 @@ public class RestLibraryController
         return new ResponseEntity<>(clientService.getClientBorrows(clientId), HttpStatus.OK);
     }
 
+    @PostMapping("/borrows")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<String> getClientBorrows(@RequestBody BorrowDTO borrowDTO)
+    {
+        try
+        {
+            clientService.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (Exception exception)
+        {
+            // TODO return exception message?
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/clients/{id}")
     @CrossOrigin(originPatterns = "http://localhost:3000")
     public ResponseEntity<UserDTO> getClient(@PathVariable("id") int clientId)
