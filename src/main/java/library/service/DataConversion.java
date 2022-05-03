@@ -36,6 +36,7 @@ class DataConversion
                 borrowDTOs.add(BorrowDTO.builder()
                         .id(borrow.getId())
                         .clientId(borrow.getClient().getId())
+                        .documentName(borrow.getDocument().getTitle())
                         .documentId(borrow.getDocument().getId())
                         .borrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))
                         .returnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))

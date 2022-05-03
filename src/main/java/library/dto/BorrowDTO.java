@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class BorrowDTO
 {
     private long id;
+    private String documentName;
     private long clientId;
     private long documentId;
     private String borrowDate;
