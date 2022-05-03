@@ -57,7 +57,7 @@ public class ClientService {
     }
 
     @Transactional
-    public void returnDocument(long clientId, long documentId)
+    public void borrowReturnDocument(long clientId, long documentId)
             throws ClientDidNotBorrowException, NonExistentUserException, NonExistentDocumentException,
             DocumentAlreadyReturnException {
         Client client = getClientWithFinesAndBorrows(clientId);

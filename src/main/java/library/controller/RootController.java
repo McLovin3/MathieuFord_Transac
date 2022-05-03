@@ -116,7 +116,7 @@ public class RootController
     {
         try
         {
-            clientService.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            clientService.borrowReturnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
         }
         catch (Exception exception)
         {
