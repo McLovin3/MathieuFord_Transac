@@ -28,11 +28,16 @@ public class AttendantService
     private final ClientRepository clientRepo;
     private final AttendantRepository attendantRepo;
 
-    public void createClient(UserDTO clientDTO)
+    public void createClient(UserDTO userDTO)
     {
-        Client client = Client.builder().name(clientDTO.getName()).password(clientDTO.getPassword()).build();
-
+        Client client = Client.builder().name(userDTO.getName()).password(userDTO.getPassword()).build();
         clientRepo.save(client);
+    }
+
+    public void createAttendant(UserDTO userDTO)
+    {
+        Attendant attendant = Attendant.builder().name(userDTO.getName()).password(userDTO.getPassword()).build();
+        attendantRepo.save(attendant);
     }
 
     public void createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException
