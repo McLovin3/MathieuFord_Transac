@@ -3,7 +3,16 @@ package library.model.user;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@DiscriminatorValue("ATTENDANT")
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+@Getter
+@SuperBuilder
+@NoArgsConstructor
+@Setter
+@DiscriminatorValue("Attendant")
 @Entity
 public class Attendant extends LibraryUser
 {
