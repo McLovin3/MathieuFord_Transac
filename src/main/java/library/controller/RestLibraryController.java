@@ -21,7 +21,8 @@ import lombok.RequiredArgsConstructor;
 
 //DocumentComponenet
 //TODO do I manage dates here or in backend?
-
+//TODO error route?
+//TODO redirect if invalid id in url
 //TODO Do I put all backend request in app.js?
 
 @RestController
@@ -60,6 +61,7 @@ public class RestLibraryController
     {
         try
         {
+            // TODO check if fields null even if I did the form?
             switch (documentDTO.getDocumentType())
             {
             case "BOOK":
@@ -82,6 +84,18 @@ public class RestLibraryController
             // TODO return exception message?
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/clients")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<String> postDocument(@RequestBody UserDTO userDTO)
+    {
+        //TODO manage cases with documents/clients with same name?
+        // TODO check if fields null even if I did the form?
+        attendantService.createClient(userDTO);
+        // TODO return with created id
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @GetMapping("/attendants/{id}")
