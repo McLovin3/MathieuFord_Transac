@@ -13,7 +13,7 @@ import AddDVDComponent from './components/AddDVDComponent';
 function App() {
   return (
     <Router>
-      <div className="col-8 text-center mx-auto mt-5 border border-2 border-dark bg-info rounded p-3">
+      <div className="col-10 text-center mx-auto mt-5 border border-2 border-dark bg-info rounded p-3">
         <Link to="/" className="h1 text-decoration-none text-dark">Bibliotèque Java town</Link>
         <Routes>
           <Route path="/" element={<HomeComponent />} />
