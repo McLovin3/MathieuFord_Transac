@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import library.dto.UserDTO;
 import library.exception.NonExistentUserException;
-import library.dto.BookDTO;
 import library.dto.DocumentDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
+
+//DocumentComponenet
+//TODO do I manage dates here or in backend?
+
+//TODO Do I put all backend request in app.js?
 
 @RestController
 @RequestMapping("/")
@@ -56,21 +60,22 @@ public class RestLibraryController
     {
         try
         {
-            switch (documentDTO.getBookType()) {
-                case "BOOK":
-                    attendantService.createBook(documentDTO);
-                    break;
-                    case "DVD":
-                    attendantService.createDVD(documentDTO);
-                    break;
-                    case "CD":
-                    attendantService.createCD(documentDTO);
-                    break;
-                    default:
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
-                //TODO return with created id
-                return new ResponseEntity<>(HttpStatus.CREATED);
+            switch (documentDTO.getDocumentType())
+            {
+            case "BOOK":
+                attendantService.createBook(documentDTO);
+                break;
+            case "DVD":
+                attendantService.createDVD(documentDTO);
+                break;
+            case "CD":
+                attendantService.createCD(documentDTO);
+                break;
+            default:
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            // TODO return with created id
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception exception)
         {
