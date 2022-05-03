@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import library.dto.UserDTO;
 import library.exception.NonExistentUserException;
+import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -38,6 +39,13 @@ public class RestLibraryController
     public ResponseEntity<List<UserDTO>> getClients()
     {
         return new ResponseEntity<>(attendantService.getAllClients(), HttpStatus.OK);
+    }
+
+    @GetMapping("/borrows/{id}")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<List<BorrowDTO>> getClientBorrows(@PathVariable("id") int clientId)
+    {
+        return new ResponseEntity<>(clientService.getClientBorrows(clientId), HttpStatus.OK);
     }
 
     @GetMapping("/clients/{id}")
@@ -90,7 +98,7 @@ public class RestLibraryController
     @CrossOrigin(originPatterns = "http://localhost:3000")
     public ResponseEntity<String> postDocument(@RequestBody UserDTO userDTO)
     {
-        //TODO manage cases with documents/clients with same name?
+        // TODO manage cases with documents/clients with same name?
         // TODO check if fields null even if I did the form?
         attendantService.createClient(userDTO);
         // TODO return with created id
