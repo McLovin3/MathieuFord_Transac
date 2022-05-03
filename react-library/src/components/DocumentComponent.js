@@ -2,13 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { postBorrow } from '../services/Service';
 
-const DocumentComponent = ({ document }) => {
+const DocumentComponent = ({ document, clientId }) => {
     const [documentState, setDocumentState] = useState(document);
     const [errorMessage, setErrorMessage] = useState("");
 
     const onClick = async () => {
-        const path = window.location.href.split("/");
-        const clientId = path.at(path.length - 2);
         const response = await postBorrow(document.id, clientId);
         if (!response.ok) {
             setErrorMessage("Le client a déjà ce document");

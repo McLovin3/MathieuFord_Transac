@@ -2,21 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import BorrowComponent from "./BorrowComponent";
-import { useLocation } from "react-router-dom";
 import { fetchBorrows } from "../services/Service";
 
-const BorrowsComponent = () => {
-
-    const userId = useLocation().state.userId;
+const BorrowsComponent = ({ clientId }) => {
     const [borrows, setBorrows] = useState([]);
 
     useEffect(() => {
         const getBorrows = async () => {
-            const borrows = await fetchBorrows(userId);
+            const borrows = await (await fetchBorrows(clientId)).json();
             setBorrows(borrows);
         }
         getBorrows();
-    }, [userId]);
+    }, [clientId]);
 
     return (
         <div>
@@ -45,5 +42,5 @@ const BorrowsComponent = () => {
 export default BorrowsComponent;
 
 BorrowsComponent.propTypes = {
-    user: PropTypes.string,
+    clientId: PropTypes.number,
 }

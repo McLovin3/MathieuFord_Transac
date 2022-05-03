@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import DocumentComponent from './DocumentComponent';
 import { fetchDocuments } from '../services/Service';
 
-const DocumentsComponent = () => {
+const DocumentsComponent = ({ clientId }) => {
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
         const getDocuments = async () => {
-            const documents = await fetchDocuments();
+            const documents = await (await fetchDocuments()).json();
             setDocuments(documents);
         }
         getDocuments();
@@ -35,7 +35,7 @@ const DocumentsComponent = () => {
                     </thead>
                     <tbody>
                         <>
-                            {documents.map((document) => <DocumentComponent key={document.id} document={document} />)}
+                            {documents.map((document) => <DocumentComponent key={document.id} clientId={clientId} document={document} />)}
                         </>
                     </tbody>
                 </table>

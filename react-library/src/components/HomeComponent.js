@@ -9,7 +9,7 @@ const HomeComponent = () => {
 
     useEffect(() => {
         const getUsers = async () => {
-            const users = isClients ? await fetchClients() : await fetchAttendants();
+            const users = isClients ? await (await fetchClients()).json() : await (await fetchAttendants()).json();
             setUsers(users);
         }
         getUsers();
