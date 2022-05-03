@@ -11,17 +11,15 @@ const BorrowsComponent = () => {
 
     useEffect(() => {
         const getBorrows = async () => {
-            let tempBorrows = await fetchBorrows();
-            tempBorrows = Array.from(tempBorrows).filter(borrow => borrow.clientId === userId);
-            setBorrows(tempBorrows);
+            const borrows = await fetchBorrows(userId);
+            setBorrows(borrows);
         }
         getBorrows();
     }, [userId]);
 
-    const fetchBorrows = async () => {
-        const response = await fetch("http://localhost:8080/borrows");
-        const tempBorrows = response.json();
-        return tempBorrows;
+    const fetchBorrows = async (userId) => {
+        const response = await fetch("http://localhost:8080/borrows/" + userId);
+        return response.json();
     }
 
     return (
