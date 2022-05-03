@@ -7,11 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import library.dto.UserDTO;
 import library.exception.NonExistentUserException;
+import library.dto.BookDTO;
 import library.dto.DocumentDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -44,6 +47,35 @@ public class RestLibraryController
         {
             // TODO return exception message?
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/documents")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<String> postDocument(@RequestBody DocumentDTO documentDTO)
+    {
+        try
+        {
+            switch (documentDTO.getBookType()) {
+                case "BOOK":
+                    attendantService.createBook(documentDTO);
+                    break;
+                    case "DVD":
+                    attendantService.createDVD(documentDTO);
+                    break;
+                    case "CD":
+                    attendantService.createCD(documentDTO);
+                    break;
+                    default:
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+                //TODO return with created id
+                return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (Exception exception)
+        {
+            // TODO return exception message?
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

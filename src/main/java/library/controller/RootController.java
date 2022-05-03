@@ -2,6 +2,7 @@ package library.controller;
 
 import library.dto.BookDTO;
 import library.dto.BorrowDTO;
+import library.dto.DocumentDTO;
 import library.dto.UserDTO;
 import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
@@ -63,11 +64,11 @@ public class RootController
     }
 
     @PostMapping("/createBook")
-    private String postBook(@ModelAttribute BookDTO bookDTO)
+    private String postBook(@ModelAttribute DocumentDTO documentDTO)
     {
         try
         {
-            attendantService.createBook(bookDTO);
+            attendantService.createBook(documentDTO);
         }
         catch (NotEnoughCopiesException exception)
         {

@@ -1,8 +1,7 @@
 package library.service;
 
-import library.dto.BookDTO;
 import library.dto.UserDTO;
-import library.dto.DiscDTO;
+import library.dto.DocumentDTO;
 import library.exception.NonExistentUserException;
 import library.exception.NotEnoughCopiesException;
 import library.model.document.Book;
@@ -36,7 +35,7 @@ public class AttendantService
         clientRepo.save(client);
     }
 
-    public void createBook(BookDTO bookDTO) throws NotEnoughCopiesException
+    public void createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException
     {
         if (bookDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
@@ -54,35 +53,35 @@ public class AttendantService
         documentRepo.save(book);
     }
 
-    public void createCD(DiscDTO discDTO)
+    public void createCD(DocumentDTO DocumentDTO)
             throws NotEnoughCopiesException
     {
-        if (discDTO.getNbCopies() < 1)
+        if (DocumentDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         CD cd = CD.builder()
-                .title(discDTO.getTitle())
-                .author(discDTO.getAuthor())
-                .publicationYear(discDTO.getPublicationYear())
-                .nbCopies(discDTO.getNbCopies())
-                .runtime(discDTO.getRuntime())
+                .title(DocumentDTO.getTitle())
+                .author(DocumentDTO.getAuthor())
+                .publicationYear(DocumentDTO.getPublicationYear())
+                .nbCopies(DocumentDTO.getNbCopies())
+                .runtime(DocumentDTO.getRuntime())
                 .build();
 
         documentRepo.save(cd);
     }
 
-    public void createDVD(DiscDTO discDTO)
+    public void createDVD(DocumentDTO documentDTO)
             throws NotEnoughCopiesException
     {
-        if (discDTO.getNbCopies() < 1)
+        if (documentDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         DVD dvd = DVD.builder()
-                .title(discDTO.getTitle())
-                .author(discDTO.getAuthor())
-                .publicationYear(discDTO.getPublicationYear())
-                .nbCopies(discDTO.getNbCopies())
-                .runtime(discDTO.getRuntime())
+                .title(documentDTO.getTitle())
+                .author(documentDTO.getAuthor())
+                .publicationYear(documentDTO.getPublicationYear())
+                .nbCopies(documentDTO.getNbCopies())
+                .runtime(documentDTO.getRuntime())
                 .build();
 
         documentRepo.save(dvd);
