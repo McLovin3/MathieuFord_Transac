@@ -45,13 +45,12 @@ export async function postDVD(DVD) {
 }
 
 export async function fetchAttendant(attendantId) {
-    const response = await fetch(URL + "attendants/" + attendantId);
-    return await response.json();
+    return await fetch(URL + "attendants/" + attendantId);
 }
 
 export async function fetchClient(clientId) {
-    const response = await fetch(URL + "clients/" + clientId);
-    return await response.json();
+    return await fetch(URL + "clients/" + clientId);
+
 }
 
 export async function putBorrow(borrow) {
@@ -69,8 +68,7 @@ export async function putBorrow(borrow) {
 }
 
 export async function fetchBorrows(userId) {
-    const response = await fetch(URL + "borrows/" + userId);
-    return await response.json();
+    return await fetch(URL + "borrows/" + userId);
 }
 
 export async function postBorrow(documentId, clientId) {
@@ -87,17 +85,14 @@ export async function postBorrow(documentId, clientId) {
 }
 
 export async function fetchDocuments() {
-    const response = await fetch(URL + "documents");
-    return await response.json();
+    return await fetch(URL + "documents");
 }
 
 export async function fetchClients() {
-    const response = await fetch(URL + "clients");
-    return await response.json();
+    return await fetch(URL + "clients");
 }
 
 export async function fetchAttendants() {
-    const response = await fetch(URL + "attendants");
-    return await response.json();
+    return await fetch(URL + "attendants");
 }
 
