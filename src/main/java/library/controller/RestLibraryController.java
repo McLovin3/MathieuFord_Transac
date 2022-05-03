@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import library.dto.UserDTO;
-import library.exception.NonExistentClientException;
+import library.exception.NonExistentUserException;
 import library.dto.DocumentDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
@@ -40,9 +40,24 @@ public class RestLibraryController
         {
             return new ResponseEntity<>(attendantService.getClient(clientId), HttpStatus.OK);
         }
-        catch (NonExistentClientException exception)
+        catch (NonExistentUserException exception)
         {
-            //TODO return exception message?
+            // TODO return exception message?
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/attendants/{id}")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<UserDTO> getAttendant(@PathVariable("id") int attendantId)
+    {
+        try
+        {
+            return new ResponseEntity<>(attendantService.getAttendant(attendantId), HttpStatus.OK);
+        }
+        catch (NonExistentUserException exception)
+        {
+            // TODO return exception message?
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
