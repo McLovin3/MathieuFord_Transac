@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchClient } from "../services/Service";
 
 const ClientComponent = () => {
 
@@ -8,17 +9,11 @@ const ClientComponent = () => {
 
     useEffect(() => {
         const getClient = async () => {
-            const client = await fetchClient();
+            const client = await fetchClient(window.location.href.split("/").pop());
             setClient(client);
         }
         getClient();
     }, []);
-
-    const fetchClient = async () => {
-        const response = await fetch("http://localhost:8080/clients/" + window.location.href.split("/").pop());
-        const client = await response.json();
-        return client;
-    }
 
     return (
         <div className="row p-5">

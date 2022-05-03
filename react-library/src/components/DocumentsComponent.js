@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import DocumentComponent from './DocumentComponent';
+import { fetchDocuments } from '../services/Service';
 
 const DocumentsComponent = () => {
     const [documents, setDocuments] = useState([]);
@@ -12,12 +13,6 @@ const DocumentsComponent = () => {
         }
         getDocuments();
     }, []);
-
-
-    const fetchDocuments = async () => {
-        const response = await fetch("http://localhost:8080/documents");
-        return await response.json();
-    }
 
     return (
         <div>

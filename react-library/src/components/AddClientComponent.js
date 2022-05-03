@@ -1,30 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { postClient } from '../services/Service';
 
 const AddClientComponent = () => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
 
-    const postClient = async (client) => {
-        await fetch("http://localhost:8080/clients",
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(client)
-            });
-        setName("");
-        setPassword("");
-    }
-
-    const onSubmit = (form) => {
+    const onSubmit = async (form) => {
         form.preventDefault();
-        postClient({
+        await postClient({
             name,
             password,
         });
+        setName("");
+        setPassword("");
     }
 
     return (

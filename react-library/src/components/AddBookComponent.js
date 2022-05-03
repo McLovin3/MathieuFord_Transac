@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { postBook } from '../services/Service';
 
 const AddBookComponent = () => {
     const [title, setTitle] = useState("");
@@ -10,17 +11,6 @@ const AddBookComponent = () => {
     const [editor, setEditor] = useState("");
     const [publicationYear, setPublicationYear] = useState("");
     const [nbCopies, setNbCopies] = useState("");
-
-    const postBook = async (book) => {
-        await fetch("http://localhost:8080/documents",
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(book)
-            });
-    }
 
     const onSubmit = async (form) => {
         form.preventDefault();

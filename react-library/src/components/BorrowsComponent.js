@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import BorrowComponent from "./BorrowComponent";
 import { useLocation } from "react-router-dom";
+import { fetchBorrows } from "../services/Service";
 
 const BorrowsComponent = () => {
 
@@ -16,11 +17,6 @@ const BorrowsComponent = () => {
         }
         getBorrows();
     }, [userId]);
-
-    const fetchBorrows = async (userId) => {
-        const response = await fetch("http://localhost:8080/borrows/" + userId);
-        return response.json();
-    }
 
     return (
         <div>

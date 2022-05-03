@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchAttendant } from "../services/Service";
 
 const AttendantComponent = () => {
 
@@ -8,18 +9,11 @@ const AttendantComponent = () => {
 
     useEffect(() => {
         const getAttendant = async () => {
-            const attendant = await fetchAttendant();
+            const attendant = await fetchAttendant(window.location.href.split("/").pop());
             setAttendant(attendant);
         }
         getAttendant();
     }, []);
-
-
-    const fetchAttendant = async () => {
-        const response = await fetch("http://localhost:8080/attendants/" + window.location.href.split("/").pop());
-        const attendant = await response.json();
-        return attendant;
-    }
 
     return (
         <div className="row p-5">

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { postCD } from "../services/Service";
 
 const AddCDComponent = () => {
     const [title, setTitle] = useState("");
@@ -7,17 +8,6 @@ const AddCDComponent = () => {
     const [publicationYear, setPublicationYear] = useState("");
     const [runtime, setRuntime] = useState("");
     const [nbCopies, setNbCopies] = useState("");
-
-    const postCD = async (CD) => {
-        await fetch("http://localhost:8080/documents",
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(CD)
-            });
-    }
 
     const onSubmit = async (form) => {
         form.preventDefault();

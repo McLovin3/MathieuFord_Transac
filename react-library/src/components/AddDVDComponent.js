@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { postDVD } from "../services/Service";
 
 const AddDVDComponent = () => {
     const [title, setTitle] = useState("");
@@ -7,17 +8,6 @@ const AddDVDComponent = () => {
     const [publicationYear, setPublicationYear] = useState("");
     const [runtime, setRuntime] = useState("");
     const [nbCopies, setNbCopies] = useState("");
-
-    const postDVD = async (DVD) => {
-        await fetch("http://localhost:8080/documents",
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(DVD)
-            });
-    }
 
     const onSubmit = async (form) => {
         form.preventDefault();

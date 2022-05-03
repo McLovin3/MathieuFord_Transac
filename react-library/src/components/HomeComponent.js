@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import UsersComponent from './UsersComponents';
+import { fetchAttendants, fetchClients } from '../services/Service';
 
 const HomeComponent = () => {
     const [users, setUsers] = useState([]);
@@ -8,23 +9,11 @@ const HomeComponent = () => {
 
     useEffect(() => {
         const getUsers = async () => {
-            const users = isClients ? await fetchClients() : await fetchEmployees();
+            const users = isClients ? await fetchClients() : await fetchAttendants();
             setUsers(users);
         }
         getUsers();
     }, [isClients]);
-
-    const fetchClients = async () => {
-        const response = await fetch("http://localhost:8080/clients");
-        const clients = await response.json();
-        return clients;
-    }
-
-    const fetchEmployees = async () => {
-        const response = await fetch("http://localhost:8080/attendants");
-        const employees = await response.json();
-        return employees;
-    }
 
     return (
         <div>
