@@ -6,7 +6,7 @@ const BorrowComponent = ({ borrow }) => {
 
     const putBorrow = async () => {
         borrow.returned = true;
-        await fetch("http://localhost:8080/borrows/" + borrow.id,
+        await fetch("http://localhost:8080/borrows/",
             {
                 method: "PUT",
                 headers:
