@@ -13,8 +13,14 @@ const AttendantComponent = () => {
 
     useEffect(() => {
         const getAttendant = async () => {
-            const attendant = await fetchAttendant(window.location.href.split("/").pop());
-            setAttendant(attendant);
+            try {
+                const response = await fetchAttendant(window.location.href.split("/").pop());
+                if (response.ok) setAttendant(response.json());
+                else window.location.href = "/";
+            }
+            catch (error) {
+                window.location.href = "/";
+            }
         }
         getAttendant();
     }, []);
