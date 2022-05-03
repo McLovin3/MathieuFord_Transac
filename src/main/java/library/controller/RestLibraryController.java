@@ -2,17 +2,19 @@ package library.controller;
 
 import java.util.List;
 
+import library.dto.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import library.dto.UserDTO;
+//import library.dto.UserDTO;
 import library.exception.NonExistentUserException;
 import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
@@ -48,6 +50,25 @@ public class RestLibraryController
         return new ResponseEntity<>(clientService.getClientBorrows(clientId), HttpStatus.OK);
     }
 
+    @PutMapping("/borrows")
+    @CrossOrigin(originPatterns = "http://localhost:3000")
+    public ResponseEntity<String> putBorrows(@RequestBody BorrowDTO borrowDTO)
+    {
+        try
+        {
+            // TODO put should update borrow?
+            clientService.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            // TODO return something?
+            return new ResponseEntity<>(HttpStatus.CREATED);
+
+        }
+        catch (Exception exception)
+        {
+            // TODO return exception message?
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/borrows")
     @CrossOrigin(originPatterns = "http://localhost:3000")
     public ResponseEntity<String> getClientBorrows(@RequestBody BorrowDTO borrowDTO)
@@ -55,12 +76,13 @@ public class RestLibraryController
         try
         {
             clientService.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            // TODO return something?
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception exception)
         {
             // TODO return exception message?
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -98,7 +120,7 @@ public class RestLibraryController
                 attendantService.createCD(documentDTO);
                 break;
             default:
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return ResponseEntity.badRequest().build();
             }
             // TODO return with created id
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -106,7 +128,7 @@ public class RestLibraryController
         catch (Exception exception)
         {
             // TODO return exception message?
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -117,7 +139,7 @@ public class RestLibraryController
         // TODO manage cases with documents/clients with same name?
         // TODO check if fields null even if I did the form?
         attendantService.createClient(userDTO);
-        // TODO return with created id
+        // TODO return with created id or client?
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
