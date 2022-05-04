@@ -63,7 +63,7 @@ public class RestLibraryController
     }
 
     @PostMapping("/borrows")
-    public ResponseEntity<String> getClientBorrows(@RequestBody BorrowDTO borrowDTO)
+    public ResponseEntity<String> postBorrow(@RequestBody BorrowDTO borrowDTO)
     {
         try
         {
