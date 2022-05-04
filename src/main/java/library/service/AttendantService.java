@@ -2,9 +2,11 @@ package library.service;
 
 import library.dto.UserDTO;
 import library.dto.DocumentDTO;
+import library.exception.InvalidBookTypeException;
 import library.exception.NonExistentUserException;
 import library.exception.NotEnoughCopiesException;
 import library.model.document.Book;
+import library.model.document.BookType;
 import library.model.document.CD;
 import library.model.document.DVD;
 import library.model.user.Attendant;
@@ -40,7 +42,7 @@ public class AttendantService
         attendantRepo.save(attendant);
     }
 
-    public void createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException
+    public void createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException, InvalidBookTypeException
     {
         if (bookDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
@@ -52,24 +54,24 @@ public class AttendantService
                 .nbCopies(bookDTO.getNbCopies())
                 .editor(bookDTO.getEditor())
                 .nbPages(bookDTO.getNbPages())
-                .bookType(library.model.document.BookType.getBookType(bookDTO.getBookType()))
+                .bookType(BookType.getBookType(bookDTO.getBookType()))
                 .build();
 
         documentRepo.save(book);
     }
 
-    public void createCD(DocumentDTO DocumentDTO)
+    public void createCD(DocumentDTO documentDTO)
             throws NotEnoughCopiesException
     {
-        if (DocumentDTO.getNbCopies() < 1)
+        if (documentDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
 
         CD cd = CD.builder()
-                .title(DocumentDTO.getTitle())
-                .author(DocumentDTO.getAuthor())
-                .publicationYear(DocumentDTO.getPublicationYear())
-                .nbCopies(DocumentDTO.getNbCopies())
-                .runtime(DocumentDTO.getRuntime())
+                .title(documentDTO.getTitle())
+                .author(documentDTO.getAuthor())
+                .publicationYear(documentDTO.getPublicationYear())
+                .nbCopies(documentDTO.getNbCopies())
+                .runtime(documentDTO.getRuntime())
                 .build();
 
         documentRepo.save(cd);

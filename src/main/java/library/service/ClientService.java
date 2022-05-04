@@ -58,7 +58,7 @@ public class ClientService
         return DataConversion.documentsToDTO(documentRepo.findAllByPublicationYear(year));
     }
 
-    public List<BookDTO> searchBooksByCategory(String category)
+    public List<BookDTO> searchBooksByCategory(String category) throws InvalidBookTypeException
     {
         return DataConversion.booksToDTO(documentRepo.findAllBooksByCategory(BookType.getBookType(category)));
     }

@@ -4,7 +4,6 @@ import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
 import library.dto.UserDTO;
-import library.exception.NotEnoughCopiesException;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +69,7 @@ public class RootController
         {
             attendantService.createBook(documentDTO);
         }
-        catch (NotEnoughCopiesException exception)
+        catch (Exception exception)
         {
             // HTML form validation should prevent this exception to be caught
             exception.printStackTrace();
