@@ -18,7 +18,7 @@ const ClientComponent = () => {
                 else window.location.href = "/";
             }
             catch (error) {
-                window.location.url = "/";
+                window.location.href = "/";
             }
         }
         getClient();
