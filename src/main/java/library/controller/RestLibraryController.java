@@ -2,6 +2,8 @@ package library.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import library.dto.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +23,8 @@ import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
-//DocumentComponent
-//TODO error route? YES
-//TODO redirect if invalid id in url see above
-//TODO Do I put all backend request in app.js? service class
 //TODO Return created entities
-//TODO validate post attributes
-//TODO Validate no same names
+//TODO Validate no same names (But they can so argue lol)
 
 @RestController
 @RequestMapping("/")
@@ -35,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(originPatterns = "http://localhost:3000")
 public class RestLibraryController
 {
+    private final int MIN_VALUE = 0;
     private final ClientService clientService;
     private final AttendantService attendantService;
 
@@ -55,7 +53,7 @@ public class RestLibraryController
     {
         try
         {
-            clientService.returnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
+            clientService.borrowReturnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception exception)
@@ -92,20 +90,26 @@ public class RestLibraryController
     }
 
     @PostMapping("/documents")
-    public ResponseEntity<String> postDocument(@RequestBody DocumentDTO documentDTO)
+    public ResponseEntity<String> postDocument(@Valid @RequestBody DocumentDTO documentDTO)
     {
         try
         {
             switch (documentDTO.getDocumentType())
             {
             case "BOOK":
-                attendantService.createBook(documentDTO);
+                if (documentDTO.getNbPages() > MIN_VALUE &&
+                        documentDTO.getEditor() != null &&
+                        !documentDTO.getEditor().isBlank() &&
+                        documentDTO.getBookType() != null)
+                    attendantService.createBook(documentDTO);
                 break;
             case "DVD":
-                attendantService.createDVD(documentDTO);
+                if (documentDTO.getRuntime() > MIN_VALUE)
+                    attendantService.createDVD(documentDTO);
                 break;
             case "CD":
-                attendantService.createCD(documentDTO);
+                if (documentDTO.getRuntime() > MIN_VALUE)
+                    attendantService.createCD(documentDTO);
                 break;
             default:
                 return ResponseEntity.badRequest().build();
@@ -119,7 +123,7 @@ public class RestLibraryController
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<String> postDocument(@RequestBody UserDTO userDTO)
+    public ResponseEntity<String> postClient(@Valid @RequestBody UserDTO userDTO)
     {
         attendantService.createClient(userDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
