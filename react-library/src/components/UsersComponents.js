@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const UsersComponent = ({ users, isClient }) => {
     return (<div className='row'>
-        {users.map((user) => (<Link key={user.id} to={isClient ? "client/" + user.id : "attendant/" + user.id}>{user.name}</Link>))}
+        {users.map((user) => (<Link key={user.id} to={isClient ? "client/" + user.id : "attendant/" + user.id} state={{ userId: user.id }}>{user.name}</Link>))}
     </div>)
 }
 

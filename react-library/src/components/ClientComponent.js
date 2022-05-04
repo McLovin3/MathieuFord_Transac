@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { fetchClient } from "../services/Service";
 import BorrowsComponent from "./BorrowsComponent";
 import DocumentsComponent from "./DocumentsComponent";
 
 const ClientComponent = () => {
+    const location = useLocation();
     const [client, setClient] = useState("");
     const [component, setComponent] = useState(<></>);
 
     useEffect(() => {
         const getClient = async () => {
             try {
-                const response = await fetchClient(window.location.href.split("/").pop());
+                const response = await fetchClient(location.state.userId);
                 if (response.ok) setClient(await response.json());
                 else window.location.href = "/";
             }
