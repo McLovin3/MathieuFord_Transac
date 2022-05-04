@@ -22,7 +22,7 @@ const ClientComponent = () => {
             }
         }
         getClient();
-    }, []);
+    }, [location]);
 
     return client !== "" ? (
         <div className="col">

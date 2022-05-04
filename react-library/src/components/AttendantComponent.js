@@ -24,7 +24,7 @@ const AttendantComponent = () => {
             }
         }
         getAttendant();
-    }, []);
+    }, [location]);
 
     return attendant !== "" ? (
         <div className="col">
