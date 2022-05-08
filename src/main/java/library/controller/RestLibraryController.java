@@ -120,10 +120,9 @@ public class RestLibraryController
     }
 
     @PostMapping("/clients")
-    public ResponseEntity<String> postClient(@Valid @RequestBody UserDTO userDTO)
+    public ResponseEntity<UserDTO> postClient(@Valid @RequestBody UserDTO userDTO)
     {
-        attendantService.createClient(userDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(attendantService.createClient(userDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/attendants/{id}")
@@ -135,7 +134,7 @@ public class RestLibraryController
         }
         catch (NonExistentUserException exception)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -157,18 +156,16 @@ public class RestLibraryController
     }
 
     @PutMapping("/fines/{id}")
-    public ResponseEntity<String> putFines(@PathVariable("id") int clientId)
+    public ResponseEntity<List<FineDTO>> putFines(@PathVariable("id") int clientId)
     {
         try
         {
-            clientService.payClientFines(clientId);
+            return new ResponseEntity<>(clientService.payClientFines(clientId), HttpStatus.CREATED);
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/attendants")

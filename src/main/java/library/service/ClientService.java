@@ -178,7 +178,7 @@ public class ClientService
     }
 
     @Transactional
-    public void payClientFines(long clientId) throws NonExistentUserException
+    public List<FineDTO> payClientFines(long clientId) throws NonExistentUserException
     {
         Client client = getClientWithFinesAndBorrows(clientId);
 
@@ -187,5 +187,7 @@ public class ClientService
             fine.setPaid(true);
             fineRepo.save(fine);
         }
+
+        return DataConversion.finesToDTO(client.getFines());
     }
 }

@@ -30,16 +30,16 @@ public class AttendantService
     private final ClientRepository clientRepo;
     private final AttendantRepository attendantRepo;
 
-    public void createClient(UserDTO userDTO)
+    public UserDTO createClient(UserDTO userDTO)
     {
         Client client = Client.builder().name(userDTO.getName()).password(userDTO.getPassword()).build();
-        clientRepo.save(client);
+        return DataConversion.userToDTO(clientRepo.save(client));
     }
 
-    public void createAttendant(UserDTO userDTO)
+    public UserDTO createAttendant(UserDTO userDTO)
     {
         Attendant attendant = Attendant.builder().name(userDTO.getName()).password(userDTO.getPassword()).build();
-        attendantRepo.save(attendant);
+        return DataConversion.userToDTO(attendantRepo.save(attendant));
     }
 
     public DocumentDTO createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException, InvalidBookTypeException
