@@ -48,8 +48,8 @@ export async function fetchAttendant(attendantId) {
     return await fetch(URL + "attendants/" + attendantId);
 }
 
-export async function fetchClient(clientId) {
-    return await fetch(URL + "clients/" + clientId);
+export function fetchClient(clientId) {
+    return fetch(URL + "clients/" + clientId);
 
 }
 
@@ -96,11 +96,18 @@ export async function fetchAttendants() {
     return await fetch(URL + "attendants");
 }
 
-export async function fetchClientFines(clientId) {
-    return await fetch(URL + "fines/" + clientId)
+export function fetchClientFines(clientId) {
+    return fetch(URL + "fines/" + clientId)
 }
 
 export async function putFines(clientId) {
-    return await fetch(URL + "fines/" + clientId, { method: "PUT", headers: { "Content-Type": "application/json" }, body: clientId })
+    return await fetch(URL + "fines/" + clientId,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: clientId
+        });
 }
 

@@ -72,6 +72,7 @@ public class RestLibraryController
         }
         catch (Exception exception)
         {
+            exception.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -143,7 +144,7 @@ public class RestLibraryController
     }
 
     @GetMapping("/fines/{id}")
-    public ResponseEntity<Double> getFines(@PathVariable("id") int clientId)
+    public ResponseEntity<Double> getTotalFines(@PathVariable("id") int clientId)
     {
         double fineAmount = 0;
         List<FineDTO> fines = clientService.getClientFines(clientId);
@@ -154,6 +155,20 @@ public class RestLibraryController
         }
 
         return ResponseEntity.ok().body(fineAmount);
+    }
+
+    @PutMapping("/fines/{id}")
+    public ResponseEntity<String> putFines(@PathVariable("id") int clientId)
+    {
+        try
+        {
+            clientService.payClientFines(clientId);
+        }
+        catch (Exception exception)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/attendants")

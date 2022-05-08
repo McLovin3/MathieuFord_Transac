@@ -106,7 +106,7 @@ public class ClientService
 
     private void calculateFines(Client client, Borrow borrow)
     {
-        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime currentDate = LocalDateTime.now().plusMonths(1);
         LocalDateTime documentReturnDate = borrow.getReturnDate();
         if (currentDate.isAfter(documentReturnDate))
         {
@@ -175,5 +175,17 @@ public class ClientService
     public List<FineDTO> getClientFines(long clientId)
     {
         return DataConversion.finesToDTO(fineRepo.findAllByClientId(clientId));
+    }
+
+    @Transactional
+    public void payClientFines(long clientId) throws NonExistentUserException
+    {
+        Client client = getClientWithFinesAndBorrows(clientId);
+
+        for (Fine fine : client.getFines())
+        {
+            fine.setPaid(true);
+            fineRepo.save(fine);
+        }
     }
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import BorrowComponent from "./BorrowComponent";
 import { fetchBorrows } from "../services/Service";
 
-const BorrowsComponent = ({ clientId }) => {
+const BorrowsComponent = ({ clientId, setFines }) => {
     const [borrows, setBorrows] = useState([]);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const BorrowsComponent = ({ clientId }) => {
                     </thead>
                     <tbody>
                         <>
-                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} borrow={borrow} />)}
+                            {borrows.map((borrow) => <BorrowComponent key={borrow.id} clientId={clientId} borrow={borrow} setFines={setFines}/>)}
                         </>
                     </tbody>
                 </table>

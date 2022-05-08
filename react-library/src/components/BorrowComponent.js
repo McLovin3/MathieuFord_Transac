@@ -1,14 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { putBorrow } from "../services/Service";
+import { fetchClientFines, putBorrow } from "../services/Service";
 
-const BorrowComponent = ({ borrow }) => {
+const BorrowComponent = ({ borrow, setFines, clientId }) => {
     const [borrowState, setBorrowState] = useState(borrow);
 
     const onClick = async () => {
         borrow.returned = true;
         await putBorrow(borrow);
         setBorrowState(borrow);
+        fetchClientFines(clientId)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setFines(data);
+            })
     }
 
     return (

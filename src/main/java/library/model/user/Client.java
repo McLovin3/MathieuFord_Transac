@@ -33,7 +33,12 @@ public class Client extends LibraryUser
 
     public boolean hasFines()
     {
-        return !fines.isEmpty();
+        for (Fine fine : fines)
+        {
+            if (!fine.isPaid())
+                return true;
+        }
+        return false;
     }
 
     public Borrow getBorrow(long documentId) throws ClientDidNotBorrowException

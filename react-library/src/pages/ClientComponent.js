@@ -13,31 +13,40 @@ const ClientComponent = () => {
     const [fines, setFines] = useState(0);
 
     useEffect(() => {
-        const getClient = async () => {
-            try {
-                const response = await fetchClient(location.state.userId);
-                if (response.ok) setClient(await response.json());
-                else window.location.href = "/";
-            }
-            catch (error) {
-                window.location.href = "/";
-            }
-            setFines(await fetchClientFines(client.id).json);
-        }
-        getClient();
-    }, [location, client]);
+        fetchClient(location.state.userId)
+            .then(response => {
+                try {
+                    if (response.ok) return response.json();
+                    else window.location.href = "/";
+                }
+                catch (error) {
+                    window.location.href = "/";
+                }
+            })
+            .then(data => {
+                setClient(data)
+            });
+
+        fetchClientFines(location.state.userId)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setFines(data);
+            });
+    }, [location]);
 
     return client !== "" ? (
         <div className="col">
             <div className="row p-5">
                 <h2>{client.name}</h2>
-                <div className="col-6">
+                <div className="col-4">
                     <button className="btn btn-primary" onClick={() => setComponent(fines === 0 ? <DocumentsComponent clientId={client.id} /> : <h2 className="text-danger">Client a des amendes</h2>)}>Documents</button>
                 </div>
-                <div className="col-6">
-                    <button className="btn btn-primary" onClick={() => setComponent(<BorrowsComponent clientId={client.id} />)} > Emprunts</button>
+                <div className="col-4">
+                    <button className="btn btn-primary" onClick={() => setComponent(<BorrowsComponent clientId={client.id} setFines={setFines} />)} > Emprunts</button>
                 </div>
-                <div className="col-6">
+                <div className="col-4">
                     <button className="btn btn-primary" onClick={() => setComponent(fines === 0 ? <h2 className="text-success">Aucune amende</h2> : <FineComponent clientId={client.id} setFines={setFines} />)} > Amendes</button>
                 </div>
             </div>
