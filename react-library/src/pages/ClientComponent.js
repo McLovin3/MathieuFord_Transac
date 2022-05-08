@@ -36,6 +36,8 @@ const ClientComponent = () => {
             });
     }, [location]);
 
+    console.log(fines);
+
     return client !== "" ? (
         <div className="col">
             <div className="row p-5">
@@ -47,7 +49,7 @@ const ClientComponent = () => {
                     <button className="btn btn-primary" onClick={() => setComponent(<BorrowsComponent clientId={client.id} setFines={setFines} />)} > Emprunts</button>
                 </div>
                 <div className="col-4">
-                    <button className="btn btn-primary" onClick={() => setComponent(fines === 0 ? <h2 className="text-success">Aucune amende</h2> : <FineComponent clientId={client.id} setFines={setFines} />)} > Amendes</button>
+                    <button className="btn btn-primary" onClick={() => setComponent(<FineComponent clientId={client.id} setFines={setFines} fines={fines} />)} > Amendes</button>
                 </div>
             </div>
             {component}
