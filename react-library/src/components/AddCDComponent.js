@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { postCD } from "../services/Service";
+import { postDocument } from "../services/Service";
 
 const AddCDComponent = () => {
     const [title, setTitle] = useState("");
@@ -11,7 +11,7 @@ const AddCDComponent = () => {
 
     const onSubmit = async (form) => {
         form.preventDefault();
-        await postCD({
+        await postDocument({
             title,
             author,
             publicationYear,

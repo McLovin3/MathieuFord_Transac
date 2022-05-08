@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { postDVD } from "../services/Service";
+import { postDocument } from "../services/Service";
 
 const AddDVDComponent = () => {
     const [title, setTitle] = useState("");
@@ -11,7 +11,7 @@ const AddDVDComponent = () => {
 
     const onSubmit = async (form) => {
         form.preventDefault();
-        await postDVD({
+        await postDocument({
             title,
             author,
             publicationYear,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { postBook } from '../services/Service';
+import { postDocument } from '../services/Service';
 
 const AddBookComponent = () => {
     const [title, setTitle] = useState("");
@@ -14,7 +14,7 @@ const AddBookComponent = () => {
 
     const onSubmit = async (form) => {
         form.preventDefault();
-        await postBook({
+        await postDocument({
             title,
             author,
             bookType,

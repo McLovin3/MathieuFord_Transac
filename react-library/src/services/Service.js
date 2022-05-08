@@ -1,24 +1,13 @@
 const URL = "http://localhost:8080/";
 
-export async function postBook(book) {
+export async function postDocument(document) {
     return await fetch(URL + "documents",
         {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(book)
-        });
-}
-
-export async function postCD(CD) {
-    return await fetch(URL + "documents",
-        {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(CD)
+            body: JSON.stringify(document)
         });
 }
 
@@ -33,24 +22,12 @@ export async function postClient(client) {
         });
 }
 
-export async function postDVD(DVD) {
-    return await fetch(URL + "documents",
-        {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(DVD)
-        });
-}
-
-export async function fetchAttendant(attendantId) {
-    return await fetch(URL + "attendants/" + attendantId);
+export function fetchAttendant(attendantId) {
+    return fetch(URL + "attendants/" + attendantId);
 }
 
 export function fetchClient(clientId) {
     return fetch(URL + "clients/" + clientId);
-
 }
 
 export async function putBorrow(borrow) {
