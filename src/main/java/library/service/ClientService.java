@@ -1,6 +1,5 @@
 package library.service;
 
-import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
 import library.dto.FineDTO;
@@ -33,7 +32,7 @@ public class ClientService
     private final BorrowRepository borrowRepo;
     private final FineRepository fineRepo;
 
-    public List<BookDTO> getAllBooks()
+    public List<DocumentDTO> getAllBooks()
     {
         return DataConversion.booksToDTO(documentRepo.findAllBooks());
     }
@@ -58,7 +57,7 @@ public class ClientService
         return DataConversion.documentsToDTO(documentRepo.findAllByPublicationYear(year));
     }
 
-    public List<BookDTO> searchBooksByCategory(String category) throws InvalidBookTypeException
+    public List<DocumentDTO> searchBooksByCategory(String category) throws InvalidBookTypeException
     {
         return DataConversion.booksToDTO(documentRepo.findAllBooksByCategory(BookType.getBookType(category)));
     }
@@ -121,7 +120,7 @@ public class ClientService
     }
 
     @Transactional
-    public void borrowDocument(long clientId, long documentId) throws NonExistentDocumentException,
+    public BorrowDTO borrowDocument(long clientId, long documentId) throws NonExistentDocumentException,
             ClientHasFinesException, NoMoreCopiesException, NonExistentUserException,
             ClientAlreadyHasBorrowException
     {
@@ -144,6 +143,7 @@ public class ClientService
         documentRepo.save(document);
         clientRepo.save(client);
         borrowRepo.save(borrow);
+        return DataConversion.borrowToDTO(borrow);
     }
 
     private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)

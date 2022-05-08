@@ -54,21 +54,22 @@ public class RestLibraryController
         try
         {
             clientService.borrowReturnDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
-            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception exception)
         {
             return ResponseEntity.badRequest().build();
         }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/borrows")
-    public ResponseEntity<String> postBorrow(@RequestBody BorrowDTO borrowDTO)
+    public ResponseEntity<BorrowDTO> postBorrow(@RequestBody BorrowDTO borrowDTO)
     {
         try
         {
-            clientService.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId());
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(
+                    clientService.borrowDocument(borrowDTO.getClientId(), borrowDTO.getDocumentId()),
+                    HttpStatus.CREATED);
         }
         catch (Exception exception)
         {
@@ -83,14 +84,14 @@ public class RestLibraryController
         {
             return new ResponseEntity<>(attendantService.getClient(clientId), HttpStatus.OK);
         }
-        catch (NonExistentUserException exception)
+        catch (Exception exception)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping("/documents")
-    public ResponseEntity<String> postDocument(@Valid @RequestBody DocumentDTO documentDTO)
+    public ResponseEntity<DocumentDTO> postDocument(@Valid @RequestBody DocumentDTO documentDTO)
     {
         try
         {
@@ -101,20 +102,16 @@ public class RestLibraryController
                         documentDTO.getEditor() != null &&
                         !documentDTO.getEditor().isBlank() &&
                         documentDTO.getBookType() != null)
-                    attendantService.createBook(documentDTO);
-                break;
+                    return new ResponseEntity<>(attendantService.createBook(documentDTO), HttpStatus.CREATED);
             case "DVD":
                 if (documentDTO.getRuntime() > MIN_VALUE)
-                    attendantService.createDVD(documentDTO);
-                break;
+                    return new ResponseEntity<>(attendantService.createDVD(documentDTO), HttpStatus.CREATED);
             case "CD":
                 if (documentDTO.getRuntime() > MIN_VALUE)
-                    attendantService.createCD(documentDTO);
-                break;
+                    return new ResponseEntity<>(attendantService.createCD(documentDTO), HttpStatus.CREATED);
             default:
                 return ResponseEntity.badRequest().build();
             }
-            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception exception)
         {

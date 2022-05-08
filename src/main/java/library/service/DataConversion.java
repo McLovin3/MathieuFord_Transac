@@ -1,6 +1,5 @@
 package library.service;
 
-import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.UserDTO;
 import library.dto.DocumentDTO;
@@ -28,22 +27,30 @@ class DataConversion
         List<BorrowDTO> borrowDTOs = new ArrayList<>();
         for (Borrow borrow : borrows)
         {
-            if (borrow.getClient() != null
-                    && borrow.getDocument() != null
-                    && borrow.getBorrowDate() != null
-                    && borrow.getDocument() != null)
-            {
-                borrowDTOs.add(BorrowDTO.builder()
-                        .id(borrow.getId())
-                        .clientId(borrow.getClient().getId())
-                        .documentName(borrow.getDocument().getTitle())
-                        .documentId(borrow.getDocument().getId())
-                        .borrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))
-                        .returnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")))
-                        .returned(borrow.isReturned()).build());
-            }
+            borrowDTOs.add(borrowToDTO(borrow));
         }
         return borrowDTOs;
+    }
+
+    public static BorrowDTO borrowToDTO(Borrow borrow)
+    {
+        BorrowDTO borrowDTO = BorrowDTO.builder()
+                .id(borrow.getId())
+                .returned(borrow.isReturned()).build();
+
+        if (borrow.getClient() != null
+                && borrow.getDocument() != null
+                && borrow.getBorrowDate() != null
+                && borrow.getDocument() != null
+                && borrow.getReturnDate() != null)
+        {
+            borrowDTO.setClientId(borrow.getClient().getId());
+            borrowDTO.setDocumentId(borrow.getDocument().getId());
+            borrowDTO.setDocumentName(borrow.getDocument().getTitle());
+            borrowDTO.setBorrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+            borrowDTO.setReturnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+        }
+        return borrowDTO;
     }
 
     public static List<UserDTO> usersToDTO(List<LibraryUser> users)
@@ -61,26 +68,36 @@ class DataConversion
         return new UserDTO(user.getId(), user.getName(), user.getPassword());
     }
 
-    public static List<BookDTO> booksToDTO(List<Book> books)
+    public static List<DocumentDTO> booksToDTO(List<Book> books)
     {
-        List<BookDTO> bookDTOs = new ArrayList<>();
+        List<DocumentDTO> documentDTOs = new ArrayList<>();
         for (Book book : books)
         {
             if (book.getBookType() != null)
             {
-                bookDTOs.add(BookDTO.builder()
-                        .id(book.getId())
-                        .title(book.getTitle())
-                        .author(book.getAuthor())
-                        .bookType(book.getBookType().toString())
-                        .editor(book.getEditor())
-                        .nbPages(book.getNbPages())
-                        .publicationYear(book.getPublicationYear())
-                        .nbCopies(book.getNbCopies())
-                        .build());
+                documentDTOs.add(bookToDTO(book));
             }
         }
-        return bookDTOs;
+        return documentDTOs;
+    }
+
+    public static DocumentDTO bookToDTO(Book book)
+    {
+        DocumentDTO documentDTO = DocumentDTO.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .editor(book.getEditor())
+                .nbPages(book.getNbPages())
+                .publicationYear(book.getPublicationYear())
+                .nbCopies(book.getNbCopies())
+                .build();
+
+        if (book.getBookType() != null)
+        {
+            documentDTO.setBookType(book.getBookType().toString());
+        }
+        return documentDTO;
     }
 
     public static List<FineDTO> finesToDTO(List<Fine> fines)
@@ -107,22 +124,20 @@ class DataConversion
         for (LibraryDocument document : documents)
         {
             if (document instanceof Book)
-                documentDTOs.add(bookToDocumentDTO(document));
+                documentDTOs.add(bookToDTO((Book) document));
 
             else if (document instanceof DVD)
-                documentDTOs.add(dvdToDocumentDTO(document));
+                documentDTOs.add(dvdToDTO((DVD) document));
 
             else if (document instanceof CD)
-                documentDTOs.add(cdToDocumentDTO(document));
+                documentDTOs.add(cdToDTO((CD) document));
 
         }
         return documentDTOs;
     }
 
-    private static DocumentDTO cdToDocumentDTO(LibraryDocument document)
+    public static DocumentDTO cdToDTO(CD cd)
     {
-        CD cd = (CD) document;
-
         return DocumentDTO.builder()
                 .id(cd.getId())
                 .title(cd.getTitle())
@@ -134,10 +149,8 @@ class DataConversion
                 .build();
     }
 
-    private static DocumentDTO dvdToDocumentDTO(LibraryDocument document)
+    public static DocumentDTO dvdToDTO(DVD dvd)
     {
-        DVD dvd = (DVD) document;
-
         return DocumentDTO.builder()
                 .id(dvd.getId())
                 .title(dvd.getTitle())
@@ -149,24 +162,4 @@ class DataConversion
                 .build();
     }
 
-    private static DocumentDTO bookToDocumentDTO(LibraryDocument document)
-    {
-        Book book = (Book) document;
-
-        DocumentDTO documentDTO = DocumentDTO.builder()
-                .id(book.getId())
-                .title(book.getTitle())
-                .author(book.getAuthor())
-                .editor(book.getEditor())
-                .nbPages(book.getNbPages())
-                .publicationYear(book.getPublicationYear())
-                .nbCopies(book.getNbCopies())
-                .documentType("BOOK")
-                .build();
-
-        if (book.getBookType() != null)
-            documentDTO.setBookType(book.getBookType().toString());
-
-        return documentDTO;
-    }
 }

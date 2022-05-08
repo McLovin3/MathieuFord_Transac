@@ -42,7 +42,7 @@ public class AttendantService
         attendantRepo.save(attendant);
     }
 
-    public void createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException, InvalidBookTypeException
+    public DocumentDTO createBook(DocumentDTO bookDTO) throws NotEnoughCopiesException, InvalidBookTypeException
     {
         if (bookDTO.getNbCopies() < 1)
             throw new NotEnoughCopiesException();
@@ -57,10 +57,10 @@ public class AttendantService
                 .bookType(BookType.getBookType(bookDTO.getBookType()))
                 .build();
 
-        documentRepo.save(book);
+        return DataConversion.bookToDTO(documentRepo.save(book));
     }
 
-    public void createCD(DocumentDTO documentDTO)
+    public DocumentDTO createCD(DocumentDTO documentDTO)
             throws NotEnoughCopiesException
     {
         if (documentDTO.getNbCopies() < 1)
@@ -74,10 +74,10 @@ public class AttendantService
                 .runtime(documentDTO.getRuntime())
                 .build();
 
-        documentRepo.save(cd);
+        return DataConversion.cdToDTO(documentRepo.save(cd));
     }
 
-    public void createDVD(DocumentDTO documentDTO)
+    public DocumentDTO createDVD(DocumentDTO documentDTO)
             throws NotEnoughCopiesException
     {
         if (documentDTO.getNbCopies() < 1)
@@ -91,7 +91,7 @@ public class AttendantService
                 .runtime(documentDTO.getRuntime())
                 .build();
 
-        documentRepo.save(dvd);
+        return DataConversion.dvdToDTO(documentRepo.save(dvd));
     }
 
     public UserDTO getClient(long clientId) throws NonExistentUserException
