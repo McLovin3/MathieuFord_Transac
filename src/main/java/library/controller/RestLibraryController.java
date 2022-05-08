@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import library.exception.NonExistentUserException;
 import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
+import library.dto.FineDTO;
 import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
 //TODO Return created entities
-//TODO Validate no same names (But they can so argue lol)
 
 @RestController
 @RequestMapping("/")
@@ -142,8 +142,22 @@ public class RestLibraryController
         }
     }
 
+    @GetMapping("/fines/{id}")
+    public ResponseEntity<Double> getFines(@PathVariable("id") int clientId)
+    {
+        double fineAmount = 0;
+        List<FineDTO> fines = clientService.getClientFines(clientId);
+
+        for (FineDTO fine : fines)
+        {
+            fineAmount += fine.getAmount();
+        }
+
+        return ResponseEntity.ok().body(fineAmount);
+    }
+
     @GetMapping("/attendants")
-    public ResponseEntity<List<UserDTO>> get()
+    public ResponseEntity<List<UserDTO>> getFines()
     {
         return new ResponseEntity<>(attendantService.getAllAttendants(), HttpStatus.OK);
     }
