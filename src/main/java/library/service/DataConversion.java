@@ -94,6 +94,7 @@ class DataConversion
                         .id(fine.getId())
                         .clientId(fine.getClient().getId())
                         .amount(fine.getAmount())
+                        .paid(fine.isPaid())
                         .build());
             }
         }

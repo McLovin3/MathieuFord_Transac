@@ -72,7 +72,6 @@ public class RestLibraryController
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -151,7 +150,10 @@ public class RestLibraryController
 
         for (FineDTO fine : fines)
         {
-            fineAmount += fine.getAmount();
+            if (!fine.isPaid())
+            {
+                fineAmount += fine.getAmount();
+            }
         }
 
         return ResponseEntity.ok().body(fineAmount);
@@ -166,6 +168,7 @@ public class RestLibraryController
         }
         catch (Exception exception)
         {
+            exception.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);

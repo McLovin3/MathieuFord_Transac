@@ -14,5 +14,6 @@ public class FineDTO
     private long id;
     private long clientId;
     private double amount;
+    private boolean paid;
 }
 
