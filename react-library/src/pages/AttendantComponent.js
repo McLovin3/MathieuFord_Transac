@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { fetchAttendant } from "../services/Service";
-import AddBookComponent from "./AddBookComponent";
-import AddCDComponent from "./AddCDComponent";
-import AddClientComponent from "./AddClientComponent";
-import AddDVDComponent from "./AddDVDComponent";
+import AddBookComponent from "../components/AddBookComponent";
+import AddCDComponent from "../components/AddCDComponent";
+import AddClientComponent from "../components/AddClientComponent";
+import AddDVDComponent from "../components/AddDVDComponent";
 
 const AttendantComponent = () => {
     const location = useLocation();

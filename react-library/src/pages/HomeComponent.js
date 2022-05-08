@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import UsersComponent from './UsersComponents';
+import UsersComponent from '../components/UsersComponents';
 import { fetchAttendants, fetchClients } from '../services/Service';
 
 const HomeComponent = () => {

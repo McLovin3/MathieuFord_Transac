@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Link, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import HomeComponent from './components/HomeComponent';
-import AttendantComponent from './components/AttendantComponent';
-import ClientComponent from './components/ClientComponent';
+import HomeComponent from './pages/HomeComponent';
+import AttendantComponent from './pages/AttendantComponent';
+import ClientComponent from './pages/ClientComponent';
 
 
 function App() {
