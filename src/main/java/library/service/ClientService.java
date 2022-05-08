@@ -106,8 +106,7 @@ public class ClientService
 
     private void calculateFines(Client client, Borrow borrow)
     {
-        //TODO change this
-        LocalDateTime currentDate = LocalDateTime.now().plusMonths(1);
+        LocalDateTime currentDate = LocalDateTime.now();
         LocalDateTime documentReturnDate = borrow.getReturnDate();
         if (currentDate.isAfter(documentReturnDate))
         {
