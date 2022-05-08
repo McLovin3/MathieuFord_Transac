@@ -36,8 +36,6 @@ const ClientComponent = () => {
             });
     }, [location]);
 
-    console.log(fines);
-
     return client !== "" ? (
         <div className="col">
             <div className="row p-5">

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { postBorrow } from '../services/Service';
 
 const DocumentComponent = ({ document, clientId }) => {
-    const [documentState, setDocumentState] = useState(document);
+    const [nbCopies, setNbCopies] = useState(document.nbCopies);
     const [errorMessage, setErrorMessage] = useState("");
 
     const onClick = async () => {
@@ -12,24 +12,23 @@ const DocumentComponent = ({ document, clientId }) => {
             setErrorMessage("Le client a déjà ce document");
         }
         else {
-            document.nbCopies--;
-            setDocumentState(document);
+            setNbCopies(--document.nbCopies);
         }
     }
 
     return (
         <tr>
-            <td>{documentState.title}</td>
-            <td>{documentState.author}</td>
-            <td>{documentState.bookType == null ? "X" : documentState.bookType}</td>
-            <td>{documentState.nbPages == null ? "X" : documentState.nbPages}</td>
-            <td>{documentState.editor == null ? "X" : documentState.editor}</td>
-            <td>{documentState.publicationYear}</td>
-            <td>{documentState.runtime == null ? "X" : documentState.runtime}</td>
-            <td>{documentState.documentType}</td>
-            <td>{documentState.nbCopies}</td>
+            <td>{document.title}</td>
+            <td>{document.author}</td>
+            <td>{document.bookType == null ? "X" : document.bookType}</td>
+            <td>{document.nbPages == null ? "X" : document.nbPages}</td>
+            <td>{document.editor == null ? "X" : document.editor}</td>
+            <td>{document.publicationYear}</td>
+            <td>{document.runtime == null ? "X" : document.runtime}</td>
+            <td>{document.documentType}</td>
+            <td>{nbCopies}</td>
             <td>
-                {documentState.nbCopies === 0 ? "" : <button className="btn btn-primary" onClick={onClick}>Emprunter</button>}
+                {nbCopies === 0 ? "" : <button className="btn btn-primary" onClick={onClick}>Emprunter</button>}
                 <p className="text-danger">{errorMessage}</p>
             </td>
         </tr>

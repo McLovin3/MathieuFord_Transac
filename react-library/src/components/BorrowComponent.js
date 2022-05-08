@@ -3,12 +3,12 @@ import { useState } from "react";
 import { fetchClientFines, putBorrow } from "../services/Service";
 
 const BorrowComponent = ({ borrow, setFines, clientId }) => {
-    const [borrowState, setBorrowState] = useState(borrow);
+    const [returned, setReturned] = useState(borrow.returned);
 
     const onClick = async () => {
         borrow.returned = true;
         await putBorrow(borrow);
-        setBorrowState(borrow);
+        setReturned(true);
         fetchClientFines(clientId)
             .then(response => {
                 return response.json();
@@ -20,10 +20,10 @@ const BorrowComponent = ({ borrow, setFines, clientId }) => {
 
     return (
         <tr>
-            <td>{borrowState.documentName}</td>
-            <td>{borrowState.borrowDate}</td>
-            <td>{borrowState.returnDate}</td>
-            <td>{borrowState.returned ? "Retourner" : <button className="btn btn-success" onClick={onClick}>Retourner</button>}</td>
+            <td>{borrow.documentName}</td>
+            <td>{borrow.borrowDate}</td>
+            <td>{borrow.returnDate}</td>
+            <td>{returned ? "Retourner" : <button className="btn btn-success" onClick={onClick}>Retourner</button>}</td>
         </tr>
     );
 }
