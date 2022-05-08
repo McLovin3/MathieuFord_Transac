@@ -47,8 +47,8 @@ class DataConversion
             borrowDTO.setClientId(borrow.getClient().getId());
             borrowDTO.setDocumentId(borrow.getDocument().getId());
             borrowDTO.setDocumentName(borrow.getDocument().getTitle());
-            borrowDTO.setBorrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")));
-            borrowDTO.setReturnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")));
+            borrowDTO.setBorrowDate(borrow.getBorrowDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            borrowDTO.setReturnDate(borrow.getReturnDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         }
         return borrowDTO;
     }
