@@ -96,3 +96,11 @@ export async function fetchAttendants() {
     return await fetch(URL + "attendants");
 }
 
+export async function fetchClientFines(clientId) {
+    return await fetch(URL + "fines/" + clientId)
+}
+
+export async function putFines(clientId) {
+    return await fetch(URL + "fines/" + clientId, { method: "PUT", headers: { "Content-Type": "application/json" }, body: clientId })
+}
+
