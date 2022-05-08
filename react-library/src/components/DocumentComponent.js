@@ -21,10 +21,10 @@ const DocumentComponent = ({ document, clientId }) => {
             <td>{document.title}</td>
             <td>{document.author}</td>
             <td>{document.bookType == null ? "X" : document.bookType}</td>
-            <td>{document.nbPages == null ? "X" : document.nbPages}</td>
+            <td>{document.nbPages === 0 ? "X" : document.nbPages}</td>
             <td>{document.editor == null ? "X" : document.editor}</td>
             <td>{document.publicationYear}</td>
-            <td>{document.runtime == null ? "X" : document.runtime}</td>
+            <td>{document.runtime === 0 ? "X" : document.runtime}</td>
             <td>{document.documentType}</td>
             <td>{nbCopies}</td>
             <td>

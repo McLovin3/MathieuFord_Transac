@@ -5,7 +5,7 @@ export async function postBook(book) {
         {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(book)
         });

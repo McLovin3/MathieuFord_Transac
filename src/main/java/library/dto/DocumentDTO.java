@@ -28,6 +28,5 @@ public class DocumentDTO
     private int nbCopies;
     @NotBlank
     private String documentType;
-    @Min(1)
     private int runtime;
 }

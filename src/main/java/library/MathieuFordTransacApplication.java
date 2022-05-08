@@ -3,7 +3,6 @@ package library;
 import library.dto.DocumentDTO;
 import library.dto.UserDTO;
 import library.service.AttendantService;
-import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.boot.CommandLineRunner;
@@ -15,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MathieuFordTransacApplication implements CommandLineRunner
 {
     private final AttendantService attendantService;
-    private final ClientService clientService;
 
     public static void main(String[] args)
     {
@@ -31,8 +29,5 @@ public class MathieuFordTransacApplication implements CommandLineRunner
                 "Pierre-Jules Hetzel", 300, 1870, 2, "BOOK", 0));
         attendantService.createBook(new DocumentDTO(0, "Clean Code", "Robert Martin", "study", "Robert C. Martin", 200,
                 2008, 2, "BOOK", 0));
-        System.out.println(clientService.searchDocumentsByYear(1870).get(0).toString());
-        System.out.println(clientService.getAllDocuments().get(0).toString());
-        System.out.println(clientService.getAllBooks().get(0).toString());
     }
 }

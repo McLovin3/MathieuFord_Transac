@@ -1,6 +1,5 @@
 package library.controller;
 
-import library.dto.BookDTO;
 import library.dto.BorrowDTO;
 import library.dto.DocumentDTO;
 import library.dto.UserDTO;
@@ -58,7 +57,7 @@ public class RootController
     @GetMapping("/createBook")
     public String getCreateBook(Model model)
     {
-        model.addAttribute("bookDTO", new BookDTO());
+        model.addAttribute("bookDTO", new DocumentDTO());
         return "createBook";
     }
 

@@ -91,6 +91,7 @@ class DataConversion
                 .nbPages(book.getNbPages())
                 .publicationYear(book.getPublicationYear())
                 .nbCopies(book.getNbCopies())
+                .documentType("BOOK")
                 .build();
 
         if (book.getBookType() != null)
