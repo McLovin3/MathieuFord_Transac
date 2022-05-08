@@ -13,27 +13,27 @@ const ClientComponent = () => {
     const [fines, setFines] = useState(0);
 
     useEffect(() => {
-        fetchClient(location.state.userId)
-            .then(response => {
-                try {
+        try {
+            fetchClient(location.state.userId)
+                .then(response => {
                     if (response.ok) return response.json();
                     else window.location.href = "/";
-                }
-                catch (error) {
-                    window.location.href = "/";
-                }
-            })
-            .then(data => {
-                setClient(data)
-            });
+                })
+                .then(data => {
+                    setClient(data)
+                });
 
-        fetchClientFines(location.state.userId)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                setFines(data);
-            });
+            fetchClientFines(location.state.userId)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    setFines(data);
+                });
+        }
+        catch (error) {
+            window.location.href = "/";
+        }
     }, [location]);
 
     return client !== "" ? (

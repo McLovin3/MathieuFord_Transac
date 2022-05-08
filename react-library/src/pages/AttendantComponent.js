@@ -13,17 +13,19 @@ const AttendantComponent = () => {
     const [component, setComponent] = useState(<></>);
 
     useEffect(() => {
-        const getAttendant = async () => {
-            try {
-                const response = await fetchAttendant(location.state.userId);
-                if (response.ok) setAttendant(await response.json());
-                else window.location.href = "/";
-            }
-            catch (error) {
-                window.location.href = "/";
-            }
+        try {
+            fetchAttendant(location.state.userId)
+                .then(response => {
+                    if (response.ok) return response.json();
+                    else window.location.href = "/";
+                })
+                .then(data => {
+                    setAttendant(data)
+                });
         }
-        getAttendant();
+        catch (error) {
+            window.location.href = "/";
+        }
     }, [location]);
 
     return attendant !== "" ? (
