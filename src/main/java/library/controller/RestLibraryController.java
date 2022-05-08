@@ -24,8 +24,6 @@ import library.service.AttendantService;
 import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
 
-//TODO Return created entities
-
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
