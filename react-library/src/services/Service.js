@@ -67,8 +67,8 @@ export async function putBorrow(borrow) {
         });
 }
 
-export async function fetchBorrows(userId) {
-    return await fetch(URL + "borrows/" + userId);
+export function fetchBorrows(userId) {
+    return fetch(URL + "borrows/" + userId);
 }
 
 export async function postBorrow(documentId, clientId) {
@@ -84,8 +84,8 @@ export async function postBorrow(documentId, clientId) {
     );
 }
 
-export async function fetchDocuments() {
-    return await fetch(URL + "documents");
+export function fetchDocuments() {
+    return fetch(URL + "documents");
 }
 
 export async function fetchClients() {

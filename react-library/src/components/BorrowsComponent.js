@@ -8,11 +8,13 @@ const BorrowsComponent = ({ clientId }) => {
     const [borrows, setBorrows] = useState([]);
 
     useEffect(() => {
-        const getBorrows = async () => {
-            const borrows = await (await fetchBorrows(clientId)).json();
-            setBorrows(borrows);
-        }
-        getBorrows();
+        fetchBorrows(clientId)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setBorrows(data)
+            });
     }, [clientId]);
 
     return (

@@ -7,11 +7,13 @@ const DocumentsComponent = ({ clientId }) => {
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        const getDocuments = async () => {
-            const documents = await (await fetchDocuments()).json();
-            setDocuments(documents);
-        }
-        getDocuments();
+        fetchDocuments()
+            .then(Response => {
+                return Response.json();
+            })
+            .then(data => {
+                setDocuments(data);
+            });
     }, []);
 
     return (
