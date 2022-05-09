@@ -3,7 +3,10 @@ package library;
 import library.dto.DocumentDTO;
 import library.dto.UserDTO;
 import library.service.AttendantService;
+import library.service.ClientService;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MathieuFordTransacApplication implements CommandLineRunner
 {
     private final AttendantService attendantService;
+    private final ClientService clientService;
 
     public static void main(String[] args)
     {
@@ -29,5 +33,6 @@ public class MathieuFordTransacApplication implements CommandLineRunner
                 "Pierre-Jules Hetzel", 300, 1870, 2, "BOOK", 0));
         attendantService.createBook(new DocumentDTO(0, "Clean Code", "Robert Martin", "study", "Robert C. Martin", 200,
                 2008, 2, "BOOK", 0));
+        clientService.borrowDocumentWithDate(1, 3, LocalDateTime.now().minusMonths(1));
     }
 }

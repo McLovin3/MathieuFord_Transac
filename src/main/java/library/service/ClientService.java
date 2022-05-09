@@ -146,6 +146,33 @@ public class ClientService
         return DataConversion.borrowToDTO(borrow);
     }
 
+    @Transactional
+    public BorrowDTO borrowDocumentWithDate(long clientId, long documentId, LocalDateTime borrowDate) throws NonExistentDocumentException,
+            ClientHasFinesException, NoMoreCopiesException, NonExistentUserException,
+            ClientAlreadyHasBorrowException
+    {
+        Client client = getClientWithFinesAndBorrows(clientId);
+        LibraryDocument document = getDocument(documentId);
+        manageBorrowDocumentExceptions(document, client);
+
+        document.setNbCopies(document.getNbCopies() - 1);
+        LocalDateTime currentTime = borrowDate;
+
+        Borrow borrow = Borrow.builder()
+                .borrowDate(currentTime)
+                .document(document)
+                .client(client)
+                .returned(false)
+                .returnDate(currentTime.plusSeconds(document.getReturnDays() * 24 * 60 * 60))
+                .build();
+
+        client.getBorrows().add(borrow);
+        documentRepo.save(document);
+        clientRepo.save(client);
+        borrowRepo.save(borrow);
+        return DataConversion.borrowToDTO(borrow);
+    }
+
     private void manageBorrowDocumentExceptions(LibraryDocument document, Client client)
             throws ClientHasFinesException,
             NoMoreCopiesException, ClientAlreadyHasBorrowException
