@@ -13,7 +13,7 @@ const FineComponent = ({ clientId, setFines, fines }) => {
 
     return (
         paid ? <h2 className="text-success">Aucune amende</h2> :
-            <button className="btn btn-success" onClick={onClick}>Payer mes amendes</button>
+            <button className="btn btn-success" onClick={onClick}>Payer mes amendes : {fines}$</button>
     );
 }
 
