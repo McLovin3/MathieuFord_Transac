@@ -5,6 +5,7 @@ import { fetchClient, fetchClientFines } from "../services/Service";
 import BorrowsComponent from "../components/BorrowsComponent";
 import DocumentsComponent from "../components/DocumentsComponent";
 import FineComponent from "../components/FineComponent";
+import EditClientComponent from "../components/EditClientComponent";
 
 const ClientComponent = () => {
     const location = useLocation();
@@ -40,14 +41,17 @@ const ClientComponent = () => {
         <div className="col">
             <div className="row p-5">
                 <h2>{client.name}</h2>
-                <div className="col-4">
+                <div className="col-3">
                     <button className="btn btn-primary" onClick={() => setComponent(fines === 0 ? <DocumentsComponent clientId={client.id} /> : <h2 className="text-danger">Client a des amendes</h2>)}>Documents</button>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                     <button className="btn btn-primary" onClick={() => setComponent(<BorrowsComponent clientId={client.id} setFines={setFines} />)} > Emprunts</button>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                     <button className="btn btn-primary" onClick={() => setComponent(<FineComponent clientId={client.id} setFines={setFines} fines={fines} />)} > Amendes</button>
+                </div>
+                <div className="col-3">
+                    <button className="btn btn-primary" onClick={() => setComponent(<EditClientComponent client={client} setClient={setClient} />)} > Profil</button>
                 </div>
             </div>
             {component}

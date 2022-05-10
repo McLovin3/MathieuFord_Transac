@@ -61,6 +61,19 @@ export async function postBorrow(documentId, clientId) {
     );
 }
 
+export async function putClient(client) {
+    return await fetch(URL + "clients/" + client.id,
+        {
+            method: "PUT",
+            headers:
+            {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(client)
+        }
+    );
+}
+
 export function fetchDocuments() {
     return fetch(URL + "documents");
 }
