@@ -77,6 +77,19 @@ public class AttendantService
         return DataConversion.cdToDTO(documentRepo.save(cd));
     }
 
+    public UserDTO updateClient(UserDTO clientDTO) throws NonExistentUserException
+    {
+        Optional<Client> clientOptional = clientRepo.findById(clientDTO.getId());
+        if (clientOptional.isEmpty())
+            throw new NonExistentUserException();
+        Client client = clientOptional.get();
+
+        client.setName(clientDTO.getName());
+        client.setPassword(clientDTO.getPassword());
+
+        return DataConversion.userToDTO(clientRepo.save(client));
+    }
+
     public DocumentDTO createDVD(DocumentDTO documentDTO)
             throws NotEnoughCopiesException
     {

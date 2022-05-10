@@ -5,8 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import library.dto.UserDTO;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +60,19 @@ public class RestLibraryController
             return ResponseEntity.badRequest().build();
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/clients/{id}")
+    public ResponseEntity<UserDTO> putClient(@PathVariable("id") int clientId, @Validated @RequestBody UserDTO client)
+    {
+        try
+        {
+            return new ResponseEntity<>(attendantService.updateClient(client), HttpStatus.CREATED);
+        }
+        catch (Exception exception)
+        {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/borrows")
